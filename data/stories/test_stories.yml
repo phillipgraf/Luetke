@@ -1,0 +1,60 @@
+version: "2.0"
+stories:
+- story: test_name
+  steps:
+  - intent: begrueßung_name
+    entities:
+    - name: Max
+  - action: utter_begrueßung_name
+  - intent: witz
+  - action: utter_witz_name
+  - intent: bestaetigung
+  - action: utter_bestaetigung_name
+  - intent: verabschiedung
+  - action: utter_verabschiedung_name
+- story: test_ohne_name
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: witz
+  - action: utter_witz
+  - intent: verabschiedung
+  - action: utter_verabschiedung
+- story: test_test
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: witz
+  - action: utter_witz
+  - intent: bestaetigung
+  - action: utter_bestaetigung
+  - intent: verabschiedung
+  - action: utter_verabschiedung
+- story: test_lookup_and_synonym_test
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - intent: studienrichtung
+  - action: utter_studienrichtung
+  - action: utter_nachfrage_studienrichtung
+  - intent: verabschiedung
+  - action: utter_verabschiedung
+- story: test_Story from Conversation ID 65651fd9b9514073a573c862b0e1fcd7
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Wirtschaftswissenschaften
+  - slot_was_set:
+    - studienrichtung: Wirtschaftswissenschaften
+  - action: utter_studienrichtung
+  - action: utter_placeholder_action_studienrichtung
+  - action: utter_nachfrage_studienrichtung
+  - intent: verabschiedung
+  - action: utter_verabschiedung
+  - action: action_restart

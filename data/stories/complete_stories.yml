@@ -1,0 +1,47 @@
+version: "2.0"
+stories:
+- story: begrueßung
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - checkpoint: check_begrueßung
+
+
+- story: allgemein
+  steps:
+  - checkpoint: check_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - checkpoint: check_allgemein
+
+- story: allgemein_vorhanden_keine_komplikationen
+  steps:
+  - checkpoint: check_allgemein
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Informatik
+  - action: utter_studienrichtung
+  - action: utter_placeholder_action_studienrichtung #TODO
+  - action: utter_nachfrage_studienrichtung
+  - intent: studiengang
+    entities:
+    - studiengang: Maschinenbau
+  - action: utter_studiengang
+  - action: utter_placeholder_action_studiengang #TODO
+  - action: utter_nachfrage_studiengang
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+  - action: utter_placeholder_action_info #TODO
+  - intent: bestaetigung
+  - action: action_listen
+  - intent: info
+    entities:
+    - info: Berufsbild
+  - action: utter_placeholder_action_info #TODO
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_bestaetigung_freude
+  - action: utter_verabschiedung
+  - action: action_restart

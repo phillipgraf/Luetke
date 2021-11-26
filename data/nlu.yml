@@ -1,0 +1,118 @@
+version: "2.0"
+nlu:
+- intent: begrueßung
+  examples: |
+    - hey
+    - hallo
+    - hi
+    - halli hallo
+    - guten morgen
+    - guten abend
+    - moin
+    - servus
+    - guten mittag
+- intent: begrueßung_name
+  examples: |
+    - hallo ich heiße [herbert](name)
+    - hallo ich heiße [fred](name)
+    - hallo ich heiße [Till](name)
+    - hey ich bin [Phillip](name)
+    - hey mein name ist [herbert](name)
+    - hey ich bin [max](name)
+    - hey ich bin [hannes](name)
+    - guten tag ich bin [herbert](name)
+    - guten tag ich bin [rosalie](name)
+    - guten tag ich heiße [melanie](name)
+- intent: verabschiedung
+  examples: |
+    - by
+    - bye
+    - tschau
+    - servus
+    - auf wiedersehen
+    - tschüss
+    - bis später peter
+    - bis später
+    - hau rein
+    - machs gut
+    - Auf wiedersehen.
+- intent: bestaetigung
+  examples: |
+    - ja
+    - yes
+    - yeah
+    - auf jeden fall
+    - das klingt gut
+    - korrekt
+    - das ist richtig
+    - bestätigen
+    - machen wir so
+    - passt
+    - mhm
+    - okay danke
+    - okay
+- intent: negation
+  examples: |
+    - nein
+    - no
+    - never
+    - niemals
+    - nichts
+    - nie
+    - nada
+    - niente
+    - auf kein fall
+    - das gefällt mir nicht
+    - das mag ich nicht
+    - andere
+    - kein interesse
+    - neuanfang
+    - anderer studiengang
+    - umentschieden
+- intent: abbruch
+  examples: |
+    - stopp
+    - bitte hör auf
+    - halt dein mund
+    - sei leise
+    - ruhe
+- intent: wiederholung
+  examples: |
+    - wiederhol es
+    - nochmal sagen
+    - wie bitte
+    - nicht verstanden
+    - erneut
+- intent: witz
+  examples: |
+    - erzähl mir ein witz
+    - bring mich zum lachen
+    - sag was lustiges
+- intent: allgemein
+  examples: |
+    - Ich suche nach einem passenden Studiengang für mich.
+    - Ich suche nach einem [Bachelor](abschluss) Studiengang.
+    - Ich würde mich gerne zu den [Master](abschluss) Studiengängen der THD informieren.
+    - Welche Studiengänge gibt es den an der Hochschule?
+    - Welche Auswahl an Studiengängen gibt es den?
+- intent: studienrichtung
+  examples: |
+    - Ich suche einen Studiengang der was mit [Finanzen](studienrichtung) zu tun hat.
+    - Ich würde gerne was mit [Finanzen](studienrichtung) studieren.
+    - Ich würde gerne etwas mit [Finanzen]{"entity": "studienrichtung", "value": "Wirtschaftswissenschaften"} studieren.
+    - Ich möchte etwas in [Informatik ]("entity": "studienrichtung", "value": "Informatik)studieren.
+    - Ich möchte etwas in der Studienrichtung [Maschinenbau und Mechatronik]("entity": "studienrichtung", "value": "Maschinenbau und Mechatronik") studieren.
+    - Mich interessiert [Gesundheitswissenschaften]("entity": "studienrichtung", "value": Gesundheitswissenschaften").
+- intent: studiengang
+  examples: |
+    - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)
+    - Erzähl mir doch was über den Studiengang [Maschinenbau](studiengang)
+    - Ich würde gerne mehr über [Cyber Security](studiengang) erfahren.
+    - [Energy Systems Engineering](studiengang) klingt sehr interessant.
+    - Was kannst du mir den über [Technisches Design](studiengang) sagen?
+- intent: info
+  examples: |
+    - Wie viele [Semester](info) studiert man den [Wirtschaftsinformatik](studiengang)?
+    - Was kann ich später damit [beruflich](info) machen?
+    - Welche Studiengänge könnte ich im [Anschluss](info) studieren?
+    - Welche [Vorraussetzungen](info) brauch ich überhaupt um das studieren zu können?

@@ -1,0 +1,15 @@
+version: "2.0"
+nlu:
+- synonym: Regelstudienzeit
+  examples: |
+    - Semester
+- synonym: Berufsbild
+  examples: |
+    - beruflich
+- synonym: Weiterführende Studiengänge
+  examples: |
+    - Anschluss
+- synonym: Zulassungsvorraussetzungen
+  examples: |
+    - Vorrausetzungen
+    - Vorraussetzung

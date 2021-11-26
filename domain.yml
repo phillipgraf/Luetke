@@ -1,0 +1,121 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- begrueßung:
+    use_entities: true
+- begrueßung_name:
+    use_entities: true
+- verabschiedung:
+    use_entities: true
+- bestaetigung:
+    use_entities: true
+- negation:
+    use_entities: true
+- witz:
+    use_entities: true
+- abbruch:
+    use_entities: true
+- wiederholung:
+    use_entities: true
+- allgemein:
+    use_entities: true
+- studiengang:
+    use_entities: true
+- studienrichtung:
+    use_entities: true
+- info:
+    use_entities: true
+entities:
+- name
+- abschluss
+- studienrichtung
+- studiengang
+- info
+slots:
+  name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  abschluss:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  studienrichtung:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  studiengang:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  info:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+responses:
+  utter_begrueßung:
+  - text: Guten Tag! Wie kann ich Ihnen weiterhelfen?
+  - text: Seid gegrüßt. Was ist Ihr Anliegen?
+  - text: Beautiful day, isn't it? Entschuldigung, aber das Wetter ist heute so schön. Lütke steht Ihnen zu Diensten.
+  - text: Wohin des Weges? Was suchen Sie?
+  utter_begrueßung_name:
+  - text: Hallo {name}! Wie kann ich Ihnen weiterhelfen?
+  - text: Oh, guten Tag {name}. Was verschlägt Sie den zu mir?
+  - text: Guten Tag {name}. Was brauchen Sie von mir?
+  - text: Herzlich willkommen {name}. Mit welchem Anliegen kommen Sie zu mir?
+  utter_verabschiedung:
+  - text: Auf wiedersehen!
+  utter_verabschiedung_name:
+  - text: Auf wiedersehen {name} !
+  utter_witz:
+  - text: Wie viele Microsoft-Programmierer braucht man um eine Gluehbirne zu wechseln? Keinen, Dunkelheit wird zum neuen Standard erklaert.
+  utter_witz_name:
+  - text: Hier ein Witz für dich {name}. Wie viele Microsoft-Programmierer braucht man um eine Gluehbirne zu wechseln? Keinen, Dunkelheit wird zum neuen Standard erklaert.
+  utter_abbruch:
+  - text: Stopp!
+  utter_bestaetigung:
+  - text: Freut mich!
+  utter_bestaetigung_name:
+  - text: Freut mich, {name}!
+  utter_allgemein:
+  - text: Es würde lange dauern  Ihnen jetzt alle Studiengänge aufzulisten. Am besten spezifizieren Sie ihre Anfrage etwas. Welche Studienrichtung interessiert Sie denn?
+  - text: Ich bin leider nicht dafür qualifiziert Ihnen einen Studienberatung anzubieten. Aber welche Studienrichtung interessiert Sie denn?
+  - text: Die Hochschule bietet einige Studiengänge an. Nenne Sie mir doch bitte die Studienrichtung für die Sie empfänglich sind.
+  utter_studienrichtung:
+  - text: 'Das ist eine weise Entscheidung. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
+  utter_nachfrage_studienrichtung:
+  - text: Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {studienrichtung} hören?
+  utter_placeholder_action_studienrichtung:
+  - text: Studiengang 1, Studiengang 2, Studiengang 3
+  utter_studiengang:
+  - text: 'Sehr gute Wahl! Auf der Hochschulseite steht zu dem Studiengang "{studiengang}" folgendendes:'
+  utter_placeholder_action_studiengang:
+  - text: 1 - 2 Sätze zu dem Studiengang
+  utter_nachfrage_studiengang:
+  - text: Ich habe noch mehr Wissen zu diesem Studiengang gespeichert. Über welchen Aspekt möchten Sie mehr erfahren?
+  - text: Ich kann Ihnen noch viel mehr über "{studiengang}" erzählen. Was interessiert Sie noch zu dem Studiengang?
+  utter_info_auswahl_hilfe:
+  - text: Fragen Sie einfach was sie unbedingt zu dem Studiengang wissen möchten. Zum Beispiel nach der Dauer des Studiums oder den Vorraussetzungen.
+  utter_info_auswahl_hilfe2:
+  - text: Wenn Sie immer noch nicht wissen nach was sie fragen sollen, nennen Sie einfach das Zauberwort listall, machen Sie es sich gemütlich und ich erzähle Ihnen alles was ich über den Studiengang {studiengang} weiß.
+  utter_placeholder_action_info:
+  - text: Infos zu der Auswahl + Nachfrage
+  utter_nachfrage_ende:
+  - text: Kann ich Ihnen sonst noch irgendwie behilflich sein? Möchten Sie zu einem anderen Studiengang noch mehr erfahren?
+  utter_bestaetigung_freude:
+  - text: Freut mich, dass ich Ihnen helfen konnte!
+  utter_ansprechpartner:
+  - text: 'Tut mir leid. Für diese Frage bin ich nicht der richtige Ansprechpartner. Wenden Sie sich mit dieser Frage bitte an die Studienberatung der Hochschule. Sie finden diese unter der E-Mail-Adresse: ZSB@TH-DEG.DE.'
+actions:
+- action_hello_world
+forms: {}
+e2e_actions: []

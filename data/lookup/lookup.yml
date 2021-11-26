@@ -1,0 +1,269 @@
+version: "2.0"
+
+nlu:
+  - lookup: studiengang
+    examples: |
+      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
+      - Angewandte Volkswirtschaftslehre
+      - Angewandte Wirtschaftspsychologie
+      - Betriebswirtschaft
+      - Cyber Security
+      - Energy Systems Engineering
+      - Elektromobilität, autonomes Fahren und mobile Robotik
+      - Gesundheitsinformatik
+      - Health Informatics
+      - Interdisziplinäre Ingenieurwissenschaften
+      - Industrial Engineering
+      - Interaktive Systeme / Internet of Things
+      - International Management
+      - International Tourism Management / Health and Medical Tourism
+      - Künstliche Intelligenz
+      - Management im Gesundheits-, Sozial- und Rettungswesen
+      - Mechatronik
+      - Pflege
+      - Physician Assistant
+      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaft
+      - Technisches Design
+      - Tourismusmanagement
+      - Umweltingenieurwesen
+      - Wirtschaftsingenieurwesen
+      - Betriebliches Management
+      - Pädagogik im Rettungswesen
+      - Pflegepädagogik
+      - Sicherheitsmanagement
+      - Technologiemanagement
+      - Wirtschaftsinformatik Schwerpunkt Data Science
+      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreung im Sport
+      - Applied Research in Engineering Sciences
+      - Digital Health
+      - Global Public Health
+      - Healthy and Sustainable Buildings
+      - High Performance Computing / Quantum Computing
+      - Human Resource Management
+      - International Tourism Development
+      - Life Science Informatics
+      - Mechatronische und cyber-physische Systeme
+      - Technologiemanagement
+      - Strategisches und Internationales Management
+      - Artifical Intelligence and Data Science
+      - Berufspädagogik - Gesundheits und Pflege
+      - MBA Business Development Entrepreneurship
+      - Cyber Security
+      - Digital Business Engineering
+      - General Management
+      - Managment
+      - Public Managment
+      - Risiko- und Compliancemanagment
+      - MBA Unternehmensnachfolge
+      - Wirtschaftspsychologie
+      - Angewandte Informatik / Infotronik
+      - Artifical Intelligence
+      - Bauingenieurwesen
+      - Elektro- und Informationstechnik
+      - Maschinenbau
+      - Medientechnik
+      - Wirtschaftsinformatik
+
+  - lookup: studienrichtung
+    examples: |
+      - Bautechnik und Umweltwissenschaften
+      - Angewandte Naturwissenschaften
+      - Gesundheitswissenschaften
+      - Informatik
+      - Gestaltung, Design, Kommunikation und Medien
+      - Elektro- und Informationstechnik
+      - Maschinenbau und Mechatronik
+      - Wirtschaftswissenschaften
+      - Berufsbegleitende Studiengänge
+
+  - lookup: info
+    examples: |
+      - Beschreibung
+      - Schwerpunkte
+      - Studienrichtung
+      - Berufsbild
+      - Internetauftritt
+      - Studienabschluss
+      - Regelstudienzeit
+      - Studienort
+      - Unterrichtssprache
+      - Zulassungsvorraussetzungen
+      - Vorkenntnisse
+      - Gebühren
+      - Kontakt
+      - Weiterführender Studiengang
+      - CHE Hochschulranking
+
+
+
+
+#  - lookup: studiengang_bachelor_only
+#    examples: |
+#      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
+#      - Angewandte Volkswirtschaftslehre
+#      - Angewandte Wirtschaftspsychologie
+#      - Betriebswirtschaft
+#      - Cyber Security
+#      - Energy Systems Engineering
+#      - Elektromobilität, autonomes Fahren und mobile Robotik
+#      - Gesundheitsinformatik
+#      - Health Informatics
+#      - Interdisziplinäre Ingenieurwissenschaften
+#      - Industrial Engineering
+#      - Interaktive Systeme / Internet of Things
+#      - International Management
+#      - International Tourism Management / Health and Medical Tourism
+#      - Künstliche Intelligenz
+#      - Management im Gesundheits-, Sozial- und Rettungswesen
+#      - Mechatronik
+#      - Pflege
+#      - Physician Assistant
+#      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaft
+#      - Technisches Design
+#      - Tourismusmanagement
+#      - Umweltingenieurwesen
+#      - Wirtschaftsingenieurwesen
+#
+#  - lookup: studiengang_bachelor_berufsbegleitend
+#    examples: |
+#      - Betriebliches Management
+#      - Pädagogik im Rettungswesen
+#      - Pflegepädagogik
+#      - Sicherheitsmanagement
+#      - Technologiemanagement
+#      - Wirtschaftsinformatik Schwerpunkt Data Science
+#
+#  - lookup: studiengang_master_only
+#    examples: |
+#      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreung im Sport
+#      - Applied Research in Engineering Sciences
+#      - Digital Health
+#      - Global Public Health
+#      - Healthy and Sustainable Buildings
+#      - High Performance Computing / Quantum Computing
+#      - Human Resource Management
+#      - International Tourism Development
+#      - Life Science Informatics
+#      - Mechatronische und cyber-physische Systeme
+#      - Technologiemanagement
+#      - Strategisches und Internationales Management
+#      - Artifical Intelligence and Data Science
+#
+#  - lookup: studiengang_master_berufsbegleitend
+#    examples: |
+#      - Berufspädagogik - Gesundheits und Pflege
+#      - MBA Business Development Entrepreneurship
+#      - Cyber Security
+#      - Digital Business Engineering
+#      - General Management
+#      - Managment
+#      - Public Managment
+#      - Risiko- und Compliancemanagment
+#      - MBA Unternehmensnachfolge
+#      - Wirtschaftspsychologie
+#
+#  - lookup: master_und_bachelor
+#    examples: |
+#      - Angewandte Informatik / Infotronik
+#      - Artifical Intelligence
+#      - Bauingenieurwesen
+#      - Elektro- und Informationstechnik
+#      - Maschinenbau
+#      - Medientechnik
+#      - Wirtschaftsinformatik
+#  - lookup: bautechnik
+#    examples: |
+#      - Bauingenieurwesen
+#      - Umweltingeneurwesen
+#      - Energy Systems Engineering
+#      - Technologie Management
+#      - Bau- und Umweltingenieurwesen
+#      - Healthy and Sustainably Buildings
+#
+#  - lookup: naturwissenschaften
+#    examples: |
+#      - Industrial Engineering
+#      - Interdisziplinäre Ingenieurwissenschaften
+#      - Wirtschaftsingenieurwesen
+#      - Technologiemanagement
+#
+#  - lookup: gesundheitswissenschaften
+#    examples: |
+#      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
+#      - Gesundheitsinformatik
+#      - Health Informatics
+#      - International Tourism Managment / Gesundheitsinformatik
+#      - Health Informatics
+#      - International Toursim Management / Health and Medical Tourism
+#      - Management im Gesundheits-, Sozial- und Rettungswesen
+#      - Physician Assistant
+#      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaften
+#      - Pflege
+#      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreuung im Sport
+#      - Global Public Health
+#      - Digital Health
+#      - International Tourism Development
+#      - Life Science Informatics
+#
+#  - lookup: informatik
+#    examples: |
+#      - Angewandte Informatik / Infotronik
+#      - Artificial Intelligence
+#      - Gesundheitsinformatik
+#      - Interaktive Systeme / Internet of Things
+#      - Wirtschaftsinformatik Schwerpunkt Data Science
+#      - Wirtschaftsinformatik
+#      - Künstliche Intelligenz
+#      - Cyber Security
+#      - Automotive Electronics
+#      - High Performance Computing / Quantum Computing
+#      - Technologiemanagement
+#      - Wirtschaftsinformatik
+#      - Digital Health
+#      - Life Science Informatics
+#      - Medientechnik und Medienproduktion
+#
+#  - lookup: gestaltung
+#    examples: |
+#      - Medientechnik
+#      - Technisches Design
+#      - Medientechnik und Medienproduktion
+#
+#  - lookup: elektrotechnik
+#    examples: |
+#      - Angewandte Informatik / Infotronik
+#      - Elektro- und Informationstechnik
+#      - Mechatronik
+#      - Cyber Security
+#      - Energy Systems Engineering
+#      - Elektromobilität, autonomes Fahren und mobile Robotik
+#      - Elektro- und Informationstechnik
+#      - Automotive Electronics
+#
+#  - lookup: maschinenbau
+#    examples: |
+#      - Maschinenbau
+#      - Mechatronik
+#      - Interdisziplinäre Ingenieurwissenschaften
+#      - Technisches Design
+#      - Mechatronic and Cyber-Physical Systems
+#
+#  - lookup: wirtschaftswissenschaften
+#    examples: |
+#      - Angewandte Volkswirtschaftslehre
+#      - Betriebswirtschaft
+#      - Gesundheitsinformatik
+#      - International Management
+#      - International Tourism Management / Health and Medical Tourism
+#      - Management im Gesundheits-, Sozial- und Rettungswesen
+#      - Tourismusmanagement
+#      - Wirtschaftsinformatik
+#      - Wirtschaftsinformatik Schwerpunkt Data Science
+#      - Wirtschaftsingenieurwesen
+#      - Angewandte Wirtschaftspsychologie
+#      - HumanResource Management
+#      - International Tourism Development
+#      - Digital Health
+#      - Strategisches und Internationales Management
+#      - Wirtschaftsinformatik
+#      - Wirtschaftspsychologie

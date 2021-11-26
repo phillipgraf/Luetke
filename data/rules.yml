@@ -1,0 +1,11 @@
+version: "2.0"
+rules:
+- rule: Verabschiede und beende dich, jedes mal wenn der Nutzer ein Abbruch wünscht
+  steps:
+  - intent: abbruch
+  - action: utter_verabschiedung
+  - action: action_restart
+- rule: Test custom action
+  steps:
+  - intent: wiederholung
+  - action: action_hello_world
