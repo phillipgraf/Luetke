@@ -1,0 +1,13 @@
+# Human Resource Management
+# https://th-deg.de/hrm-m
+
+
+intent: job
+	- no jobs found
+
+intent: summary
+	- der konsekutive masterstudiengang human resource management findet in kooperation der hochschulen amberg-weiden, deggendorf und regensburg statt.
+
+intent: keywords
+
+intent: characteristics
