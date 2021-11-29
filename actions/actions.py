@@ -48,3 +48,41 @@ class ActionStudienrichtungVorhanden(Action):
         )
         return [SlotSet("studienrichtung_vorhanden", res["exists"])]
 
+class ActionStudienrichtung(Action):
+    def name(self) -> Text:
+        return "action_studienrichtung"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/fields").text
+        )
+        x = ""
+        for i in res:
+            x = x + "\n\t> " + str(i)
+        dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}")
+        return []
+
+class ActionStudiengangVonStudienrichtung(Action):
+    def name(self) -> Text:
+        return "action_studiengang_von_studienrichtung"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        field = tracker.get_slot("studienrichtung")
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/fields").text
+        )
+        x = ""
+        for i in res:
+            x = x + "\n\t> " + str(i)
+        dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}")
+        return []
