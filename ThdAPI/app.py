@@ -36,6 +36,12 @@ def get_degree_majors(degree):
 @app.get("/majors")
 def get_majors():
     return jsonify([x["name"] for x in majors])
+@app.get("/majors/exists/<major>")
+def major_exists(major):
+    return {"exists": True} if escape(major) in [x["name"] for x in majors] else {"exists": False}
+@app.get("/fields/exists/<field>")
+def field_exists(field):
+    return {"exists": True} if escape(field) in [x["name"] for x in fields] else {"exists": False}
 @app.get("/majors/<major>") # Returns full major information 
 def get_major(major):
     for m in majors:
