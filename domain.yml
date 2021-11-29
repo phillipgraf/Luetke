@@ -61,6 +61,11 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: true
+  studienrichtung_vorhanden:
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: true
 responses:
   utter_begrueßung:
   - text: Guten Tag! Wie kann ich Ihnen weiterhelfen?
@@ -92,6 +97,8 @@ responses:
   - text: Die Hochschule bietet einige Studiengänge an. Nenne Sie mir doch bitte die Studienrichtung für die Sie empfänglich sind.
   utter_studienrichtung:
   - text: 'Das ist eine weise Entscheidung. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
+  utter_placeholder_action_studienrichtung_liste:
+  - text: Studienrichtung 1, Studienrichtung 2, Studienrichtung 3, ...
   utter_nachfrage_studienrichtung:
   - text: Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {studienrichtung} hören?
   utter_placeholder_action_studienrichtung:
@@ -115,7 +122,10 @@ responses:
   - text: Freut mich, dass ich Ihnen helfen konnte!
   utter_ansprechpartner:
   - text: 'Tut mir leid. Für diese Frage bin ich nicht der richtige Ansprechpartner. Wenden Sie sich mit dieser Frage bitte an die Studienberatung der Hochschule. Sie finden diese unter der E-Mail-Adresse: ZSB@TH-DEG.DE.'
+  utter_studienrichtung_nicht_vorhanden:
+  - text: 'Oh. Verzeihen Sie mir, aber wir bieten leider nichts zu dieser Studienrichtung an. Wählen Sie doch bitte eine aus den folgenden aus:'
 actions:
 - action_hello_world
+- action_studienrichtung_vorhanden
 forms: {}
 e2e_actions: []

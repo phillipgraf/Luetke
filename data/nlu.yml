@@ -103,6 +103,10 @@ nlu:
     - Ich möchte etwas in [Informatik](studienrichtung) studieren.
     - Ich möchte etwas in der Studienrichtung [Maschinenbau und Mechatronik](studienrichtung) studieren.
     - Mich interessiert [Gesundheitswissenschaften](studienrichtung).
+    - Ich würde gerne etwas mit [Informatik](studienrichtung) studieren.
+    - Ich würde gerne etwas mit [Lehramt](studienrichtung) studieren.
+    - [Philosophie](studienrichtung)
+    - [Chirurgie](studienrichtung)
 - intent: studiengang
   examples: |
     - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)

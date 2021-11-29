@@ -52,6 +52,7 @@ stories:
     - studienrichtung: Wirtschaftswissenschaften
   - slot_was_set:
     - studienrichtung: Wirtschaftswissenschaften
+  - action: action_studienrichtung_vorhanden
   - action: utter_studienrichtung
   - action: utter_placeholder_action_studienrichtung
   - action: utter_nachfrage_studienrichtung

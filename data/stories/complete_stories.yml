@@ -5,43 +5,68 @@ stories:
   - intent: begrueßung
   - action: utter_begrueßung
   - checkpoint: check_begrueßung
-
-
 - story: allgemein
   steps:
   - checkpoint: check_begrueßung
   - intent: allgemein
   - action: utter_allgemein
   - checkpoint: check_allgemein
-
-- story: allgemein_vorhanden_keine_komplikationen
+- story: allgemein_studienrichtung_vorhanden
   steps:
   - checkpoint: check_allgemein
   - intent: studienrichtung
     entities:
     - studienrichtung: Informatik
+  - action: action_studienrichtung_vorhanden
   - action: utter_studienrichtung
-  - action: utter_placeholder_action_studienrichtung #TODO
+  - action: utter_placeholder_action_studienrichtung
   - action: utter_nachfrage_studienrichtung
+  - checkpoint: check_studienrichtung_vorhanden
+- story: allgemein_studienrichtung_nichtvorhanden
+  steps:
+  - checkpoint: check_allgemein
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Lehramt
+  - action: action_studienrichtung_vorhanden
+  - action: utter_studienrichtung_nicht_vorhanden
+  - action: utter_placeholder_action_studienrichtung_liste
+  - checkpoint: check_studienrichtung_vorhanden
+- story: allgemein_studienrichtung_studiengang_info
+  steps:
+  - checkpoint: check_studienrichtung_vorhanden
   - intent: studiengang
     entities:
     - studiengang: Maschinenbau
   - action: utter_studiengang
-  - action: utter_placeholder_action_studiengang #TODO
+  - action: utter_placeholder_action_studiengang
   - action: utter_nachfrage_studiengang
   - intent: info
     entities:
     - info: Regelstudienzeit
-  - action: utter_placeholder_action_info #TODO
+  - action: utter_placeholder_action_info
   - intent: bestaetigung
-  - action: action_listen
   - intent: info
     entities:
     - info: Berufsbild
-  - action: utter_placeholder_action_info #TODO
+  - action: utter_placeholder_action_info
   - intent: negation
   - action: utter_nachfrage_ende
   - intent: negation
   - action: utter_bestaetigung_freude
   - action: utter_verabschiedung
   - action: action_restart
+- story: Story from Conversation ID 960672db16be4980bd461507b0dadb12
+  steps:
+  - action: utter_begrueßung
+  - intent: begrueßung
+  - slot_was_set:
+    - studienrichtung: Lehramt
+  - intent: begrueßung
+    entities:
+    - studienrichtung: Lehramt
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: false
+  - action: utter_studienrichtung_nicht_vorhanden
+  - action: utter_placeholder_action_studienrichtung_liste
