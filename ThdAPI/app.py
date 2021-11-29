@@ -58,7 +58,10 @@ def get_categories(major):
 def get_major_category(major, category):
     for m in majors:
         if m["name"] == escape(major):
-            return jsonify(m[escape(category)])
+            try:
+                return jsonify(m[escape(category)])
+            except KeyError:
+                return jsonify({"info": "not found"})
     return jsonify({"name": "Kein Studiengang mit diesem Namen gefunden!"})
 @app.get("/fields") # Returns a list of Fields 
 def get_fields():

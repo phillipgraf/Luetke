@@ -41,15 +41,15 @@ class ThdScraper:
             self.sg2.append({})
             for s in s:
                 title = s.find("p").text.strip()
-                if title == "Bachelor.":
-                    self.sg2[idx][title] = []
+                if title.replace(".", "").lower() == "bachelor":
+                    self.sg2[idx][title.replace(".", "").lower()] = []
                     continue
-                if title == "Master.":
-                    self.sg2[idx][title] = []
+                if title.replace(".", "").lower() == "master":
+                    self.sg2[idx][title.replace(".", "").lower()] = []
                     continue
                 link = s.find("a")
                 self.sg2[idx][
-                "Bachelor." if len(self.sg2[idx]) == 1 else "Master."
+                "bachelor" if len(self.sg2[idx]) == 1 else "master"
                 ].append(title.replace("/", "_"))
                 self.links[title.replace("/", "_")] = self.URL + link.get("href")
 
@@ -61,7 +61,7 @@ class ThdScraper:
             else:
                 self.studien[i] = [self.sg2[idx]]
         for f in self.felder:
-            fls = self.studien[f][0]["Bachelor."] + self.studien[f][0]["Master."]
+            fls = self.studien[f][0]["bachelor"] + self.studien[f][0]["master"]
             for fss in fls:
                 self.studToField[fss] = f
 
@@ -188,12 +188,12 @@ class ThdScraper:
 
     def getDegreeForMajor(self, major):
         field = self.studToField[major]
-        if major in self.studien[field][0]["Bachelor."]:
-            if major in self.studien[field][0]["Master."]:
-                return ["Bachelor", "master"]
+        if major in self.studien[field][0]["bachelor"]:
+            if major in self.studien[field][0]["master"]:
+                return ["Bachelor", "Master"]
             else:
                 return ["Bachelor"]
-        elif major in self.studien[field][0]["Master."]:
+        elif major in self.studien[field][0]["master"]:
             return ["Master"]
 
     def makeAllPretty(self, type):
