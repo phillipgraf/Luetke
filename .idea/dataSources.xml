@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="rasa" uuid="ec9f0ae3-8609-46ce-ac3e-902a58dfc87f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\maxe\OneDrive\Dokumente\Studium\Deggendorf\Kuenstliche Intelligenz(B.Sc.)\Semester\3. Semester\Module\Assistenzsysteme\Projekt\Programmieren\LuetkeHope\rasa.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>

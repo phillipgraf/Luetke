@@ -99,10 +99,10 @@ nlu:
   examples: |
     - Ich suche einen Studiengang der was mit [Finanzen](studienrichtung) zu tun hat.
     - Ich würde gerne was mit [Finanzen](studienrichtung) studieren.
-    - Ich würde gerne etwas mit [Finanzen]{"entity": "studienrichtung", "value": "Wirtschaftswissenschaften"} studieren.
-    - Ich möchte etwas in [Informatik ]("entity": "studienrichtung", "value": "Informatik)studieren.
-    - Ich möchte etwas in der Studienrichtung [Maschinenbau und Mechatronik]("entity": "studienrichtung", "value": "Maschinenbau und Mechatronik") studieren.
-    - Mich interessiert [Gesundheitswissenschaften]("entity": "studienrichtung", "value": Gesundheitswissenschaften").
+    - Ich würde gerne etwas mit [Finanzen](studienrichtung) studieren.
+    - Ich möchte etwas in [Informatik](studienrichtung) studieren.
+    - Ich möchte etwas in der Studienrichtung [Maschinenbau und Mechatronik](studienrichtung) studieren.
+    - Mich interessiert [Gesundheitswissenschaften](studienrichtung).
 - intent: studiengang
   examples: |
     - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)
