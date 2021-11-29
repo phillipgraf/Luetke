@@ -66,6 +66,46 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: true
+  svs_spoken_Bautechnik und Umweltwissenschaften:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Angewandte Naturwissenschaften:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Gesundheitswissenschaften:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Informatik:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Gestaltung, Design, Kommunikation und Medien:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Elektro- und Informationstechnik:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Maschinenbau und Mechatronik:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  svs_spoken_Wirtschaftswissenschaften:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
 responses:
   utter_begrueßung:
   - text: Guten Tag! Wie kann ich Ihnen weiterhelfen?
@@ -125,7 +165,13 @@ responses:
   utter_studienrichtung_nicht_vorhanden:
   - text: 'Oh. Verzeihen Sie mir, aber wir bieten leider nichts zu dieser Studienrichtung an. Wählen Sie doch bitte eine aus den folgenden aus:'
 actions:
-- action_hello_world
 - action_studienrichtung_vorhanden
+- action_studienrichtung
+- action_studiengang_vorhanden
+- action_studiengang
+- action_studienrichtung_studiengang_list
+- action_studiengang_list
+- action_info
+- action_info_list
 forms: {}
 e2e_actions: []

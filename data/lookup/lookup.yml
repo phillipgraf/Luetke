@@ -3,66 +3,65 @@ version: "2.0"
 nlu:
   - lookup: studiengang
     examples: |
+      - Angewandte Informatik _ Infotronik
       - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
+      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreuung im Sport
       - Angewandte Volkswirtschaftslehre
       - Angewandte Wirtschaftspsychologie
+      - Artificial Intelligence
+      - Automotive Electronics
+      - Bau- und Umweltingenieurwesen
+      - Bauingenieurwesen
+      - Berufspädagogik - Gesundheit & Pflege
+      - Betriebliches Management
       - Betriebswirtschaft
       - Cyber Security
-      - Energy Systems Engineering
+      - Digital Business Engineering
+      - Digital Health
+      - Elektro- und Informationstechnik
       - Elektromobilität, autonomes Fahren und mobile Robotik
+      - Energy Systems Engineering
       - Gesundheitsinformatik
+      - Global Public Health
       - Health Informatics
-      - Interdisziplinäre Ingenieurwissenschaften
+      - Healthy and Sustainable Buildings
+      - High Performance Computing _ Quantum Computing
+      - Human Resource Management
       - Industrial Engineering
-      - Interaktive Systeme / Internet of Things
+      - Interaktive Systeme _ Internet of Things
+      - Interdisziplinäre Ingenieurwissenschaften
       - International Management
-      - International Tourism Management / Health and Medical Tourism
+      - International Tourism Development
+      - International Tourism Management _ Health and Medical Tourism
       - Künstliche Intelligenz
+      - Life Science Informatics
+      - MBA General Management
+      - MBA Unternehmensgründung und -führung
       - Management im Gesundheits-, Sozial- und Rettungswesen
+      - Management mit Schwerpunktwahl
+      - Maschinenbau
+      - Mechatronic and Cyber-Physical Systems (in Deggendorf)
       - Mechatronik
+      - Mechatronik - Schwerpunkt Digitale Produktion (in Cham)
+      - Medientechnik
+      - Medientechnik und Medienproduktion
+      - Pädagogik im Rettungswesen
       - Pflege
+      - Pflegepädagogik
       - Physician Assistant
       - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaft
+      - Public Management
+      - Risiko- und Compliancemanagement
+      - Sicherheitsmanagement
+      - Strategisches und Internationales Management
       - Technisches Design
+      - Technologiemanagement
       - Tourismusmanagement
       - Umweltingenieurwesen
-      - Wirtschaftsingenieurwesen
-      - Betriebliches Management
-      - Pädagogik im Rettungswesen
-      - Pflegepädagogik
-      - Sicherheitsmanagement
-      - Technologiemanagement
-      - Wirtschaftsinformatik Schwerpunkt Data Science
-      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreung im Sport
-      - Applied Research in Engineering Sciences
-      - Digital Health
-      - Global Public Health
-      - Healthy and Sustainable Buildings
-      - High Performance Computing / Quantum Computing
-      - Human Resource Management
-      - International Tourism Development
-      - Life Science Informatics
-      - Mechatronische und cyber-physische Systeme
-      - Technologiemanagement
-      - Strategisches und Internationales Management
-      - Artifical Intelligence and Data Science
-      - Berufspädagogik - Gesundheits und Pflege
-      - MBA Business Development Entrepreneurship
-      - Cyber Security
-      - Digital Business Engineering
-      - General Management
-      - Management
-      - Public Management
-      - Risiko- und Compliancemanagment
-      - MBA Unternehmensnachfolge
-      - Wirtschaftspsychologie
-      - Angewandte Informatik / Infotronik
-      - Artifical Intelligence
-      - Bauingenieurwesen
-      - Elektro- und Informationstechnik
-      - Maschinenbau
-      - Medientechnik
       - Wirtschaftsinformatik
+      - Wirtschaftsinformatik Schwerpunkt Data Science
+      - Wirtschaftsingenieurwesen
+      - Wirtschaftspsychologie
 
   - lookup: studienrichtung
     examples: |
@@ -74,14 +73,13 @@ nlu:
       - Elektro- und Informationstechnik
       - Maschinenbau und Mechatronik
       - Wirtschaftswissenschaften
-      - Berufsbegleitende Studiengänge
 
   - lookup: info
     examples: |
       - Beschreibung
       - Schwerpunkte
       - Studienrichtung
-      - Berufsbild
+      - Jobs
       - Internetauftritt
       - Studienabschluss
       - Regelstudienzeit
@@ -110,9 +108,9 @@ nlu:
 #      - Health Informatics
 #      - Interdisziplinäre Ingenieurwissenschaften
 #      - Industrial Engineering
-#      - Interaktive Systeme / Internet of Things
+#      - Interaktive Systeme _ Internet of Things
 #      - International Management
-#      - International Tourism Management / Health and Medical Tourism
+#      - International Tourism Management _ Health and Medical Tourism
 #      - Künstliche Intelligenz
 #      - Management im Gesundheits-, Sozial- und Rettungswesen
 #      - Mechatronik
@@ -140,7 +138,7 @@ nlu:
 #      - Digital Health
 #      - Global Public Health
 #      - Healthy and Sustainable Buildings
-#      - High Performance Computing / Quantum Computing
+#      - High Performance Computing _ Quantum Computing
 #      - Human Resource Management
 #      - International Tourism Development
 #      - Life Science Informatics
@@ -164,7 +162,7 @@ nlu:
 #
 #  - lookup: master_und_bachelor
 #    examples: |
-#      - Angewandte Informatik / Infotronik
+#      - Angewandte Informatik _ Infotronik
 #      - Artifical Intelligence
 #      - Bauingenieurwesen
 #      - Elektro- und Informationstechnik
@@ -192,9 +190,9 @@ nlu:
 #      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
 #      - Gesundheitsinformatik
 #      - Health Informatics
-#      - International Tourism Managment / Gesundheitsinformatik
+#      - International Tourism Managment _ Gesundheitsinformatik
 #      - Health Informatics
-#      - International Toursim Management / Health and Medical Tourism
+#      - International Toursim Management _ Health and Medical Tourism
 #      - Management im Gesundheits-, Sozial- und Rettungswesen
 #      - Physician Assistant
 #      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaften
@@ -207,16 +205,16 @@ nlu:
 #
 #  - lookup: informatik
 #    examples: |
-#      - Angewandte Informatik / Infotronik
+#      - Angewandte Informatik _ Infotronik
 #      - Artificial Intelligence
 #      - Gesundheitsinformatik
-#      - Interaktive Systeme / Internet of Things
+#      - Interaktive Systeme _ Internet of Things
 #      - Wirtschaftsinformatik Schwerpunkt Data Science
 #      - Wirtschaftsinformatik
 #      - Künstliche Intelligenz
 #      - Cyber Security
 #      - Automotive Electronics
-#      - High Performance Computing / Quantum Computing
+#      - High Performance Computing _ Quantum Computing
 #      - Technologiemanagement
 #      - Wirtschaftsinformatik
 #      - Digital Health
@@ -231,7 +229,7 @@ nlu:
 #
 #  - lookup: elektrotechnik
 #    examples: |
-#      - Angewandte Informatik / Infotronik
+#      - Angewandte Informatik _ Infotronik
 #      - Elektro- und Informationstechnik
 #      - Mechatronik
 #      - Cyber Security
@@ -254,7 +252,7 @@ nlu:
 #      - Betriebswirtschaft
 #      - Gesundheitsinformatik
 #      - International Management
-#      - International Tourism Management / Health and Medical Tourism
+#      - International Tourism Management _ Health and Medical Tourism
 #      - Management im Gesundheits-, Sozial- und Rettungswesen
 #      - Tourismusmanagement
 #      - Wirtschaftsinformatik

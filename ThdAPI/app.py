@@ -28,6 +28,10 @@ try:
 except Exception:
     print("[LOAD] Using Webscraper...")
     fields = scraper.makeAllPretty("fields")
+if fields:
+    for f in fields:
+        if f["name"] == "Berufsbegleitende Studiengänge":
+            fields.remove(f)
 
 
 @app.get("/degrees/<degree>") # Returns majors for degree 

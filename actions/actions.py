@@ -15,23 +15,6 @@ import json
 from rasa_sdk.events import SlotSet
 
 
-class ActionStudiengangVorhanden(Action):
-    def name(self) -> Text:
-        return "action_studiengang_vorhanden"
-
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        field = tracker.get_slot("studiengang")
-        res = json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/exists/{field}").text
-        )
-        return [SlotSet("studiengang_vorhanden", res["exists"])]
-
-
 class ActionStudienrichtungVorhanden(Action):
     def name(self) -> Text:
         return "action_studienrichtung_vorhanden"
@@ -67,9 +50,26 @@ class ActionStudienrichtung(Action):
         dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}")
         return []
 
-class ActionStudiengangVonStudienrichtung(Action):
+class ActionStudiengangVorhanden(Action):
     def name(self) -> Text:
-        return "action_studiengang_von_studienrichtung"
+        return "action_studiengang_vorhanden"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        field = tracker.get_slot("studiengang")
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/exists/{field}").text
+        )
+        return [SlotSet("studiengang_vorhanden", res["exists"])]
+
+
+class ActionStudiengang(Action):
+    def name(self) -> Text:
+        return "action_studiengang"
 
     def run(
         self,
@@ -82,7 +82,7 @@ class ActionStudiengangVonStudienrichtung(Action):
             requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
         )
         abschluss = tracker.get_slot("abschluss")
-        amount = 3 * (tracker.get_slot("svs_spoken")+1) if tracker.get_slot("svs_spoken") is not None else 3
+        amount = 3 * (tracker.get_slot(f"svs_spoken_{field}")+1) if tracker.get_slot(f"svs_spoken_{field}") is not None else 3
         x = ""
         if abschluss:
             for i in res[0][abschluss.lower()][amount-3:amount]:
@@ -93,11 +93,31 @@ class ActionStudiengangVonStudienrichtung(Action):
                 x = x + "\n\t> " + str(i)
 
         dispatcher.utter_message(text = f"{x}")
-        return [SlotSet("svs_spoken", (amount / 3))]
+        return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
-class ActionStudiengangVonAbschluss(Action):
+class ActionStudiengangListVonStudienrichtung(Action):
     def name(self) -> Text:
-        return "action_studiengang_von_abschluss"
+        return "action_studienrichtung_studiengang_list"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        field = tracker.get_slot("studiengang")
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
+        )
+        x = ""
+        for i in res:
+            x = x + "\n\t> " + str(i)
+        dispatcher.utter_message(text = f"x")
+        return []
+
+class ActionStudiengangList(Action):
+    def name(self) -> Text:
+        return "action_studiengang_list"
 
     def run(
         self,
@@ -117,9 +137,30 @@ class ActionStudiengangVonAbschluss(Action):
         dispatcher.utter_message(text = f"{x}")
         return [SlotSet("sva_spoken", (amount / 3))]
 
-class ActionKategorienVonStudiengang(Action):
+class ActionInfo(Action):
     def name(self) -> Text:
-        return "action_kategorien_von_studiengang"
+        return "action_info"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        major = tracker.get_slot("studiengang")
+        info = tracker.get_slot("info")
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
+        )
+        if "info" in res:
+            dispatcher.utter_message(text = f"Zu dieser Kategorie wurde noch keine Information bereitgestellt.")
+        else:
+            dispatcher.utter_message(text = f"Zur Information {info} konnte ich diese Informationen finden: {res}")
+        return []
+
+class InfoList(Action):
+    def name(self) -> Text:
+        return "action_info_list"
 
     def run(
         self,
@@ -139,23 +180,4 @@ class ActionKategorienVonStudiengang(Action):
         dispatcher.utter_message(text = f"{x}")
         return [SlotSet("kvs_spoken", (amount / 3))]
 
-class ActionKategorieVonStudiengang(Action):
-    def name(self) -> Text:
-        return "action_kategorie_von_studiengang"
 
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        major = tracker.get_slot("studiengang")
-        info = tracker.get_slot("info")
-        res = json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
-        )
-        if "info" in res:
-            dispatcher.utter_message(text = f"Zu dieser Kategorie wurde noch keine Information bereitgestellt.")
-        else:
-            dispatcher.utter_message(text = f"Zur Information {info} konnte ich diese Informationen finden: {res}")
-        return []

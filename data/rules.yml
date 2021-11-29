@@ -5,14 +5,10 @@ rules:
   - intent: abbruch
   - action: utter_verabschiedung
   - action: action_restart
-- rule: Test custom action
-  steps:
-  - intent: wiederholung
-  - action: action_hello_world
 - rule: Reagiere wenn es die Studienrichtung nicht gibt
   condition:
     - slot_was_set:
         - studienrichtung_vorhanden: false
   steps:
   - action: utter_studienrichtung_nicht_vorhanden
-  - action: utter_placeholder_action_studienrichtung_liste
+  - action: action_studienrichtung
