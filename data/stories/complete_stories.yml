@@ -5,28 +5,40 @@ stories:
   - intent: begrueßung
   - action: utter_begrueßung
   - checkpoint: check_begrueßung
-- story: allgemein
+- story: start_weiterleitung_direkt_nicht_vorhanden_studiengang
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: studiengang
+      entities:
+        - studiengang: Linguistik
+    - action: action_studiengang_vorhanden
+    - slot_was_set:
+        - studiengang_vorhanden: false
+    - action: utter_weiterleitung_an_studienrichtung
+    - action: action_studienrichtung
+    - checkpoint: check_weiterleitung
+- story: start_allgemein
   steps:
   - checkpoint: check_begrueßung
   - intent: allgemein
   - action: utter_allgemein
-  - checkpoint: check_allgemein
+  - checkpoint: check_weiterleitung
 - story: allgemein_studienrichtung_vorhanden
   steps:
-  - checkpoint: check_allgemein
+  - checkpoint: check_weiterleitung
   - intent: studienrichtung
     entities:
     - studienrichtung: Informatik
-  - action: action_studienrichtung_vorhanden
+  - action: action_studienrichtung
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang
   - action: utter_nachfrage_studienrichtung
-  - checkpoint: check_studienrichtung_vorhanden
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_nichtvorhanden
   steps:
-  - checkpoint: check_allgemein
+  - checkpoint: check_weiterleitung
   - intent: studienrichtung
     entities:
     - studienrichtung: Lehramt
@@ -35,19 +47,24 @@ stories:
     - studienrichtung_vorhanden: false
   - action: utter_studienrichtung_nicht_vorhanden
   - action: action_studienrichtung
-  - checkpoint: check_studienrichtung_vorhanden
-- story: allgemein_studienrichtung_studiengang_info
+  - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_studiengang_vorhanden
   steps:
-  - checkpoint: check_studienrichtung_vorhanden
+  - checkpoint: check_studienrichtung
   - intent: studiengang
     entities:
     - studiengang: Maschinenbau
-  - action: action_studienrichtung_vorhanden
+  - action: action_studiengang_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studiengang
   - action: action_studiengang
-  - action: utter_nachfrage_studiengang
+  - checkpoint: check_studiengang
+
+- story: info
+  steps:
+  - checkpoint: check_studiengang
   - intent: info
     entities:
     - info: Regelstudienzeit
@@ -60,6 +77,49 @@ stories:
   - intent: negation
   - action: utter_nachfrage_ende
   - intent: negation
-  - action: utter_bestaetigung_freude
+  - action: utter_abschluss
   - action: utter_verabschiedung
   - action: action_restart
+
+- story: allgemein_studienrichtung_studiengang_nicht_vorhanden
+  steps:
+  - checkpoint: check_studienrichtung
+  - intent: studiengang
+    entities:
+    - studiengang: Biologie
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: false
+  - action: utter_studiengang_nicht_vorhanden
+  - action: action_studiengang
+  - checkpoint: check_studiengang
+
+
+- story: direkt_studiengang_vorhanden
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: studiengang
+      entities:
+        - studiengang: Tourismusmanagement
+    - action: action_studiengang_vorhanden
+    - slot_was_set:
+        - studiengang_vorhanden: true
+    - action: utter_studiengang
+    - intent: info
+      entities:
+        - info: Zulassungsvorraussetzungen
+    - action: action_info
+    - action: utter_info_nachfrage
+    - action: action_info_list
+    - intent: info
+      entities:
+        - info: Jobs
+    - action: utter_info_nachfrage
+    - action: action_info_list
+    - intent: negation
+    - action: utter_nachfrage_ende
+    - intent: negation
+    - action: utter_abschluss
+    - action: utter_verabschiedung
+    - action: action_restart
+
