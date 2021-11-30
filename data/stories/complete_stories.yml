@@ -4,6 +4,15 @@ stories:
   steps:
   - intent: begrueßung
   - action: utter_begrueßung
+  - intent: was_kannst_du
+  - action: utter_was_kann_ich
+  - checkpoint: check_begrueßung
+- story: fragen_ueber_luetke
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: wer_bist_du
+  - action: utter_wer_bin_ich
   - checkpoint: check_begrueßung
 - story: start_weiterleitung_direkt_nicht_vorhanden_studiengang
   steps:
@@ -127,6 +136,7 @@ stories:
     - slot_was_set:
         - studiengang_vorhanden: true
     - action: utter_studiengang
+    - action: action_studiengang
     - intent: info
       entities:
         - info: Zulassungsvorraussetzungen

@@ -49,8 +49,7 @@ class ActionStudienrichtung(Action):
         x = ""
         for i in res:
             x = x + "\n\t> " + str(i)
-        dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}")
-        dispatcher.utter_message(text="Welche davon klingt für Sie interessant?")
+        dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}\n Welche davon klingt für Sie interessant?")
         return []
 
 class ActionStudiengangVorhanden(Action):
@@ -85,12 +84,9 @@ class ActionStudiengang(Action):
             requests.get(f"http://127.0.0.1:5000/majors/{major}/desc").text
         )
         if res=="":
-            dispatcher.utter_message(text="Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem fragen:")
-            dispatcher.utter_message(Help.list_info_3(tracker))
+            dispatcher.utter_message(text=f"Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem fragen:\n{Help.list_info_3(tracker)}")
         else:
-            dispatcher.utter_message(text = f"{res}")
-            dispatcher.utter_message(text="Ich kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre es zum Beispiel mit einer der folgenden Kategorie?")
-            dispatcher.utter_message(Help.list_info_3(tracker))
+            dispatcher.utter_message(text = f"{res}\nIch kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre es zum Beispiel mit einer der folgenden Kategorie?\n{Help.list_info_3(tracker)}")
         return []
 
 
@@ -121,8 +117,7 @@ class ActionStudiengang(Action):
             for i in f[:3]:
                 x = x + "\n\t> " + str(i)
 
-        dispatcher.utter_message(text = f"{x}")
-        dispatcher.utter_message(text = f"Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
+        dispatcher.utter_message(text = f"{x}\n\nWas klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
         return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
 class ActionStudiengangListVonStudienrichtung(Action):
@@ -143,8 +138,7 @@ class ActionStudiengangListVonStudienrichtung(Action):
         x = ""
         for i in res:
             x = x + "\n\t> " + str(i)
-        dispatcher.utter_message(text=f"Okay. Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\" ")
-        dispatcher.utter_message(text = f"{x}")
+        dispatcher.utter_message(text=f"Okay. Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x}")
         return []
 
 class ActionStudiengangList(Action):
@@ -210,9 +204,7 @@ class ActionInfo(Action):
             requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
         )
         if "info" in res:
-            dispatcher.utter_message(text = f"Diese Kategorie wurde für diesen Studiengang nicht angelegt")
-            dispatcher.utter_message(text= "Sie können sich alle verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es zum Beispiel mit einer dieser: ")
-            dispatcher.utter_message(Help.list_info_3(tracker))
+            dispatcher.utter_message(text = f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es zum Beispiel mit einer dieser:\n{Help.list_info_3(tracker)}")
         else:
             dispatcher.utter_message(text = f"Zur Information {info} konnte ich diese Informationen finden: {res}")
         return []
@@ -243,7 +235,7 @@ class ActionInfoListAll(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        if tracker.latest_message == "Sonnenvogel":
+        if "Sonnenvogel" in tracker.latest_message:
             major = tracker.get_slot("studiengang")
             res = json.loads(
                 requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text

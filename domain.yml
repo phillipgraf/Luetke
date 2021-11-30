@@ -1,26 +1,50 @@
 version: '2.0'
+config:
+  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- allgemein
-- frage_nach_studienrichtung
-- studienrichtung
-- begrueßung
-- studiengang
-- begrueßung_name
-- verabschiedung
-- bestaetigung
-- negation
-- witz
-- abbruch
-- wiederholung
-- info
-- befehl_direkte_nachfrage
-- befehl_auflistung_studiengaenge_studienrichtung
-- sonnenvogel
-- befehl_liste_alle_studiengaenge_auf
-- befehl_auflistung_studienrichtung
+- allgemein:
+    use_entities: true
+- frage_nach_studienrichtung:
+    use_entities: true
+- studienrichtung:
+    use_entities: true
+- begrueßung:
+    use_entities: true
+- studiengang:
+    use_entities: true
+- begrueßung_name:
+    use_entities: true
+- verabschiedung:
+    use_entities: true
+- bestaetigung:
+    use_entities: true
+- negation:
+    use_entities: true
+- witz:
+    use_entities: true
+- abbruch:
+    use_entities: true
+- wiederholung:
+    use_entities: true
+- info:
+    use_entities: true
+- befehl_direkte_nachfrage:
+    use_entities: true
+- befehl_auflistung_studiengaenge_studienrichtung:
+    use_entities: true
+- sonnenvogel:
+    use_entities: true
+- befehl_liste_alle_studiengaenge_auf:
+    use_entities: true
+- befehl_auflistung_studienrichtung:
+    use_entities: true
+- wer_bist_du:
+    use_entities: true
+- was_kannst_du:
+    use_entities: true
 entities:
 - abschluss
 - info
@@ -29,62 +53,88 @@ entities:
 - studienrichtung
 slots:
   name:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   abschluss:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studienrichtung:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studiengang:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   info:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studienrichtung_vorhanden:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   studiengang_vorhanden:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   svs_spoken_Bautechnik und Umweltwissenschaften:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Angewandte Naturwissenschaften:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Gesundheitswissenschaften:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Informatik:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Gestaltung, Design, Kommunikation und Medien:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Elektro- und Informationstechnik:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Maschinenbau und Mechatronik:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   svs_spoken_Wirtschaftswissenschaften:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
 responses:
   utter_begrueßung:
-  - text: Guten Tag! Wie kann ich Ihnen weiterhelfen?
-  - text: Seid gegrüßt. Was ist Ihr Anliegen?
-  - text: Beautiful day, isn't it? Entschuldigung, aber das Wetter ist heute so schön. Lütke steht Ihnen zu Diensten.
-  - text: Wohin des Weges? Was suchen Sie?
-  - text: Hallo! Wie kann ich Ihnen weiterhelfen?
-  - text: Oh, guten Tag. Was verschlägt Sie den zu mir?
-  - text: Guten Tag. Was benötigen Sie von mir?
-  - text: Herzlich willkommen. Mit welchem Anliegen kommen Sie zu mir?
+  - text: Guten Tag! Mein Name ist Lütke. Wie kann ich Ihnen weiterhelfen?
+  - text: Seid gegrüßt. Ich helfe Ihnen gerne bei der Suche nach Informationen über Studiengänge der Hochschule Deggendorf?
+  - text: Lütke zu Diensten, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und helfe Ihnen nun den richtigen Lebensweg zu finden.
+  - text: Guten Tag. Was verschlägt Sie den zu mir? Ich kann Ihnen gernen weiterhelfen, wenn Sie fragen zu den Studiengägen der Technischen Hochschule haben.
+  - text: Halli Hallo! Wo drückt der Schuhe? Möchten Sie etwas über einen Studiengang der Technischen Hochschule Deggendorf erfahren?
+  - text: Herzlich willkommen bei Lütke dem Studiengangsauskungstsassistent der Hochschule Deggendorf.
   utter_verabschiedung:
   - text: Auf wiedersehen!
   utter_verabschiedung_name:
@@ -103,6 +153,15 @@ responses:
   - text: Es würde lange dauern  Ihnen jetzt alle Studiengänge aufzulisten. Am besten spezifizieren Sie ihre Anfrage etwas. Welche Studienrichtung interessiert Sie denn?
   - text: Ich bin leider nicht dafür qualifiziert Ihnen einen Studienberatung anzubieten. Aber welche Studienrichtung interessiert Sie denn?
   - text: Die Hochschule bietet einige Studiengänge an. Nenne Sie mir doch bitte die Studienrichtung für die Sie empfänglich sind.
+  utter_was_kann_ich:
+  - text: Über die Jahre habe ich ein mir ein Wissensschatz zu jeglichem Studiengang der Technischen Hochschule Deggendorf angeeignet. Fragen Sie mich einfach nach einer Information über einen Studiengang.
+  - text: Ich kann dir jegliche Information zu egal, welchem Studiengang der Technischen Hochschule Deggendorf bereitstellen. Frag mich ruhig nach einem Studiengang.
+  - text: Sie möchten etwas über einen Studiengang der Technischen Hochschule Deggendorf wissen? Dann sind Sie bei mir genau richtig!
+  - text: Schön sein... und dir Fakten über die einzelnen Studiengänge der Technischen Hochschule erzählen.
+  utter_wer_bin_ich:
+  - text: Ich bin Lütke, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und möcht Ihnen nun helfen, den richtigen Lebensweg zu Treffen. Mein Spezialgebiet liegt hierbei bei der technischen Hochschule Deggendorf. Falls Sie sich gedacht haben dort zu Studieren, bin ich die perfekte Ansprechperson.
+  - text: Seit geraumer Zeit bin ich als Lütke, der Weise, bekannt. Ich habe unzählige Debatten gewonnen, gegen die weisesten und klügsten. Vor einem Jahr habe ich dann meine erste Debatte verloren und musste als Strafe bei der technischen Hochschule Deggendorf aushelfen. Dort wurde ich dank meines immensen Wissens als Assistent für Interessierte angestellt und stehe Ihnen bei Fragen rund um die Studienwahl gerne zur Verfügung.
+  - text: 'Wie sie kennen mich nicht? Dann will ich mich doch vorstellen: Ich bin Lütke, der König des Wissens. Ich bin der beste meines Faches, der beste um Ihnen die Studiengänge näher zu Bringen und Sie in ein wissensreiches Leben zu entführen.'
   utter_studienrichtung:
   - text: 'Das ist eine weise Entscheidung. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
   utter_studienrichtung_nicht_vorhanden:
@@ -144,3 +203,5 @@ actions:
 - utter_begrueßung
 - utter_studiengang_nicht_vorhanden
 - utter_studienrichtung
+forms: {}
+e2e_actions: []

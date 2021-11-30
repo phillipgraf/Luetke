@@ -54,3 +54,13 @@ rules:
   steps:
     - intent: wiederholung
     - action: action_wiederholen
+
+- rule: Wer bin ich
+  steps:
+    - intent: wer_bist_du
+    - action: utter_wer_bin_ich
+
+- rule: Was kann ich
+  steps:
+    - intent: was_kannst_du
+    - action: utter_was_kann_ich
