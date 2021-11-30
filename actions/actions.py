@@ -50,6 +50,7 @@ class ActionStudienrichtung(Action):
         for i in res:
             x = x + "\n\t> " + str(i)
         dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}")
+        dispatcher.utter_message(text="Welche davon klingt für Sie interessant?")
         return []
 
 class ActionStudiengangVorhanden(Action):
@@ -95,6 +96,7 @@ class ActionStudiengang(Action):
 
 class ActionStudiengang(Action):
     #Gibt immer 3 Studiengänge einer Studienrichtung aus mit oder ohne abschluss
+    #Gibt beim nächsten Aufruf die nächsten 3 Studiengänge aus
     def name(self) -> Text:
         return "action_studiengang_list_sr"
 
@@ -120,6 +122,7 @@ class ActionStudiengang(Action):
                 x = x + "\n\t> " + str(i)
 
         dispatcher.utter_message(text = f"{x}")
+        dispatcher.utter_message(text = f"Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
         return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
 class ActionStudiengangListVonStudienrichtung(Action):
@@ -287,6 +290,23 @@ class ActionWiederholen(Action):
         return []
 
 
+class ActionDefaultFallback(Action):
+    """Executes the fallback action and goes back to the previous state
+    of the dialogue"""
+
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(text="Entschuldigung, aber ich konnte Sie leider nicht verstehen. Sprechen Sie bitte etwas deutlicher.")
+
+        # Revert user message which led to fallback.
+        return []
 
 class Help():
     def list_info_3(self, tracker: Tracker):

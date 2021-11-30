@@ -21,7 +21,7 @@ rules:
         - studiengang_vorhanden: false
   steps:
   - action: utter_studiengang_nicht_vorhanden
-  - action: action_studiengang
+  - action: action_studiengang_list_sr
 
 - rule: Bei direkter Nachfrage gebe prägnante info aus
   steps:
@@ -31,7 +31,12 @@ rules:
 - rule: Liste alle Studiengänge der Studienrichtung auf
   steps:
     - intent: befehl_auflistung_studiengaenge_studienrichtung
-    - action: action_info
+    - action: action_studiengang_list_all_sr
+
+- rule: Liste alle Studienrichtungen auf
+  steps:
+    - intent: befehl_auflistung_studienrichtung
+    - action: action_studienrichtung
 
 - rule: Auflistung aller Info Kategorien
   steps:

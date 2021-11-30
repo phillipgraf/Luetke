@@ -19,7 +19,7 @@ stories:
   - action: utter_allgemein
   - intent: studienrichtung
   - action: utter_studienrichtung
-  - action: utter_nachfrage_studienrichtung
+  - action: action_studiengang_list_sr
   - intent: verabschiedung
   - action: utter_verabschiedung
   - action: action_restart
@@ -36,8 +36,7 @@ stories:
     - studienrichtung: Wirtschaftswissenschaften
   - action: action_studienrichtung_vorhanden
   - action: utter_studienrichtung
-  - action: action_studienrichtung
-  - action: utter_nachfrage_studienrichtung
+  - action: action_studiengang_list_sr
   - intent: verabschiedung
   - action: utter_verabschiedung
   - action: action_restart

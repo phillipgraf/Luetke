@@ -33,8 +33,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang
-  - action: utter_nachfrage_studienrichtung
+  - action: action_studiengang_list_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_nichtvorhanden
   steps:
@@ -47,7 +46,24 @@ stories:
     - studienrichtung_vorhanden: false
   - action: utter_studienrichtung_nicht_vorhanden
   - action: action_studienrichtung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Design
+  - action: action_studienrichtung
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
   - checkpoint: check_studienrichtung
+
+- story: frage_nach_studienrichtung
+  steps:
+  - checkpoint: check_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - intent: frage_nach_studienrichtung
+  - action: action_studienrichtung
+  - checkpoint: check_weiterleitung
 
 - story: allgemein_studienrichtung_studiengang_vorhanden
   steps:
@@ -91,7 +107,13 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: false
   - action: utter_studiengang_nicht_vorhanden
-  - action: action_studiengang
+  - action: action_studiengang_list_sr
+  - intent: studiengang
+    entities:
+      - studiengang: Cyver Security
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
   - checkpoint: check_studiengang
 
 

@@ -1,123 +1,79 @@
 version: '2.0'
-config:
-  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- begrueßung:
-    use_entities: true
-- begrueßung_name:
-    use_entities: true
-- verabschiedung:
-    use_entities: true
-- bestaetigung:
-    use_entities: true
-- negation:
-    use_entities: true
-- witz:
-    use_entities: true
-- abbruch:
-    use_entities: true
-- wiederholung:
-    use_entities: true
-- allgemein:
-    use_entities: true
-- studiengang:
-    use_entities: true
-- studienrichtung:
-    use_entities: true
-- info:
-    use_entities: true
-- befehl_direkte_nachfrage:
-    use_entities: true
-- befehl_auflistung_studiengaenge_studienrichtung:
-    use_entities: true
-- sonnenvogel:
-    use_entities: true
-- befehl_liste_alle_studiengaenge_auf:
-    use_entities: true
-entities:
-- name
-- abschluss
+- allgemein
+- frage_nach_studienrichtung
 - studienrichtung
+- begrueßung
 - studiengang
+- begrueßung_name
+- verabschiedung
+- bestaetigung
+- negation
+- witz
+- abbruch
+- wiederholung
 - info
+- befehl_direkte_nachfrage
+- befehl_auflistung_studiengaenge_studienrichtung
+- sonnenvogel
+- befehl_liste_alle_studiengaenge_auf
+- befehl_auflistung_studienrichtung
+entities:
+- abschluss
+- info
+- name
+- studiengang
+- studienrichtung
 slots:
   name:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   abschluss:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   studienrichtung:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   studiengang:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   info:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   studienrichtung_vorhanden:
-    type: rasa.shared.core.slots.BooleanSlot
-    initial_value: null
+    type: bool
     auto_fill: false
     influence_conversation: true
   studiengang_vorhanden:
-    type: rasa.shared.core.slots.BooleanSlot
-    initial_value: null
+    type: bool
     auto_fill: false
     influence_conversation: true
   svs_spoken_Bautechnik und Umweltwissenschaften:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Angewandte Naturwissenschaften:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Gesundheitswissenschaften:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Informatik:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Gestaltung, Design, Kommunikation und Medien:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Elektro- und Informationstechnik:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Maschinenbau und Mechatronik:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
   svs_spoken_Wirtschaftswissenschaften:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
+    type: text
     influence_conversation: true
 responses:
   utter_begrueßung:
@@ -151,12 +107,10 @@ responses:
   - text: 'Das ist eine weise Entscheidung. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
   utter_studienrichtung_nicht_vorhanden:
   - text: 'Oh. Verzeihen Sie mir, aber wir bieten leider nichts zu dieser Studienrichtung an. Wählen Sie doch bitte eine aus den folgenden aus:'
-  utter_nachfrage_studienrichtung:
-  - text: Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {studienrichtung} hören?
   utter_studiengang:
   - text: 'Sehr gute Wahl! Auf der Hochschulseite steht zu dem Studiengang "{studiengang}" folgendendes:'
   utter_studiengang_nicht_vorhanden:
-  - text: 'Das tut mir leid, wir bieten {studiengang} leider nicht an. Wählen Sie doch bitte einen aus den folgenden aus:'
+  - text: 'Das tut mir leid, wir bieten {studiengang} leider nicht an. Wählen Sie doch bitte einen aus der Ihr präferierten Richtung aus:'
   utter_weiterleitung_an_studienrichtung:
   - text: 'Diesen Studiengang kann ich leider nicht im Verzeichniss finden. Die Hochschule bietet nur Studiengänge in folgenden Richtungen an:'
   utter_info_auswahl_hilfe2:
@@ -174,16 +128,19 @@ responses:
   utter_sichere_nachfrage:
   - text: Sind Sie sich sicher, dass ich Ihnen alle Studiengänge auflisten soll? Dann bestätigen Sie bitte mit einem Ja.
 actions:
-- action_studienrichtung_vorhanden
-- action_studienrichtung
-- action_studiengang_vorhanden
-- action_studiengang
-- action_studienrichtung_studiengang_list
-- action_studiengang_list
-- action_studiengang_list_all
 - action_info
 - action_info_list
 - action_info_list_all
+- action_studiengang
+- action_studiengang_list
+- action_studiengang_list_all
+- action_studiengang_list_all_sr
+- action_studiengang_list_sr
+- action_studiengang_vorhanden
+- action_studienrichtung
+- action_studienrichtung_vorhanden
 - action_wiederholen
-forms: {}
-e2e_actions: []
+- utter_allgemein
+- utter_begrueßung
+- utter_studiengang_nicht_vorhanden
+- utter_studienrichtung
