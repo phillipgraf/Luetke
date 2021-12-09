@@ -82,14 +82,25 @@ nlu:
     - erzähl mir ein witz
     - bring mich zum lachen
     - sag was lustiges
+- intent: mehr
+  examples: |
+    - Ich würde gerne mehr hören.
+    - gib mir mehr
+    - nenn mir mehr
+    - liste mir mehr auf
+    - weitere Studiengänge bitte
+    - Ich möchte gerne weitere Studiengänge hören
+    - Ich würde gerne mehr Studiengänge hören
+    - Ich würde gerne mehr dazu hören
+    - Welche Studiengänge gibt es den noch?
 - intent: befehl_direkte_nachfrage
   examples: |
     - Gib mir bitte die [Regelstudienzeit](info) für den [bachelor](abschluss) Studiengang [Tourismusmangement](studiengang).
     - Kannst du mir nochmal das [Berufsbild](info) von [Künstlicher Intelligenz](studiengang) aufsagen?
     - Liste mir doch bitte vom Studiengang [Cyber Security](studiengang) die [Zulassungsvorraussetzungen](info) auf.
-    - Gib mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang)[Wirtschaftsinformatik](studiengang) aus.
+    - Gib mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang) aus.
     - Gib mir die [Regelstudienzeit](info) von [Wirtscahftsinformatik](studiengang) aus.
-    - Geb mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang)[Wirtschaftsinformatik](studiengang) aus
+    - Geb mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang) aus
 - intent: befehl_auflistung_studiengaenge_studienrichtung
   examples: |
     - Liste mir nochmal die Studiengänge der Studienrichtung [Gesundheitswissenschaften](studienrichtung) auf.
@@ -131,7 +142,7 @@ nlu:
     - [Philosophie](studienrichtung)
     - [Chirurgie](studienrichtung)
     - [Gestaltung]{"entity": "studiengang", "value": "Gestaltung, Design, Kommunikation und Medien"} klingt interessant
-    - [Wirtschaftswissenschaften](studienrichtung)klingt interessant
+    - [Wirtschaftswissenschaften](studienrichtung) klingt interessant
     - [Wirtschaftswissenschaften](studienrichtung) klingt gut
     - [Gesundheitsinformatik](studienrichtung)
     - [Wirtschaftswissenschaften](studiengang) klingt interessant

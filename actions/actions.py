@@ -21,10 +21,10 @@ class ActionStudienrichtungVorhanden(Action):
         return "action_studienrichtung_vorhanden"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         field = tracker.get_slot("studienrichtung")
         res = json.loads(
@@ -32,16 +32,17 @@ class ActionStudienrichtungVorhanden(Action):
         )
         return [SlotSet("studienrichtung_vorhanden", res["exists"])]
 
+
 class ActionStudienrichtung(Action):
     # Gibt alle verfügbaren Studienrichtungen an
     def name(self) -> Text:
         return "action_studienrichtung"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/fields").text
@@ -49,18 +50,20 @@ class ActionStudienrichtung(Action):
         x = ""
         for i in res:
             x = x + "\n\t> " + str(i)
-        dispatcher.utter_message(text = f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}\n Welche davon klingt für Sie interessant?")
+        dispatcher.utter_message(
+            text=f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}\n Welche davon klingt für Sie interessant?")
         return []
+
 
 class ActionStudiengangVorhanden(Action):
     def name(self) -> Text:
         return "action_studiengang_vorhanden"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         field = tracker.get_slot("studiengang")
         res = json.loads(
@@ -68,68 +71,77 @@ class ActionStudiengangVorhanden(Action):
         )
         return [SlotSet("studiengang_vorhanden", res["exists"])]
 
+
 class ActionStudiengang(Action):
-    #Gibt die Beschreibung des Studiengangs aus
+    # Gibt die Beschreibung des Studiengangs aus
     def name(self) -> Text:
         return "action_studiengang"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         major = tracker.get_slot("studiengang")
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/desc").text
         )
-        if res=="":
-            dispatcher.utter_message(text=f"Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem fragen:\n{Help.list_info_3(tracker)}")
+        if res == "":
+            dispatcher.utter_message(
+                text=f"Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich "
+                     f"habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem "
+                     f"fragen:\n{list_info_3(tracker)}")
         else:
-            dispatcher.utter_message(text = f"{res}\nIch kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre es zum Beispiel mit einer der folgenden Kategorie?\n{Help.list_info_3(tracker)}")
+            dispatcher.utter_message(
+                text=f"{res}\nIch kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre "
+                     f"es zum Beispiel mit einer der folgenden Kategorie?\n{list_info_3(tracker)}")
         return []
 
 
 class ActionStudiengang(Action):
-    #Gibt immer 3 Studiengänge einer Studienrichtung aus mit oder ohne abschluss
-    #Gibt beim nächsten Aufruf die nächsten 3 Studiengänge aus
+    # Gibt immer 3 Studiengänge einer Studienrichtung aus mit oder ohne abschluss
+    # Gibt beim nächsten Aufruf die nächsten 3 Studiengänge aus
     def name(self) -> Text:
         return "action_studiengang_list_sr"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         field = tracker.get_slot("studienrichtung")
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
         )
         abschluss = tracker.get_slot("abschluss")
-        amount = 3 * (tracker.get_slot(f"svs_spoken_{field}")+1) if tracker.get_slot(f"svs_spoken_{field}") is not None else 3
+        amount = 3 * (tracker.get_slot(f"svs_spoken_{field}") + 1) if tracker.get_slot(
+            f"svs_spoken_{field}") is not None else 3
         x = ""
         if abschluss:
-            for i in res[0][abschluss.lower()][amount-3:amount]:
+            for i in res[0][abschluss.lower()][amount - 3:amount]:
                 x = x + "\n\t> " + str(i)
         else:
             f = res[0]["bachelor"] + res[0]["master"]
             for i in f[:3]:
                 x = x + "\n\t> " + str(i)
 
-        dispatcher.utter_message(text = f"{x}\n\nWas klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
+        dispatcher.utter_message(
+            text=f"{x}\n\nWas klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
         return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
+
 class ActionStudiengangListVonStudienrichtung(Action):
-    #Gibt alle Studiengänge einer Studienrichtung aus
+    # Gibt alle Studiengänge einer Studienrichtung aus
     def name(self) -> Text:
         return "action_studiengang_list_all_sr"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         field = tracker.get_slot("studiengang")
         res = json.loads(
@@ -141,28 +153,30 @@ class ActionStudiengangListVonStudienrichtung(Action):
         dispatcher.utter_message(text=f"Okay. Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x}")
         return []
 
+
 class ActionStudiengangList(Action):
     # Gibt 3 Studiengänge eines abschluss aus
     def name(self) -> Text:
         return "action_studiengang_list"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         abschluss = tracker.get_slot("abschluss")
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/degrees/{abschluss}").text
         )
-        amount = 3 * (tracker.get_slot("sva_spoken")+1) if tracker.get_slot("sva_spoken") is not None else 3
+        amount = 3 * (tracker.get_slot("sva_spoken") + 1) if tracker.get_slot("sva_spoken") is not None else 3
         x = ""
-        for i in res[amount-3:amount]:
+        for i in res[amount - 3:amount]:
             x = x + "\n\t> " + str(i)
 
-        dispatcher.utter_message(text = f"{x}")
+        dispatcher.utter_message(text=f"{x}")
         return [SlotSet("sva_spoken", (amount / 3))]
+
 
 class ActionStudiengangListAll(Action):
     # Gibt alle Studiengänge aus
@@ -170,10 +184,10 @@ class ActionStudiengangListAll(Action):
         return "action_studiengang_list_all"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         if tracker.latest_message == "Ja":
             res = json.loads(
@@ -183,20 +197,23 @@ class ActionStudiengangListAll(Action):
             x = ""
             for i in resp:
                 x = x + str(i)
-            dispatcher.utter_message(text = f"{x}")
+            dispatcher.utter_message(text=f"{x}")
         else:
-            dispatcher.utter_message(text="Dann fragen Sie mich etwas anderes, bei dem ich Ihnen weiterhelfen kann. Aber verschwenden Sie nicht meine wertvolle Zeit.")
+            dispatcher.utter_message(
+                text="Dann fragen Sie mich etwas anderes, bei dem ich Ihnen weiterhelfen kann. Aber verschwenden Sie "
+                     "nicht meine wertvolle Zeit.")
         return []
+
 
 class ActionInfo(Action):
     def name(self) -> Text:
         return "action_info"
 
     def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         major = tracker.get_slot("studiengang")
         info = tracker.get_slot("info")
@@ -204,13 +221,17 @@ class ActionInfo(Action):
             requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
         )
         if "info" in res:
-            dispatcher.utter_message(text = f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es zum Beispiel mit einer dieser:\n{Help.list_info_3(tracker)}")
+            dispatcher.utter_message(
+                text=f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle "
+                     f"verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es "
+                     f"zum Beispiel mit einer dieser:\n{list_info_3(tracker)}")
         else:
-            dispatcher.utter_message(text = f"Zur Information {info} konnte ich diese Informationen finden: {res}")
+            dispatcher.utter_message(text=f"Zur Information {info} konnte ich diese Informationen finden: {res}")
         return []
 
+
 class ActionInfoList(Action):
-    #Listet 3 Kategorien der Info auf
+    # Listet 3 Kategorien der Info auf
     def name(self) -> Text:
         return "action_info_list"
 
@@ -220,7 +241,7 @@ class ActionInfoList(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        x=Help.list_info_3(tracker)
+        x = list_info_3(tracker)
         dispatcher.utter_message(text=f"{x}")
         return []
 
@@ -248,8 +269,9 @@ class ActionInfoListAll(Action):
             dispatcher.utter_message(text=f"{x}")
         return []
 
+
 class ActionWiederholen(Action):
-    #wiederholt alles bis zum letzen user input
+    # wiederholt alles bis zum letzen user input
     def name(self) -> Text:
         return "action_wiederholen"
 
@@ -290,28 +312,26 @@ class ActionDefaultFallback(Action):
         return "action_default_fallback"
 
     async def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="Entschuldigung, aber ich konnte Sie leider nicht verstehen. Sprechen Sie bitte etwas deutlicher.")
+        dispatcher.utter_message(
+            text="Entschuldigung, aber ich konnte Sie leider nicht verstehen. Sprechen Sie bitte etwas deutlicher.")
 
         # Revert user message which led to fallback.
         return []
 
-class Help():
-    def list_info_3(self, tracker: Tracker):
-        major = tracker.get_slot("studiengang")
-        res = json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
-        )
-        resp = [f"\n\t> {x}" for x in random.sample(res, 3)]
 
-        x = ""
-        for i in resp:
-            x = x + str(i)
-        return x
+def list_info_3(tracker: Tracker):
+    major = tracker.get_slot("studiengang")
+    res = json.loads(
+        requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
+    )
+    resp = [f"\n\t> {x}" for x in random.sample(res, 3)]
 
-
-
+    x = ""
+    for i in resp:
+        x = x + str(i)
+    return x

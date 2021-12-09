@@ -45,6 +45,7 @@ intents:
     use_entities: true
 - was_kannst_du:
     use_entities: true
+- mehr
 entities:
 - abschluss
 - info
@@ -130,8 +131,8 @@ slots:
 responses:
   utter_begrueßung:
   - text: Guten Tag! Mein Name ist Lütke. Wie kann ich Ihnen weiterhelfen?
-  - text: Seid gegrüßt. Ich helfe Ihnen gerne bei der Suche nach Informationen über Studiengänge der Hochschule Deggendorf?
-  - text: Lütke zu Diensten, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und helfe Ihnen nun den richtigen Lebensweg zu finden.
+  - text: Seid gegrüßt. Ich helfe Ihnen gerne bei der Suche nach Informationen über Studiengänge der Hochschule Deggendorf. Über welchen Studiengang möchten Sie etwas erfahren?
+  - text: Lütke zu Diensten, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen über die Studiengänge der Technischen Hochschule Deggendorf erlangt und helfe Ihnen nun die richtigen Informationen zu finden.
   - text: Guten Tag. Was verschlägt Sie den zu mir? Ich kann Ihnen gernen weiterhelfen, wenn Sie fragen zu den Studiengägen der Technischen Hochschule haben.
   - text: Halli Hallo! Wo drückt der Schuhe? Möchten Sie etwas über einen Studiengang der Technischen Hochschule Deggendorf erfahren?
   - text: Herzlich willkommen bei Lütke dem Studiengangsauskungstsassistent der Hochschule Deggendorf.
@@ -156,7 +157,7 @@ responses:
   utter_was_kann_ich:
   - text: Über die Jahre habe ich ein mir ein Wissensschatz zu jeglichem Studiengang der Technischen Hochschule Deggendorf angeeignet. Fragen Sie mich einfach nach einer Information über einen Studiengang.
   - text: Ich kann dir jegliche Information zu egal, welchem Studiengang der Technischen Hochschule Deggendorf bereitstellen. Frag mich ruhig nach einem Studiengang.
-  - text: Sie möchten etwas über einen Studiengang der Technischen Hochschule Deggendorf wissen? Dann sind Sie bei mir genau richtig!
+  - text: Sie möchten etwas über einen Studiengang der Technischen Hochschule Deggendorf wissen? Dann sind Sie bei mir genau richtig! Ich kann Ihnen jegliche Informationen zu den einzelnen Studiengängen herraussuchen.
   - text: Schön sein... und dir Fakten über die einzelnen Studiengänge der Technischen Hochschule erzählen.
   utter_wer_bin_ich:
   - text: Ich bin Lütke, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und möcht Ihnen nun helfen, den richtigen Lebensweg zu Treffen. Mein Spezialgebiet liegt hierbei bei der technischen Hochschule Deggendorf. Falls Sie sich gedacht haben dort zu Studieren, bin ich die perfekte Ansprechperson.
@@ -186,6 +187,8 @@ responses:
   - text: 'Tut mir leid. Für diese Frage bin ich nicht der richtige Ansprechpartner. Wenden Sie sich mit dieser Frage bitte an die Studienberatung der Hochschule. Sie finden diese unter der E-Mail-Adresse: ZSB@TH-DEG.DE.'
   utter_sichere_nachfrage:
   - text: Sind Sie sich sicher, dass ich Ihnen alle Studiengänge auflisten soll? Dann bestätigen Sie bitte mit einem Ja.
+  utter_mehr_studiengang:
+    - text: 'Hier bitte sehr. Im folgenden habe ich Ihnen noch weitere Studiengänge der Studienrichtung {studienrichtung} rausgesucht:'
 actions:
 - action_info
 - action_info_list

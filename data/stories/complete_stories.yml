@@ -43,6 +43,8 @@ stories:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
+  - slot_was_set:
+      - svs_spoken_Informatik: 1.0
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_nichtvorhanden
   steps:
@@ -63,7 +65,19 @@ stories:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
-  - checkpoint: check_studienrichtung
+  - slot_was_set:
+      - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
+  - checkpoint: check_mehr_studiengang
+
+- story: mehr_studiengang
+  steps:
+    - checkpoint: check_mehr_studiengang
+    - intent: mehr
+    - action: utter_mehr_studiengang
+    - action: action_studiengang_list_sr
+    - slot_was_set:
+        - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 2.0
+    - checkpoint: check_studienrichtung
 
 - story: frage_nach_studienrichtung
   steps:
