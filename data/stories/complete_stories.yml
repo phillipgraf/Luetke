@@ -32,7 +32,8 @@ stories:
   - intent: allgemein
   - action: utter_allgemein
   - checkpoint: check_weiterleitung
-- story: allgemein_studienrichtung_vorhanden
+
+- story: allgemein_studienrichtung_informatik_vorhanden
   steps:
   - checkpoint: check_weiterleitung
   - intent: studienrichtung
@@ -46,6 +47,98 @@ stories:
   - slot_was_set:
       - svs_spoken_Informatik: 1.0
   - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_Bautechnik_vorhanden
+  steps:
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Bautechnik und Umweltwissenschaften
+  - action: action_studienrichtung
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+      - svs_spoken_Bautechnik und Umweltwissenschaften: 1.0
+  - checkpoint: check_studienrichtung
+
+
+- story: allgemein_studienrichtung_Angewandte_Naturwissenschaften_vorhanden
+  steps:
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Angewandte Naturwissenschaften
+  - action: action_studienrichtung
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+      - svs_spoken_Angewandte Naturwissenschaften: 1.0
+  - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_Gesundheitswissenschaften_vorhanden
+  steps:
+    - checkpoint: check_weiterleitung
+    - intent: studienrichtung
+      entities:
+        - studienrichtung: Informatik
+    - action: action_studienrichtung
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: utter_studienrichtung
+    - action: action_studiengang_list_sr
+    - slot_was_set:
+        - svs_spoken_Gesundheitswissenschaften: 1.0
+    - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_Elektro-_und_Informationstechnik
+  steps:
+    - checkpoint: check_weiterleitung
+    - intent: studienrichtung
+      entities:
+        - studienrichtung: Informatik
+    - action: action_studienrichtung
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: utter_studienrichtung
+    - action: action_studiengang_list_sr
+    - slot_was_set:
+        - svs_spoken_Elektro- und Informationstechnik: 1.0
+    - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_Maschinenbau_und_Mechatronik_vorhanden
+  steps:
+    - checkpoint: check_weiterleitung
+    - intent: studienrichtung
+      entities:
+        - studienrichtung: Maschinenbau und Mechatronik
+    - action: action_studienrichtung
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: utter_studienrichtung
+    - action: action_studiengang_list_sr
+    - slot_was_set:
+        - svs_spoken_Maschinenbau und Mechatronik: 1.0
+    - checkpoint: check_studienrichtung
+
+- story: allgemein_studienrichtung_Wirtschaftswissenschaften_vorhanden
+  steps:
+    - checkpoint: check_weiterleitung
+    - intent: studienrichtung
+      entities:
+        - studienrichtung: Informatik
+    - action: action_studienrichtung
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: utter_studienrichtung
+    - action: action_studiengang_list_sr
+    - slot_was_set:
+        - svs_spoken_Mickey Valen - Wildcard (feat. Feli Ferraro): 1.0
+    - checkpoint: check_studienrichtung
+
 - story: allgemein_studienrichtung_nichtvorhanden
   steps:
   - checkpoint: check_weiterleitung
