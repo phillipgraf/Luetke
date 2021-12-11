@@ -85,7 +85,7 @@ class ActionStudiengang(Action):
     ) -> List[Dict[Text, Any]]:
         major = tracker.get_slot("studiengang")
         res = json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/{major}/desc").text
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/beschreibung").text
         )
         if res == "No summary found" or res == "":
             dispatcher.utter_message(
@@ -94,8 +94,8 @@ class ActionStudiengang(Action):
                      f"fragen:\n{list_info_3(tracker)}")
         else:
             dispatcher.utter_message(
-                text=f"{res}\nIch kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre "
-                     f"es zum Beispiel mit einer der folgenden Kategorie?\n{list_info_3(tracker)}")
+                text=f" \n{res}\n \nMöchten Sie noch mehr über diesen Studiengang erfahren? Im Inhaltsverzeichnis habe "
+                     f"ich dazu noch folgende Kategorien gefunden: \n \n{list_info_3(tracker)}")
         return []
 
 
@@ -224,9 +224,12 @@ class ActionInfo(Action):
             dispatcher.utter_message(
                 text=f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle "
                      f"verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es "
-                     f"zum Beispiel mit einer dieser:\n{list_info_3(tracker)}")
+                     f"zum Beispiel mit einer dieser:\n\n{list_info_3(tracker)}")
         else:
-            dispatcher.utter_message(text=f"Zur Information {info} konnte ich diese Informationen finden: {res}")
+            if isinstance(res, list):
+                res = " \n\t> "+" \n\t> ".join(res) + "\n "
+            dispatcher.utter_message(text=f"Zur Information {info} konnte ich folgendes finden: {res}")
+
         return []
 
 
@@ -261,7 +264,7 @@ class ActionInfoListAll(Action):
             res = json.loads(
                 requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
             )
-            resp = [f"\n\t> {x}" for x in res]
+            resp = [f"\n\t> {x.capitalize()}" for x in res]
 
             x = ""
             for i in resp:
@@ -329,7 +332,7 @@ def list_info_3(tracker: Tracker):
     res = json.loads(
         requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
     )
-    resp = [f"\n\t> {x}" for x in random.sample(res, 3)]
+    resp = [f"\n\t> {x.capitalize()}" for x in random.sample(res, 3)]
 
     x = ""
     for i in resp:

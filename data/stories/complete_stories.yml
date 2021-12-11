@@ -201,11 +201,13 @@ stories:
     entities:
     - info: Regelstudienzeit
   - action: action_info
+  - action: utter_info_nachfrage
   - intent: bestaetigung
   - intent: info
     entities:
     - info: Berufsbild
   - action: action_info
+  - action: utter_info_nachfrage
   - intent: negation
   - action: utter_nachfrage_ende
   - intent: negation

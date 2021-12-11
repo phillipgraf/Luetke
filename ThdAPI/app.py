@@ -65,7 +65,7 @@ def get_major_category(major, category):
             try:
                 return jsonify(m[escape(category).lower()])
             except KeyError:
-                return jsonify({"info": "not found"})
+                return jsonify({"info": f"{escape(category)} not found"})
     return jsonify({"name": "Kein Studiengang mit diesem Namen gefunden!"})
 @app.get("/fields") # Returns a list of Fields
 def get_fields():

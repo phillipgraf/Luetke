@@ -177,7 +177,7 @@ responses:
   utter_info_auswahl_hilfe2:
   - text: Wenn Sie immer noch nicht wissen nach was sie fragen sollen, nennen Sie einfach das Zauberwort listall, machen Sie es sich gemütlich und ich erzähle Ihnen alles was ich über den Studiengang {studiengang} weiß.
   utter_info_nachfrage:
-  - text: Ich kann Ihnen noch mehr Informationen über diesen Studiengang bereitstellen. Wie wäre es zum Beispiel mit einer der folgenden Kategorie?
+  - text: Möchten Sie noch mehr über diesen Studiengang erfahren? Im Inhaltsverzeichnis habe ich dazu noch folgende Kategorien gefunden.
   - text: Ich habe noch mehr Wissen zu diesem Studiengang gespeichert. Über welchen Aspekt möchten Sie mehr erfahren?
   - text: Ich kann Ihnen noch viel mehr über "{studiengang}" erzählen. Was interessiert Sie noch zu dem Studiengang?
   utter_nachfrage_ende:

@@ -78,8 +78,6 @@ class ThdScraper:
             self.page = BeautifulSoup(
                 page.content, "html.parser"
             )
-            with open(f"./Scriptdata/{major}.html", "w+") as majors:
-                majors.write(page.text)
 
 
     def getFacultPagePart(self, title):
@@ -148,7 +146,7 @@ class ThdScraper:
         try:
             summaryPage = self.getFacultPagePart("summary")
             longest_string = max([x.text for x in summaryPage.find_all("p")], key=len)
-            return longest_string
+            return '. '.join(longest_string.split('.')[:3])+'.'
         except Exception:
             return "No summary found"
 
@@ -184,7 +182,7 @@ class ThdScraper:
 
     def getCategory(self, major):
         l = self.getInfoForMajor(major)
-        return {x:l[x] for x in l}
+        return {x.lower():l[x] for x in l}
 
     def getDegreeForMajor(self, major):
         field = self.studToField[major]
@@ -202,14 +200,14 @@ class ThdScraper:
             for idx, major in enumerate(list(self.links.keys())):
                 categories = self.getCategory(major)
                 entry = {
-                    "id": idx,
-                    "desc": self.getSummaryForMajor(major),
+                    #"id": idx,
+                    "beschreibung": self.getSummaryForMajor(major),
                     "schwerpunkte": self.getKeywordsForMajor(major),
                     "name": major,
-                    "feld": self.studToField[major],
-                    "jobs": self.getJobInfoForMajor(major),
-                    "link": self.links[major],
-                    "degree": self.getDegreeForMajor(major)
+                    "studienrichtung": self.studToField[major],
+                    "berufsbild": self.getJobInfoForMajor(major),
+                    #"link": self.links[major],
+                    "abschluss": self.getDegreeForMajor(major)
                 }
                 entry.update(categories)
                 majors.append(entry)
