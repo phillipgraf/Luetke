@@ -136,7 +136,7 @@ stories:
     - action: utter_studienrichtung
     - action: action_studiengang_list_sr
     - slot_was_set:
-        - svs_spoken_Mickey Valen - Wildcard (feat. Feli Ferraro): 1.0
+        - svs_spoken_Wirtschaftswissenschaften: 1.0
     - checkpoint: check_studienrichtung
 
 - story: allgemein_studienrichtung_nichtvorhanden
