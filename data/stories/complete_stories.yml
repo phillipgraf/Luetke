@@ -133,7 +133,7 @@ stories:
   - action: action_studiengang_list_sr
   - intent: studiengang
     entities:
-      - studiengang: Cyver Security
+      - studiengang: Cyber Security
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true

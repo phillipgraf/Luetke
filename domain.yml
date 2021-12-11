@@ -45,7 +45,8 @@ intents:
     use_entities: true
 - was_kannst_du:
     use_entities: true
-- mehr
+- mehr:
+    use_entities: true
 entities:
 - abschluss
 - info
@@ -188,7 +189,7 @@ responses:
   utter_sichere_nachfrage:
   - text: Sind Sie sich sicher, dass ich Ihnen alle Studiengänge auflisten soll? Dann bestätigen Sie bitte mit einem Ja.
   utter_mehr_studiengang:
-    - text: 'Hier bitte sehr. Im folgenden habe ich Ihnen noch weitere Studiengänge der Studienrichtung {studienrichtung} rausgesucht:'
+  - text: 'Hier bitte sehr. Im folgenden habe ich Ihnen noch weitere Studiengänge der Studienrichtung {studienrichtung} rausgesucht:'
 actions:
 - action_info
 - action_info_list

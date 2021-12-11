@@ -87,7 +87,7 @@ class ActionStudiengang(Action):
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/desc").text
         )
-        if res == "":
+        if res == "No summary found" or res == "":
             dispatcher.utter_message(
                 text=f"Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich "
                      f"habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem "
