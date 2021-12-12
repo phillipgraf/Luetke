@@ -1,5 +1,6 @@
 version: "2.0"
 stories:
+### Begrüßung ####
 - story: begrueßung
   steps:
   - intent: begrueßung
@@ -7,6 +8,25 @@ stories:
   - intent: was_kannst_du
   - action: utter_was_kann_ich
   - checkpoint: check_begrueßung
+
+- story: start_allgemein
+  steps:
+  - checkpoint: check_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - checkpoint: check_weiterleitung
+
+- story: frage_nach_studienrichtung
+  steps:
+  - checkpoint: check_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - intent: frage_nach_studienrichtung
+  - action: utter_studienrichtung_auflisten
+  - action: action_studienrichtung
+  - checkpoint: check_weiterleitung
+
+### Fragen zur System Persona Lütke ###
 - story: fragen_ueber_luetke
   steps:
   - intent: begrueßung
@@ -14,7 +34,48 @@ stories:
   - intent: wer_bist_du
   - action: utter_wer_bin_ich
   - checkpoint: check_begrueßung
-- story: start_weiterleitung_direkt_nicht_vorhanden_studiengang
+
+### Direkte Nachfrage nach Studiengängen oder Informationen zu Studiengängen ###
+- story: direkt_studiengang_vorhanden
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: studiengang
+      entities:
+        - studiengang: Tourismusmanagement
+    - action: action_studiengang_vorhanden
+    - slot_was_set:
+        - studiengang_vorhanden: true
+    - action: utter_studiengang
+    - action: action_studiengang
+    - intent: info
+      entities:
+        - info: Zulassungsvorraussetzungen
+    - action: action_info
+    - action: action_info_nachfrage
+    - intent: info
+      entities:
+        - info: Jobs
+    - action: action_info_nachfrage
+    - intent: negation
+    - action: utter_nachfrage_ende
+    - intent: negation
+    - action: utter_verabschiedung
+    - action: action_restart
+
+- story: direkt_studiengang_nicht_vorhanden
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: info
+      entities:
+        - studiengang: Archälogie
+    - action: action_studiengang_vorhanden
+    - slot_was_set:
+        - studiengang_vorhanden: false
+    - action: utter_studiengang_nicht_vorhanden
+    - action: action_studienrichtung
+    - checkpoint: check_weiterleitung
+
+- story: direkt_mit_info_studiengang_nicht_vorhanden
   steps:
     - checkpoint: check_begrueßung
     - intent: studiengang
@@ -23,15 +84,11 @@ stories:
     - action: action_studiengang_vorhanden
     - slot_was_set:
         - studiengang_vorhanden: false
-    - action: utter_weiterleitung_an_studienrichtung
+    - action: utter_studiengang_nicht_vorhanden
     - action: action_studienrichtung
     - checkpoint: check_weiterleitung
-- story: start_allgemein
-  steps:
-  - checkpoint: check_begrueßung
-  - intent: allgemein
-  - action: utter_allgemein
-  - checkpoint: check_weiterleitung
+
+### Weiterleitungen / Storys zur Studienrichtung ###
 
 - story: allgemein_studienrichtung_informatik_vorhanden
   steps:
@@ -62,7 +119,6 @@ stories:
   - slot_was_set:
       - svs_spoken_Bautechnik und Umweltwissenschaften: 1.0
   - checkpoint: check_studienrichtung
-
 
 - story: allgemein_studienrichtung_Angewandte_Naturwissenschaften_vorhanden
   steps:
@@ -162,7 +218,8 @@ stories:
       - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
   - checkpoint: check_mehr_studiengang
 
-- story: mehr_studiengang
+### Mehr Studiengaenge ausgeben ###
+- story: Mehr Studiengaenge der Studienrichtung ausgeben
   steps:
     - checkpoint: check_mehr_studiengang
     - intent: mehr
@@ -172,14 +229,7 @@ stories:
         - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 2.0
     - checkpoint: check_studienrichtung
 
-- story: frage_nach_studienrichtung
-  steps:
-  - checkpoint: check_begrueßung
-  - intent: allgemein
-  - action: utter_allgemein
-  - intent: frage_nach_studienrichtung
-  - action: action_studienrichtung
-  - checkpoint: check_weiterleitung
+### Nach den Studienrichtung -> Studiengaenge überprüfen ####
 
 - story: allgemein_studienrichtung_studiengang_vorhanden
   steps:
@@ -194,27 +244,6 @@ stories:
   - action: action_studiengang
   - checkpoint: check_studiengang
 
-- story: info
-  steps:
-  - checkpoint: check_studiengang
-  - intent: info
-    entities:
-    - info: Regelstudienzeit
-  - action: action_info
-  - action: utter_info_nachfrage
-  - intent: bestaetigung
-  - intent: info
-    entities:
-    - info: Berufsbild
-  - action: action_info
-  - action: utter_info_nachfrage
-  - intent: negation
-  - action: utter_nachfrage_ende
-  - intent: negation
-  - action: utter_abschluss
-  - action: utter_verabschiedung
-  - action: action_restart
-
 - story: allgemein_studienrichtung_studiengang_nicht_vorhanden
   steps:
   - checkpoint: check_studienrichtung
@@ -224,7 +253,7 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: false
-  - action: utter_studiengang_nicht_vorhanden
+  - action: utter_studiengang_nicht_vorhanden_sr
   - action: action_studiengang_list_sr
   - intent: studiengang
     entities:
@@ -234,33 +263,26 @@ stories:
     - studiengang_vorhanden: true
   - checkpoint: check_studiengang
 
+### Nach der Wahl des Studiengangs nach Informationen zu diesem Fragen ###
 
-- story: direkt_studiengang_vorhanden
+- story: info
   steps:
-    - checkpoint: check_begrueßung
-    - intent: studiengang
-      entities:
-        - studiengang: Tourismusmanagement
-    - action: action_studiengang_vorhanden
-    - slot_was_set:
-        - studiengang_vorhanden: true
-    - action: utter_studiengang
-    - action: action_studiengang
-    - intent: info
-      entities:
-        - info: Zulassungsvorraussetzungen
-    - action: action_info
-    - action: utter_info_nachfrage
-    - action: action_info_list
-    - intent: info
-      entities:
-        - info: Jobs
-    - action: utter_info_nachfrage
-    - action: action_info_list
-    - intent: negation
-    - action: utter_nachfrage_ende
-    - intent: negation
-    - action: utter_abschluss
-    - action: utter_verabschiedung
-    - action: action_restart
+  - checkpoint: check_studiengang
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+  - action: action_info
+  - action: action_info_nachfrage
+  - intent: bestaetigung
+  - intent: info
+    entities:
+    - info: Berufsbild
+  - action: action_info
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_restart
 
+### Verabschieden oder das Gespräch neustarten mit Suche nach neuem Studiengang ###

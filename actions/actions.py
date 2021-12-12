@@ -47,11 +47,12 @@ class ActionStudienrichtung(Action):
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/fields").text
         )
-        x = ""
-        for i in res:
-            x = x + "\n\t> " + str(i)
+
+        res = " \n\t> " + " \n\t> ".join(res) + "\n "
+
         dispatcher.utter_message(
-            text=f"Dies sind alle uns Verfügbaren Studienrichtungen: {x}\n Welche davon klingt für Sie interessant?")
+            text=f"{res}\n \n Wählen Sie davon bitte Ihre bevorzugte Studienrichtung aus,"
+                 f" damit ich meine Suche nach einem Studiengang noch weiter einschränken kann.")
         return []
 
 
@@ -89,13 +90,14 @@ class ActionStudiengang(Action):
         )
         if res == "No summary found" or res == "":
             dispatcher.utter_message(
-                text=f"Oh das ist aber schade. Leider fehlt die Beschreibung des Studiengangs in meinem Lexikon. Ich "
-                     f"habe aber trotzdem ein paar Infos zu diesem gefunden. Sie können z.B. nach folgendem "
-                     f"fragen:\n{list_info_3(tracker)}")
+                text=f"Oh das tut mir jetzt sehr Leid. Aber ich finde in unserem Verzeichnis keine Beschreibung zu dem "
+                     f"Studiengang {major}. Zu dem Studiengang stehen hier nur Informationen zu folgenden Kategorien: "
+                     f"\n{list_info_3(tracker, 'beschreibung')} \n\nNennen Sie mir doch bitte die Kategorie zu der ich Ihnen "
+                     f"die Informationen vorlesen soll.")
         else:
             dispatcher.utter_message(
                 text=f" \n{res}\n \nMöchten Sie noch mehr über diesen Studiengang erfahren? Im Inhaltsverzeichnis habe "
-                     f"ich dazu noch folgende Kategorien gefunden: \n \n{list_info_3(tracker)}")
+                     f"ich dazu noch folgende Kategorien gefunden: \n \n{list_info_3(tracker, 'beschreibung')}")
         return []
 
 
@@ -147,9 +149,8 @@ class ActionStudiengangListVonStudienrichtung(Action):
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
         )
-        x = ""
-        for i in res:
-            x = x + "\n\t> " + str(i)
+        x = "Bachelor Studiengänge: \n" + " \n\t> ".join(
+            res[0]["bachelor"]) + "Master Studiengänge: \n" + " \n\t> ".join(res[0]["master"])
         dispatcher.utter_message(text=f"Okay. Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x}")
         return []
 
@@ -224,19 +225,22 @@ class ActionInfo(Action):
             dispatcher.utter_message(
                 text=f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle "
                      f"verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es "
-                     f"zum Beispiel mit einer dieser:\n\n{list_info_3(tracker)}")
+                     f"zum Beispiel mit einer dieser:\n\n{list_info_3(tracker, info)}")
         else:
             if isinstance(res, list):
-                res = " \n\t> "+" \n\t> ".join(res) + "\n "
+                res = " \n\t> " + " \n\t> ".join(res) + "\n "
+            if res == "'name': 'Kein Studiengang mit diesem Namen gefunden!'":
+                dispatcher.utter_message(response="utter_studiengang_nicht_vorhanden")
+
             dispatcher.utter_message(text=f"Zur Information {info} konnte ich folgendes finden: {res}")
 
         return []
 
 
-class ActionInfoList(Action):
-    # Listet 3 Kategorien der Info auf
+class ActionInfoNachfrage(Action):
+    # Fragt nach ob der User noch mehr wissen möchte.
     def name(self) -> Text:
-        return "action_info_list"
+        return "action_info_nachfrage"
 
     def run(
             self,
@@ -244,8 +248,8 @@ class ActionInfoList(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        x = list_info_3(tracker)
-        dispatcher.utter_message(text=f"{x}")
+        info = tracker.get_slot("info")
+        dispatcher.utter_message(response="utter_info_nachfrage", text=f" \n\t{list_info_3(tracker, info)}")
         return []
 
 
@@ -327,14 +331,12 @@ class ActionDefaultFallback(Action):
         return []
 
 
-def list_info_3(tracker: Tracker):
+def list_info_3(tracker: Tracker, info=""):
     major = tracker.get_slot("studiengang")
     res = json.loads(
         requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
     )
-    resp = [f"\n\t> {x.capitalize()}" for x in random.sample(res, 3)]
 
-    x = ""
-    for i in resp:
-        x = x + str(i)
-    return x
+    resp = [f"\n\t> {x.capitalize()}" for x in random.sample([r for r in res if r != info], 3)]
+
+    return "".join(resp)

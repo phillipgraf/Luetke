@@ -129,6 +129,8 @@ nlu:
     - Ich suche nach einem passenden Studiengang für  mich.
     - Ich suche nach einen Studiengang
     - Ich suche nach einen Studiengang.
+    - Was für Studiengänge bietet die Hochschule an?
+    - Was für Studiengänge gibt es den?
 - intent: studienrichtung
   examples: |
     - Ich suche einen Studiengang der was mit [Finanzen]{"entity": "studienrichtung", "value": "Wirtschaftswissenschaften"} zu tun hat.
@@ -154,17 +156,21 @@ nlu:
     - [Energy Systems Engineering](studiengang) klingt sehr interessant.
     - Was kannst du mir den über [Technisches Design](studiengang) sagen?
     - [Betriebswirtschaft](studiengang)
+
 - intent: info
   examples: |
     - Wie viele [Semester](info) studiert man den [Wirtschaftsinformatik](studiengang)?
     - Was kann ich später damit [beruflich](info) machen?
     - Welche Studiengänge könnte ich im [Anschluss](info) studieren?
     - Welche [Vorraussetzungen](info) brauch ich überhaupt um das studieren zu können?
+    - Wie [lange](info) studiert man [Cyber Security](studiengang)?
+
 - intent: frage_nach_studienrichtung
   examples: |
     - Weiß nicht. Welche gibt es den?
     - Keine Ahnung. Was habt ihr den für Richtungen?
     - Welche Richtugnen gibt es den?
+    - Welche Richtungen gitb es den?
     - Welche Studienrichtungen gibt es den?
     - Welche Studienrichtung gibt es den?
 

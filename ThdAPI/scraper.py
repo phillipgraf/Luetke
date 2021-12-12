@@ -147,7 +147,7 @@ class ThdScraper:
             summaryPage = self.getFacultPagePart("summary")
             longest_string = max([x.text for x in summaryPage.find_all("p")], key=len)
             return '. '.join(longest_string.split('.')[:3])+'.'
-        except Exception:
+        except Exception as e:
             return "No summary found"
 
     def getKeywordsForMajor(self, major):

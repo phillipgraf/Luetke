@@ -18,17 +18,16 @@ pipeline:
   min_ngram: 1
   max_ngram: 4
 - name: DIETClassifier
+  model_confidence: linear_norm
   epochs: 100
   constrain_similarities: true
-  case_sensitive: False
-  use_lookup_tables: True
-  use_regexes: True
 - name: RegexEntityExtractor
   case_sensitive: False
   use_lookup_tables: True
   use_regexes: True
 - name: EntitySynonymMapper
 - name: ResponseSelector
+  model_confidence: linear_norm
   epochs: 100
   constrain_similarities: true
 - name: FallbackClassifier
@@ -44,6 +43,7 @@ policies:
 - name: MemoizationPolicy
 - name: RulePolicy
 - name: TEDPolicy
+  model_confidence: linear_norm
   max_history: 5
   epochs: 100
   constrain_similarities: true

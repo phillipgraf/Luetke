@@ -3,6 +3,9 @@ nlu:
 - synonym: Regelstudienzeit
   examples: |
     - Semester
+    - lange
+    - lang
+    - dauer
 - synonym: Berufsbild
   examples: |
     - beruflich
