@@ -1,25 +1,25 @@
 import requests
 import json
-import os
 from bs4 import BeautifulSoup
 
 
-class ThdScraper:
-    """ Class to automate our we  
+class Major:
+    def __init__(self, major, link, field, degree):
+        self.major = major
+        self.link = link
+        self.field = field
+        self.categories = []
+        self.degree = degree
 
-    """
+    def __str__(self):
+        str = "\n> ".join(self.categories)
+        return f"{self.major}:\n> {self.link}\n> {self.degree}\n> {self.field}\n> {str}"
+
+class ThdScraper:
+    """Class to automate our web scraping"""
+
     def __init__(self):
-        self.categories = [
-            "studienabschluss",
-            "regelstudienzeit",
-            "studienbeginn",
-            "studienort",
-            "unterrichtssprache",
-            "schwerpunkte",
-            "zulassungsvoraussetzung",
-            "studentenwerksbeitrag",
-            "kontakt"
-        ]
+        self.majors = []
         self.URL = "https://th-deg.de"
         page = requests.get(self.URL + "/studienfelder")
         soup = BeautifulSoup(page.content, "html.parser")
@@ -35,52 +35,46 @@ class ThdScraper:
         for sg in studiengaenge:
             self.sg1.append(sg.find_all("div", class_="card-body"))
 
-        self.links = {}
-        self.sg2 = []
+        deg = ""
         for idx, s in enumerate(self.sg1):
-            self.sg2.append({})
             for s in s:
                 title = s.find("p").text.strip()
                 if title.replace(".", "").lower() == "bachelor":
-                    self.sg2[idx][title.replace(".", "").lower()] = []
+                    deg = "Bachelor"
                     continue
                 if title.replace(".", "").lower() == "master":
-                    self.sg2[idx][title.replace(".", "").lower()] = []
+                    deg = "Master"
                     continue
                 link = s.find("a")
-                self.sg2[idx][
-                "bachelor" if len(self.sg2[idx]) == 1 else "master"
-                ].append(title.replace("/", "_"))
-                self.links[title.replace("/", "_")] = self.URL + link.get("href")
-
-        self.studien = {}
-        self.studToField = {x: "" for x in list(self.links.keys())}
-        for idx, i in enumerate(self.felder):
-            if i in self.studien:
-                self.studien[i].append(self.sg2[idx])
-            else:
-                self.studien[i] = [self.sg2[idx]]
-        for f in self.felder:
-            fls = self.studien[f][0]["bachelor"] + self.studien[f][0]["master"]
-            for fss in fls:
-                self.studToField[fss] = f
+                self.majors.append(
+                    Major(
+                        degree=deg,
+                        major=title.replace("/", "_"),
+                        link=self.URL + link.get("href"),
+                        field=self.felder[idx],
+                    )
+                )
 
     def getStudyFields(self):
+        """ Returns all possible fields"""
         return self.felder
 
     def getStudyMajorsForField(self, feld):
-        return self.studien[feld]
+        """ Return all majors for a certain field, divided by degree
+        """
+        return {"bachelor": [x.major for x in self.majors if x.field == feld and x.degree == "Bachelor"], "master": [[x.major for x in self.majors if x.field == feld and x.degree == "Master"]]}
 
-    def setFacultPage(self, major):
-        if self.pageSource != self.links[major]:
-            self.pageSource = self.links[major]
-            page = requests.get(self.links[major])
-            self.page = BeautifulSoup(
-                page.content, "html.parser"
-            )
-
+    def setFacultPage(self, link):
+        """ Set new URL to be parsed and set requested html page
+        """
+        if self.pageSource != link:
+            self.pageSource = link
+            page = requests.get(link)
+            self.page = BeautifulSoup(page.content, "html.parser")
 
     def getFacultPagePart(self, title):
+        """ Returns certain part of the html page from major based on title
+        """
         if title == "summary":
             return self.page.find("div", class_="fakultaet-text-info")
         for s in self.page.find_all("div", class_="section_title"):
@@ -88,32 +82,9 @@ class ThdScraper:
             if title in h2.text.lower():
                 return s.parent
 
-    def getAllInfo(self, major):
-        self.setFacultPage(major)
-        information = []
-        information.append(f"# {major}\n")
-        information.append(f"# {self.links[major]}\n\n\n")
-
-        information.append("intent: job\n")
-        for x in self.getJobInfoForMajor(major):
-            information.append(f"\t- {x.lower().strip()}\n")
-
-        information.append("\nintent: summary\n")
-        information.append(f"\t- {self.getSummaryForMajor(major).lower().strip()}\n")
-
-        information.append("\nintent: keywords\n")
-        for x in self.getKeywordsForMajor(major):
-            information.append(f"\t- {x.lower().strip()}\n")
-
-        information.append("\nintent: characteristics\n")
-        for x in self.getInfoForMajor(major):
-            information.append(f"\t- {x.lower().strip()}\n")
-        self.page = None
-        return information
-
     def getInfoForMajor(self, major):
-        """get Steckbrief"""
-        self.setFacultPage(major)
+        """get wanted page"""
+        self.setFacultPage(major.link)
         steckbriefdict = {}
         try:
             steckbriefpage = self.getFacultPagePart("steckbrief")
@@ -124,16 +95,16 @@ class ThdScraper:
                         x.text for x in lists.pop().find_all("li")
                     ]
                 else:
-                    steckbriefdict[x.text.split(":")[0].strip().lower()] = x.text.split(":")[
-                    1
-                    ].strip()
+                    steckbriefdict[x.text.split(":")[0].strip().lower()] = x.text.split(
+                        ":"
+                    )[1].strip()
         except Exception:
             return steckbriefdict
         return steckbriefdict
 
     def getJobInfoForMajor(self, major):
         """Get job information for major"""
-        self.setFacultPage(major)
+        self.setFacultPage(major.link)
         try:
             job = self.getFacultPagePart("berufsbild")
             return [x.text for x in job.find_all("li") if x.text != "u.v.m"]
@@ -141,79 +112,49 @@ class ThdScraper:
             return ["No jobs found"]
 
     def getSummaryForMajor(self, major):
-        """Get Summary from the major job"""
-        self.setFacultPage(major)
+        """Get Summary from the major"""
+        self.setFacultPage(major.link)
         try:
             summaryPage = self.getFacultPagePart("summary")
             longest_string = max([x.text for x in summaryPage.find_all("p")], key=len)
-            return '. '.join(longest_string.split('.')[:3])+'.'
+            return '. '.join(longest_string.split('.')[:4])+'.'
         except Exception as e:
             return "No summary found"
 
     def getKeywordsForMajor(self, major):
-        self.setFacultPage(major)
+        """ Method that returns all keywords for a certain major
+        """
+        self.setFacultPage(major.link)
         summaryPage = self.getFacultPagePart("summary")
         try:
             return [x.text for x in summaryPage.find_all("li")]
         except Exception:
             return ["No Keywords found"]
 
-    def downloadAll(self):
-        try:
-            os.makedirs("./Scriptdata")
-        except OSError as error:
-            pass
-        with open("./Scriptdata/fields.yml", "w+") as fields:
-            fields.write("intent: fields\n")
-            for f in x.felder:
-                fields.write(f"\t- {f.lower().strip()}\n")
-
-        with open("./Scriptdata/majors.yml", "w+") as majors:
-            majors.write("intent: majors\n")
-            for m in x.links.keys():
-                majors.write(f"\t- {m.lower().strip()}\n")
-
-        for major in x.links.keys():
-            major = major.replace("/", "_")
-            with open(f"./Scriptdata/{major}.yml", "w+") as majors:
-                infos = x.getAllInfo(major)
-                for i in infos:
-                    majors.write(i)
-
     def getCategory(self, major):
+        """ Returns Dictionary of Categories with their value
+        """
         l = self.getInfoForMajor(major)
-        return {x.lower():l[x] for x in l}
-
-    def getDegreeForMajor(self, major):
-        field = self.studToField[major]
-        if major in self.studien[field][0]["bachelor"]:
-            if major in self.studien[field][0]["master"]:
-                return ["Bachelor", "Master"]
-            else:
-                return ["Bachelor"]
-        elif major in self.studien[field][0]["master"]:
-            return ["Master"]
+        return {x: l[x] for x in l}
 
     def makeAllPretty(self, type):
+        """ Method to create valid JSON objects and writes them into appropriate files
+        """
         if type == "majors":
             majors = []
-            for idx, major in enumerate(list(self.links.keys())):
+            for idx, major in enumerate(self.majors):
                 categories = self.getCategory(major)
                 entry = {
-                    #"id": idx,
                     "beschreibung": self.getSummaryForMajor(major),
                     "schwerpunkte": self.getKeywordsForMajor(major),
-                    "name": major,
-                    "studienrichtung": self.studToField[major],
+                    "name": major.major,
+                    "studienrichtung": major.field,
                     "berufsbild": self.getJobInfoForMajor(major),
-                    #"link": self.links[major],
-                    "abschluss": self.getDegreeForMajor(major)
+                    "abschluss": major.degree
                 }
                 entry.update(categories)
                 majors.append(entry)
             with open("./majors.json", "w+") as f:
-                # for p in majors:
-                #     print(p, file=f)
                 f.write(json.dumps(majors))
             self.cleanFile("./majors.json")
             return majors
@@ -228,17 +169,18 @@ class ThdScraper:
                 }
                 fields.append(entry)
             with open("./fields.json", "w+") as f:
-                # for p in fields:
-                #     print(p, file=f)
                 f.write(json.dumps(fields))
             self.cleanFile("./fields.json")
             return fields
 
     def cleanFile(self, filename):
-        with open(filename, 'r') as file :
+        """ Makes File syntax valid for json format, changes " to '
+        filename - path to the to be written file
+        """
+        with open(filename, "r") as file:
             filedata = file.read()
-            
-        filedata = filedata.replace('\'', '"')
-            
-        with open(filename, 'w+') as file:
+
+        filedata = filedata.replace("'", '"')
+
+        with open(filename, "w+") as file:
             file.write(filedata)

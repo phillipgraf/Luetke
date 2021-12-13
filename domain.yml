@@ -45,6 +45,8 @@ intents:
     use_entities: true
 - mehr:
     use_entities: true
+- abschluss:
+    use_entities: true
 entities:
 - abschluss
 - info
@@ -52,6 +54,11 @@ entities:
 - studienrichtung
 slots:
   abschluss:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  abschluss_notwendig:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
@@ -151,10 +158,8 @@ responses:
   - text: 'Dies sind alle uns Verfügbaren Studienrichtungen:'
   utter_studienrichtung_nicht_vorhanden:
   - text: 'Oh. Verzeihen Sie mir, aber die technische Hochschule bietet nur folgenden Studienrichtungen an: '
-  utter_studiengang:
-  - text: Sehr gute Wahl! Einen Moment bitte. Ich schau kurz im Verzeichnis der Hochschule nach.
   utter_studiengang_nicht_vorhanden_sr:
-  - text: 'Das tut mir leid, wir bieten {studiengang} leider nicht an. Wählen Sie doch bitte einen aus der Ihr präferierten Richtung aus:'
+  - text: Das tut mir leid, wir bieten {studiengang} leider nicht an. Im folgenden eine Liste der Studienrichtungen an der THD.
   utter_studiengang_nicht_vorhanden:
   - text: 'Diesen Studiengang kann ich leider nicht im Verzeichniss finden. Die Hochschule bietet nur Studiengänge in folgenden Richtungen an:'
   utter_info_auswahl_hilfe2:
@@ -184,6 +189,7 @@ actions:
 - action_studienrichtung
 - action_studienrichtung_vorhanden
 - action_wiederholen
+- action_abschluss_ueberpruefen
 - utter_allgemein
 - utter_begrueßung
 - utter_studiengang_nicht_vorhanden

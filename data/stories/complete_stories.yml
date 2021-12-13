@@ -36,7 +36,7 @@ stories:
   - checkpoint: check_begrueßung
 
 ### Direkte Nachfrage nach Studiengängen oder Informationen zu Studiengängen ###
-- story: direkt_studiengang_vorhanden
+- story: direkt_studiengang_vorhanden_abschluss_notwendig
   steps:
     - checkpoint: check_begrueßung
     - intent: studiengang
@@ -45,22 +45,29 @@ stories:
     - action: action_studiengang_vorhanden
     - slot_was_set:
         - studiengang_vorhanden: true
-    - action: utter_studiengang
+    - action: action_abschluss_ueberpruefen
+    - slot_was_set:
+        - abschluss_notwendig: true
+    - intent: abschluss
+    - slot_was_set:
+        - abschluss: bachelor
     - action: action_studiengang
-    - intent: info
+    - checkpoint: check_studiengang
+
+- story: direkt_studiengang_vorhanden_abschluss_nicht_notwendig
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: studiengang
       entities:
-        - info: Zulassungsvorraussetzungen
-    - action: action_info
-    - action: action_info_nachfrage
-    - intent: info
-      entities:
-        - info: Jobs
-    - action: action_info_nachfrage
-    - intent: negation
-    - action: utter_nachfrage_ende
-    - intent: negation
-    - action: utter_verabschiedung
-    - action: action_restart
+        - studiengang: Pflege
+    - action: action_studiengang_vorhanden
+    - slot_was_set:
+        - studiengang_vorhanden: true
+    - action: action_abschluss_ueberpruefen
+    - slot_was_set:
+        - abschluss_notwendig: false
+    - action: action_studiengang
+    - checkpoint: check_studiengang
 
 - story: direkt_studiengang_nicht_vorhanden
   steps:
@@ -231,7 +238,7 @@ stories:
 
 ### Nach den Studienrichtung -> Studiengaenge überprüfen ####
 
-- story: allgemein_studienrichtung_studiengang_vorhanden
+- story: allgemein_studienrichtung_studiengang_vorhanden_abschluss_notwendig
   steps:
   - checkpoint: check_studienrichtung
   - intent: studiengang
@@ -240,11 +247,31 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
-  - action: utter_studiengang
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+      - abschluss_notwendig: true
+  - intent: abschluss
+  - slot_was_set:
+      - abschluss: master
   - action: action_studiengang
   - checkpoint: check_studiengang
 
-- story: allgemein_studienrichtung_studiengang_nicht_vorhanden
+- story: allgemein_studienrichtung_studiengang_vorhanden_abschluss_nicht_notwendig
+  steps:
+  - checkpoint: check_studienrichtung
+  - intent: studiengang
+    entities:
+    - studiengang: Physician Assistant
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+      - abschluss_notwendig: false
+  - action: action_studiengang
+  - checkpoint: check_studiengang
+
+- story: allgemein_studienrichtung_studiengang_nicht_vorhanden_abschluss_abschluss_notwendig
   steps:
   - checkpoint: check_studienrichtung
   - intent: studiengang
@@ -261,6 +288,36 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - intent: abschluss
+  - slot_was_set:
+    - abschluss: bachelor
+  - action: action_studiengang
+  - checkpoint: check_studiengang
+
+- story: allgemein_studienrichtung_studiengang_nicht_vorhanden_abschluss_nicht_notwendig
+  steps:
+  - checkpoint: check_studienrichtung
+  - intent: studiengang
+    entities:
+    - studiengang: Biologie
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: false
+  - action: utter_studiengang_nicht_vorhanden_sr
+  - action: action_studiengang_list_sr
+  - intent: studiengang
+    entities:
+      - studiengang: Physician Assistant
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: false
+  - action: action_studiengang
   - checkpoint: check_studiengang
 
 ### Nach der Wahl des Studiengangs nach Informationen zu diesem Fragen ###
@@ -272,12 +329,34 @@ stories:
     entities:
     - info: Regelstudienzeit
   - action: action_info
+  - action: utter_info_nachfrage
   - action: action_info_nachfrage
   - intent: bestaetigung
   - intent: info
     entities:
     - info: Berufsbild
   - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_restart
+
+- story: info 2
+  steps:
+  - checkpoint: check_studiengang
+  - intent: info
+    entities:
+    - info: Zulassungsvorraussetzungen
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Jobs
+  - action: utter_info_nachfrage
   - action: action_info_nachfrage
   - intent: negation
   - action: utter_nachfrage_ende

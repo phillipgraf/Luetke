@@ -15,13 +15,13 @@ rules:
   - action: utter_studienrichtung_nicht_vorhanden
   - action: action_studienrichtung
 
-- rule: Reagiere wenn es die Studiengang nicht gibt
+- rule: Reagiere wenn es den Studiengang nicht gibt
   condition:
     - slot_was_set:
         - studiengang_vorhanden: false
   steps:
   - action: utter_studiengang_nicht_vorhanden
-  - action: action_studiengang_list_sr
+  - action: action_studienrichtung
 
 - rule: Bei direkter Nachfrage gebe prägnante info aus
   steps:

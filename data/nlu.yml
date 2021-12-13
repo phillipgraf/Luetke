@@ -189,6 +189,14 @@ nlu:
     - Was machst du?
     - Wie benutze ich dich?
 
+- intent: abschluss
+  examples: |
+    - [Master](abschluss)
+    - [Bachelor](abschluss)
+    - den [Master](abschluss) Studiengang
+    - den [Bachelor](abschluss) Studiengang
+    - [Wirtschaftsinformatik](studiengang) im [bachelor](abschluss)
+
 - synonym: Bautechnik und Umweltwissenschaften
   examples: |
     - Architektur

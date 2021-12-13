@@ -48,14 +48,15 @@ class ActionStudienrichtung(Action):
             requests.get(f"http://127.0.0.1:5000/fields").text
         )
 
-        res = " \n\t> " + " \n\t> ".join(res) + "\n "
+        res = " \n \t> " + " \n\t> ".join(res) + "\n "
 
         dispatcher.utter_message(
-            text=f"{res}\n \n Wählen Sie davon bitte Ihre bevorzugte Studienrichtung aus,"
-                 f" damit ich meine Suche nach einem Studiengang noch weiter einschränken kann.")
+            text=f"{res}\n Wählen Sie davon bitte Ihre bevorzugte Studienrichtung aus,"
+                 f" damit ich meine Suche nach einem Studiengang der THD noch weiter einschränken kann.")
         return []
 
 
+### STUDIENGANG ACTIONS
 class ActionStudiengangVorhanden(Action):
     def name(self) -> Text:
         return "action_studiengang_vorhanden"
@@ -73,6 +74,29 @@ class ActionStudiengangVorhanden(Action):
         return [SlotSet("studiengang_vorhanden", res["exists"])]
 
 
+class ActionAbschlussVorhanden(Action):
+    def name(self) -> Text:
+        return "action_abschluss_ueberpruefen"
+
+    def run(
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        major = tracker.get_slot("studiengang")
+        res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/beschreibung").text
+        )
+
+        if res == "Error. Fehlender Abschluss.":
+            dispatcher.utter_message(
+                text="Das ist eine sehr gute Wahl. Die Hochschule bietet diesen Studiengang allerdings als Bachelor, sowie als Master Abschluss an. "
+                     "Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.")
+            return [SlotSet("abschluss_notwendig", True)]
+        return [SlotSet("abschluss_notwendig", False)]
+
+
 class ActionStudiengang(Action):
     # Gibt die Beschreibung des Studiengangs aus
     def name(self) -> Text:
@@ -85,19 +109,30 @@ class ActionStudiengang(Action):
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         major = tracker.get_slot("studiengang")
+        abschluss = tracker.get_slot("abschluss")
         res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/beschreibung").text
+        ) if abschluss != None else json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/beschreibung").text
         )
+
         if res == "No summary found" or res == "":
             dispatcher.utter_message(
                 text=f"Oh das tut mir jetzt sehr Leid. Aber ich finde in unserem Verzeichnis keine Beschreibung zu dem "
                      f"Studiengang {major}. Zu dem Studiengang stehen hier nur Informationen zu folgenden Kategorien: "
                      f"\n{list_info_3(tracker, 'beschreibung')} \n\nNennen Sie mir doch bitte die Kategorie zu der ich Ihnen "
                      f"die Informationen vorlesen soll.")
+        elif res == "Error.  Fehlender Abschluss":
+            dispatcher.utter_message(text="Oh. Ich brauch nochmal bitte Ihre Hilfe. Ich sehe gerade die Hochschule bietet diesen Studiengang als Bachelor, sowie als Master Abschluss an. "
+                     "Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.")
+            return [SlotSet("abschluss_notwendig", True)]
         else:
             dispatcher.utter_message(
-                text=f" \n{res}\n \nMöchten Sie noch mehr über diesen Studiengang erfahren? Im Inhaltsverzeichnis habe "
-                     f"ich dazu noch folgende Kategorien gefunden: \n \n{list_info_3(tracker, 'beschreibung')}")
+                text=f" Sehr gute Wahl! Einen Moment bitte. Ich schau kurz in meinem schlauen Büchlein nach."
+                     f"Da steht zu dem Studiengang {major} folgendes "
+                     f"geschrieben:\n {res}\n \nMöchten Sie noch mehr über "
+                     f"diesen Studiengang erfahren? Im Inhaltsverzeichnis habe "
+                     f"ich dazu noch folgende Kategorien gefunden: \n {list_info_3(tracker, 'beschreibung')}")
         return []
 
 
@@ -125,7 +160,7 @@ class ActionStudiengang(Action):
             for i in res[0][abschluss.lower()][amount - 3:amount]:
                 x = x + "\n\t> " + str(i)
         else:
-            f = res[0]["bachelor"] + res[0]["master"]
+            f = res["bachelor"] + res["master"]
             for i in f[:3]:
                 x = x + "\n\t> " + str(i)
 
@@ -206,6 +241,7 @@ class ActionStudiengangListAll(Action):
         return []
 
 
+### INFO Actions
 class ActionInfo(Action):
     def name(self) -> Text:
         return "action_info"
@@ -218,7 +254,10 @@ class ActionInfo(Action):
     ) -> List[Dict[Text, Any]]:
         major = tracker.get_slot("studiengang")
         info = tracker.get_slot("info")
+        abschluss = tracker.get_slot("abschluss")
         res = json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/{info}").text
+        ) if abschluss != None else json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
         )
         if "info" in res:
@@ -230,7 +269,7 @@ class ActionInfo(Action):
             if isinstance(res, list):
                 res = " \n\t> " + " \n\t> ".join(res) + "\n "
             if res == "'name': 'Kein Studiengang mit diesem Namen gefunden!'":
-                dispatcher.utter_message(response="utter_studiengang_nicht_vorhanden")
+                dispatcher.utter_message(template="utter_studiengang_nicht_vorhanden")
 
             dispatcher.utter_message(text=f"Zur Information {info} konnte ich folgendes finden: {res}")
 
@@ -249,7 +288,7 @@ class ActionInfoNachfrage(Action):
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         info = tracker.get_slot("info")
-        dispatcher.utter_message(response="utter_info_nachfrage", text=f" \n\t{list_info_3(tracker, info)}")
+        dispatcher.utter_message(text=f" \n\t{list_info_3(tracker, info)}")
         return []
 
 
@@ -265,9 +304,12 @@ class ActionInfoListAll(Action):
     ) -> List[Dict[Text, Any]]:
         if "Sonnenvogel" in tracker.latest_message:
             major = tracker.get_slot("studiengang")
+            abschluss = tracker.get_slot("abschluss")
             res = json.loads(
-                requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
-            )
+                requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/categories").text
+            ) if abschluss != None else json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
+        )
             resp = [f"\n\t> {x.capitalize()}" for x in res]
 
             x = ""
@@ -277,6 +319,7 @@ class ActionInfoListAll(Action):
         return []
 
 
+###TODO Actions
 class ActionWiederholen(Action):
     # wiederholt alles bis zum letzen user input
     def name(self) -> Text:
@@ -331,12 +374,18 @@ class ActionDefaultFallback(Action):
         return []
 
 
+### Hilfs Funktion ###
 def list_info_3(tracker: Tracker, info=""):
     major = tracker.get_slot("studiengang")
+    abschluss = tracker.get_slot("abschluss")
     res = json.loads(
-        requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
-    )
+        requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/categories").text
+    ) if abschluss != None else json.loads(
+            requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
+        )
 
-    resp = [f"\n\t> {x.capitalize()}" for x in random.sample([r for r in res if r != info], 3)]
-
+    try:
+        resp = [f"\n\t> {x.capitalize()}" for x in random.sample([r for r in res if r != info], 3)]
+    except Exception:
+        return "Leider ist ein Fehler aufgetreten. Bitte überprüfen Sie den Source Code."
     return "".join(resp)
