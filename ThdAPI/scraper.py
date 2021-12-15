@@ -135,7 +135,7 @@ class ThdScraper:
         """ Returns Dictionary of Categories with their value
         """
         l = self.getInfoForMajor(major)
-        return {x: l[x] for x in l}
+        return {x: l[x] for x in l if len(l[x]) > 0}
 
     def makeAllPretty(self, type):
         """ Method to create valid JSON objects and writes them into appropriate files
@@ -144,14 +144,20 @@ class ThdScraper:
             majors = []
             for idx, major in enumerate(self.majors):
                 categories = self.getCategory(major)
-                entry = {
-                    "beschreibung": self.getSummaryForMajor(major),
-                    "schwerpunkte": self.getKeywordsForMajor(major),
-                    "name": major.major,
-                    "studienrichtung": major.field,
-                    "berufsbild": self.getJobInfoForMajor(major),
-                    "abschluss": major.degree
-                }
+                entry = {}
+                if len(self.getSummaryForMajor(major)) > 0:
+                    entry.update({"beschreibung": self.getSummaryForMajor(major)})
+                if len(self.getKeywordsForMajor(major)) > 0:
+                    entry.update({"schwerpunkte": self.getKeywordsForMajor(major)})
+                if len(major.major) > 0:
+                    entry.update({"name": major.major})
+                if len(major.field) > 0:
+                    entry.update({"studienrichtung": major.field})
+                if len(self.getJobInfoForMajor(major)) > 0:
+                    entry.update({"berufsbild": self.getJobInfoForMajor(major)})
+                if len(major.degree) > 0:
+                    entry.update({"abschluss": major.degree})
+
                 entry.update(categories)
                 majors.append(entry)
             with open("./majors.json", "w+") as f:

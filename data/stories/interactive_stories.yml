@@ -1,0 +1,184 @@
+
+version: "2.0"
+stories:
+- story: interactive_story_1
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - slot_was_set:
+    - abschluss: Bachelor
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
+
+- story: interactive_story_1
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Mechatronik
+  - slot_was_set:
+    - studiengang: Mechatronik
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: false
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Studienbeginn
+  - slot_was_set:
+    - info: Studienbeginn
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Vorkenntnisse
+  - slot_was_set:
+    - info: Vorkenntnisse
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Unterrichtssprache
+  - slot_was_set:
+    - info: Unterrichtssprache
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
+
+- story: interactive_story_1
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+    - studienrichtung: Philosophie
+  - slot_was_set:
+    - studienrichtung: Philosophie
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: false
+  - action: utter_studiengang_nicht_vorhanden
+  - action: action_studienrichtung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Angewandte Naturwissenschaften
+  - slot_was_set:
+    - studienrichtung: Angewandte Naturwissenschaften
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Angewandte Naturwissenschaften: 1.0
+  - intent: studiengang
+    entities:
+    - studiengang: Industrial Engineering
+  - slot_was_set:
+    - studiengang: Industrial Engineering
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: false
+  - action: action_studiengang
+  - intent: info
+    entities:
+    - info: Studienabschluss
+  - slot_was_set:
+    - info: Studienabschluss
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Regelstudienzeit
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Berufsbild
+  - slot_was_set:
+    - info: Berufsbild
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Schwerpunkte
+  - slot_was_set:
+    - info: Schwerpunkte
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Gebühren
+  - slot_was_set:
+    - info: Gebühren
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Bewerbung
+  - slot_was_set:
+    - info: Bewerbung
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: info
+    entities:
+    - info: Wohnmöglichkeiten
+  - slot_was_set:
+    - info: Wohnmöglichkeiten
+  - action: action_info
+  - intent: verabschiedung
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot

@@ -1,96 +1,96 @@
 version: "2.0"
 
 nlu:
-  - lookup: studiengang
-    examples: |
-      - Angewandte Informatik _ Infotronik
-      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
-      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreuung im Sport
-      - Angewandte Volkswirtschaftslehre
-      - Angewandte Wirtschaftspsychologie
-      - Artificial Intelligence
-      - Automotive Electronics
-      - Bau- und Umweltingenieurwesen
-      - Bauingenieurwesen
-      - Berufspädagogik - Gesundheit & Pflege
-      - Betriebliches Management
-      - Betriebswirtschaft
-      - Cyber Security
-      - Digital Business Engineering
-      - Digital Health
-      - Elektro- und Informationstechnik
-      - Elektromobilität, autonomes Fahren und mobile Robotik
-      - Energy Systems Engineering
-      - Gesundheitsinformatik
-      - Global Public Health
-      - Health Informatics
-      - Healthy and Sustainable Buildings
-      - High Performance Computing _ Quantum Computing
-      - Human Resource Management
-      - Industrial Engineering
-      - Interaktive Systeme _ Internet of Things
-      - Interdisziplinäre Ingenieurwissenschaften
-      - International Management
-      - International Tourism Development
-      - International Tourism Management _ Health and Medical Tourism
-      - Künstliche Intelligenz
-      - Life Science Informatics
-      - MBA General Management
-      - MBA Unternehmensgründung und -führung
-      - Management im Gesundheits-, Sozial- und Rettungswesen
-      - Management mit Schwerpunktwahl
-      - Maschinenbau
-      - Mechatronic and Cyber-Physical Systems (in Deggendorf)
-      - Mechatronik
-      - Mechatronik - Schwerpunkt Digitale Produktion (in Cham)
-      - Medientechnik
-      - Medientechnik und Medienproduktion
-      - Pädagogik im Rettungswesen
-      - Pflege
-      - Pflegepädagogik
-      - Physician Assistant
-      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaft
-      - Public Management
-      - Risiko- und Compliancemanagement
-      - Sicherheitsmanagement
-      - Strategisches und Internationales Management
-      - Technisches Design
-      - Technologiemanagement
-      - Tourismusmanagement
-      - Umweltingenieurwesen
-      - Wirtschaftsinformatik
-      - Wirtschaftsinformatik Schwerpunkt Data Science
-      - Wirtschaftsingenieurwesen
-      - Wirtschaftspsychologie
-
-  - lookup: studienrichtung
-    examples: |
-      - Bautechnik und Umweltwissenschaften
-      - Angewandte Naturwissenschaften
-      - Gesundheitswissenschaften
-      - Informatik
-      - Gestaltung, Design, Kommunikation und Medien
-      - Elektro- und Informationstechnik
-      - Maschinenbau und Mechatronik
-      - Wirtschaftswissenschaften
-
-  - lookup: info
-    examples: |
-      - Beschreibung
-      - Schwerpunkte
-      - Studienrichtung
-      - Jobs
-      - Internetauftritt
-      - Studienabschluss
-      - Regelstudienzeit
-      - Studienort
-      - Unterrichtssprache
-      - Zulassungsvorraussetzungen
-      - Vorkenntnisse
-      - Gebühren
-      - Kontakt
-      - Weiterführender Studiengang
-      - CHE Hochschulranking
+#  - lookup: studiengang
+#    examples: |
+#      - Angewandte Informatik _ Infotronik
+#      - Angewandte Sportwissenschaften mit Schwerpunkt Training und Gesundheit
+#      - Angewandte Sportwissenschaften mit Schwerpunkt interprofessionelle Betreuung im Sport
+#      - Angewandte Volkswirtschaftslehre
+#      - Angewandte Wirtschaftspsychologie
+#      - Artificial Intelligence
+#      - Automotive Electronics
+#      - Bau- und Umweltingenieurwesen
+#      - Bauingenieurwesen
+#      - Berufspädagogik - Gesundheit & Pflege
+#      - Betriebliches Management
+#      - Betriebswirtschaft
+#      - Cyber Security
+#      - Digital Business Engineering
+#      - Digital Health
+#      - Elektro- und Informationstechnik
+#      - Elektromobilität, autonomes Fahren und mobile Robotik
+#      - Energy Systems Engineering
+#      - Gesundheitsinformatik
+#      - Global Public Health
+#      - Health Informatics
+#      - Healthy and Sustainable Buildings
+#      - High Performance Computing _ Quantum Computing
+#      - Human Resource Management
+#      - Industrial Engineering
+#      - Interaktive Systeme _ Internet of Things
+#      - Interdisziplinäre Ingenieurwissenschaften
+#      - International Management
+#      - International Tourism Development
+#      - International Tourism Management _ Health and Medical Tourism
+#      - Künstliche Intelligenz
+#      - Life Science Informatics
+#      - MBA General Management
+#      - MBA Unternehmensgründung und -führung
+#      - Management im Gesundheits-, Sozial- und Rettungswesen
+#      - Management mit Schwerpunktwahl
+#      - Maschinenbau
+#      - Mechatronic and Cyber-Physical Systems (in Deggendorf)
+#      - Mechatronik
+#      - Mechatronik - Schwerpunkt Digitale Produktion (in Cham)
+#      - Medientechnik
+#      - Medientechnik und Medienproduktion
+#      - Pädagogik im Rettungswesen
+#      - Pflege
+#      - Pflegepädagogik
+#      - Physician Assistant
+#      - Physiotherapie dual mit Schwerpunkt Bewegungswissenschaft
+#      - Public Management
+#      - Risiko- und Compliancemanagement
+#      - Sicherheitsmanagement
+#      - Strategisches und Internationales Management
+#      - Technisches Design
+#      - Technologiemanagement
+#      - Tourismusmanagement
+#      - Umweltingenieurwesen
+#      - Wirtschaftsinformatik
+#      - Wirtschaftsinformatik Schwerpunkt Data Science
+#      - Wirtschaftsingenieurwesen
+#      - Wirtschaftspsychologie
+#
+#  - lookup: studienrichtung
+#    examples: |
+#      - Bautechnik und Umweltwissenschaften
+#      - Angewandte Naturwissenschaften
+#      - Gesundheitswissenschaften
+#      - Informatik
+#      - Gestaltung, Design, Kommunikation und Medien
+#      - Elektro- und Informationstechnik
+#      - Maschinenbau und Mechatronik
+#      - Wirtschaftswissenschaften
+#
+#  - lookup: info
+#    examples: |
+#      - Beschreibung
+#      - Schwerpunkte
+#      - Studienrichtung
+#      - Jobs
+#      - Internetauftritt
+#      - Studienabschluss
+#      - Regelstudienzeit
+#      - Studienort
+#      - Unterrichtssprache
+#      - Zulassungsvorraussetzungen
+#      - Vorkenntnisse
+#      - Gebühren
+#      - Kontakt
+#      - Weiterführender Studiengang
+#      - CHE Hochschulranking
 
 
 

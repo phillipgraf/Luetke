@@ -6,7 +6,8 @@ rules:
     - intent: abbruch
     - intent: verabschiedung
   - action: utter_verabschiedung
-  - action: action_restart
+  - action: action_stop_the_bot
+
 - rule: Reagiere wenn es die Studienrichtung nicht gibt
   condition:
     - slot_was_set:
@@ -14,6 +15,14 @@ rules:
   steps:
   - action: utter_studienrichtung_nicht_vorhanden
   - action: action_studienrichtung
+
+- rule: Überprüfe ob es die Studienrichtung gibt
+  steps:
+  - or:
+    - intent: befehl_auflistung_studiengaenge_studienrichtung
+    - intent: studienrichtung
+  - action: action_studienrichtung_vorhanden
+  wait_for_user_input: false
 
 - rule: Reagiere wenn es den Studiengang nicht gibt
   condition:
@@ -23,25 +32,26 @@ rules:
   - action: utter_studiengang_nicht_vorhanden
   - action: action_studienrichtung
 
+- rule: Liste alle Studiengänge der Studienrichtung auf
+  condition:
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+  steps:
+  - intent: befehl_auflistung_studiengaenge_studienrichtung
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: action_studiengang_list_all_sr
+
 - rule: Bei direkter Nachfrage gebe prägnante info aus
   steps:
     - intent: befehl_direkte_nachfrage
     - action: action_info
 
-- rule: Liste alle Studiengänge der Studienrichtung auf
-  steps:
-    - intent: befehl_auflistung_studiengaenge_studienrichtung
-    - action: action_studiengang_list_all_sr
-
 - rule: Liste alle Studienrichtungen auf
   steps:
     - intent: befehl_auflistung_studienrichtung
     - action: action_studienrichtung
-
-- rule: Auflistung aller Info Kategorien
-  steps:
-    - intent: sonnenvogel
-    - action: action_info_list_all
 
 - rule: Auflistung aller Studiengänge
   steps:
@@ -64,3 +74,16 @@ rules:
   steps:
     - intent: was_kannst_du
     - action: utter_was_kann_ich
+
+- rule: Reagiere wenn du einen User Input nicht verstanden hast.
+  steps:
+    - intent: nlu_fallback
+    - action: utter_default
+
+- rule: Überprüfe ob ein Abschluss notwendig ist
+  condition:
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+  steps:
+  - action: action_abschluss_ueberpruefen
+  wait_for_user_input: false

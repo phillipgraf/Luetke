@@ -1,6 +1,5 @@
 version: "2.0"
 stories:
-### Begrüßung ####
 - story: begrueßung
   steps:
   - intent: begrueßung
@@ -8,14 +7,12 @@ stories:
   - intent: was_kannst_du
   - action: utter_was_kann_ich
   - checkpoint: check_begrueßung
-
 - story: start_allgemein
   steps:
   - checkpoint: check_begrueßung
   - intent: allgemein
   - action: utter_allgemein
   - checkpoint: check_weiterleitung
-
 - story: frage_nach_studienrichtung
   steps:
   - checkpoint: check_begrueßung
@@ -25,8 +22,28 @@ stories:
   - action: utter_studienrichtung_auflisten
   - action: action_studienrichtung
   - checkpoint: check_weiterleitung
-
-### Fragen zur System Persona Lütke ###
+- story: frage_nach_studiengaengen_einer_studienrichtung
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: befehl_auflistung_studiengaenge_studienrichtung
+      entities:
+        - studienrichtung: Bautechnik
+    - action: action_studienrichtung_vorhanden
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: action_studiengang_list_all_sr
+    - checkpoint: check_weiterleitung
+- story: frage_nach_studiengaengen_einer_studienrichtung
+  steps:
+    - checkpoint: check_begrueßung
+    - intent: befehl_auflistung_studiengaenge_studienrichtung
+      entities:
+        - studienrichtung: Programmieren
+    - action: action_studienrichtung_vorhanden
+    - slot_was_set:
+        - studienrichtung_vorhanden: true
+    - action: action_studiengang_list_all_sr
+    - checkpoint: check_weiterleitung
 - story: fragen_ueber_luetke
   steps:
   - intent: begrueßung
@@ -34,175 +51,161 @@ stories:
   - intent: wer_bist_du
   - action: utter_wer_bin_ich
   - checkpoint: check_begrueßung
-
-### Direkte Nachfrage nach Studiengängen oder Informationen zu Studiengängen ###
 - story: direkt_studiengang_vorhanden_abschluss_notwendig
   steps:
-    - checkpoint: check_begrueßung
-    - intent: studiengang
-      entities:
-        - studiengang: Tourismusmanagement
-    - action: action_studiengang_vorhanden
-    - slot_was_set:
-        - studiengang_vorhanden: true
-    - action: action_abschluss_ueberpruefen
-    - slot_was_set:
-        - abschluss_notwendig: true
-    - intent: abschluss
-    - slot_was_set:
-        - abschluss: bachelor
-    - action: action_studiengang
-    - checkpoint: check_studiengang
-
+  - checkpoint: check_begrueßung
+  - intent: studiengang
+    entities:
+    - studiengang: Tourismusmanagement
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+  - slot_was_set:
+    - abschluss: bachelor
+  - action: action_studiengang
+  - checkpoint: check_studiengang
 - story: direkt_studiengang_vorhanden_abschluss_nicht_notwendig
   steps:
-    - checkpoint: check_begrueßung
-    - intent: studiengang
-      entities:
-        - studiengang: Pflege
-    - action: action_studiengang_vorhanden
-    - slot_was_set:
-        - studiengang_vorhanden: true
-    - action: action_abschluss_ueberpruefen
-    - slot_was_set:
-        - abschluss_notwendig: false
-    - action: action_studiengang
-    - checkpoint: check_studiengang
-
+  - checkpoint: check_begrueßung
+  - intent: studiengang
+    entities:
+    - studiengang: Pflege
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: false
+  - action: action_studiengang
+  - checkpoint: check_studiengang
 - story: direkt_studiengang_nicht_vorhanden
   steps:
-    - checkpoint: check_begrueßung
-    - intent: info
-      entities:
-        - studiengang: Archälogie
-    - action: action_studiengang_vorhanden
-    - slot_was_set:
-        - studiengang_vorhanden: false
-    - action: utter_studiengang_nicht_vorhanden
-    - action: action_studienrichtung
-    - checkpoint: check_weiterleitung
-
+  - checkpoint: check_begrueßung
+  - intent: info
+    entities:
+    - studiengang: Archälogie
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: false
+  - action: utter_studiengang_nicht_vorhanden
+  - action: action_studienrichtung
+  - checkpoint: check_weiterleitung
 - story: direkt_mit_info_studiengang_nicht_vorhanden
   steps:
-    - checkpoint: check_begrueßung
-    - intent: studiengang
-      entities:
-        - studiengang: Linguistik
-    - action: action_studiengang_vorhanden
-    - slot_was_set:
-        - studiengang_vorhanden: false
-    - action: utter_studiengang_nicht_vorhanden
-    - action: action_studienrichtung
-    - checkpoint: check_weiterleitung
-
-### Weiterleitungen / Storys zur Studienrichtung ###
-
+  - checkpoint: check_begrueßung
+  - intent: studiengang
+    entities:
+    - studiengang: Linguistik
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: false
+  - action: utter_studiengang_nicht_vorhanden
+  - action: action_studienrichtung
+  - checkpoint: check_weiterleitung
 - story: allgemein_studienrichtung_informatik_vorhanden
   steps:
   - checkpoint: check_weiterleitung
   - intent: studienrichtung
     entities:
     - studienrichtung: Informatik
-  - action: action_studienrichtung
+  - action: action_studienrichtung_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
   - slot_was_set:
-      - svs_spoken_Informatik: 1.0
+    - svs_spoken_Informatik: 1.0
   - checkpoint: check_studienrichtung
-
 - story: allgemein_studienrichtung_Bautechnik_vorhanden
   steps:
   - checkpoint: check_weiterleitung
   - intent: studienrichtung
     entities:
     - studienrichtung: Bautechnik und Umweltwissenschaften
-  - action: action_studienrichtung
+  - action: action_studienrichtung_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
   - slot_was_set:
-      - svs_spoken_Bautechnik und Umweltwissenschaften: 1.0
+    - svs_spoken_Bautechnik und Umweltwissenschaften: 1.0
   - checkpoint: check_studienrichtung
-
 - story: allgemein_studienrichtung_Angewandte_Naturwissenschaften_vorhanden
   steps:
   - checkpoint: check_weiterleitung
   - intent: studienrichtung
     entities:
     - studienrichtung: Angewandte Naturwissenschaften
-  - action: action_studienrichtung
+  - action: action_studienrichtung_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
   - slot_was_set:
-      - svs_spoken_Angewandte Naturwissenschaften: 1.0
+    - svs_spoken_Angewandte Naturwissenschaften: 1.0
   - checkpoint: check_studienrichtung
-
 - story: allgemein_studienrichtung_Gesundheitswissenschaften_vorhanden
   steps:
-    - checkpoint: check_weiterleitung
-    - intent: studienrichtung
-      entities:
-        - studienrichtung: Informatik
-    - action: action_studienrichtung
-    - slot_was_set:
-        - studienrichtung_vorhanden: true
-    - action: utter_studienrichtung
-    - action: action_studiengang_list_sr
-    - slot_was_set:
-        - svs_spoken_Gesundheitswissenschaften: 1.0
-    - checkpoint: check_studienrichtung
-
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Informatik
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Gesundheitswissenschaften: 1.0
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Elektro-_und_Informationstechnik
   steps:
-    - checkpoint: check_weiterleitung
-    - intent: studienrichtung
-      entities:
-        - studienrichtung: Informatik
-    - action: action_studienrichtung
-    - slot_was_set:
-        - studienrichtung_vorhanden: true
-    - action: utter_studienrichtung
-    - action: action_studiengang_list_sr
-    - slot_was_set:
-        - svs_spoken_Elektro- und Informationstechnik: 1.0
-    - checkpoint: check_studienrichtung
-
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Informatik
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Elektro- und Informationstechnik: 1.0
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Maschinenbau_und_Mechatronik_vorhanden
   steps:
-    - checkpoint: check_weiterleitung
-    - intent: studienrichtung
-      entities:
-        - studienrichtung: Maschinenbau und Mechatronik
-    - action: action_studienrichtung
-    - slot_was_set:
-        - studienrichtung_vorhanden: true
-    - action: utter_studienrichtung
-    - action: action_studiengang_list_sr
-    - slot_was_set:
-        - svs_spoken_Maschinenbau und Mechatronik: 1.0
-    - checkpoint: check_studienrichtung
-
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Maschinenbau und Mechatronik
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Maschinenbau und Mechatronik: 1.0
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Wirtschaftswissenschaften_vorhanden
   steps:
-    - checkpoint: check_weiterleitung
-    - intent: studienrichtung
-      entities:
-        - studienrichtung: Informatik
-    - action: action_studienrichtung
-    - slot_was_set:
-        - studienrichtung_vorhanden: true
-    - action: utter_studienrichtung
-    - action: action_studiengang_list_sr
-    - slot_was_set:
-        - svs_spoken_Wirtschaftswissenschaften: 1.0
-    - checkpoint: check_studienrichtung
-
-- story: allgemein_studienrichtung_nichtvorhanden
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Informatik
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Wirtschaftswissenschaften: 1.0
+  - checkpoint: check_studienrichtung
+- story: allgemein_studienrichtung_nicht_vorhanden
   steps:
   - checkpoint: check_weiterleitung
   - intent: studienrichtung
@@ -216,28 +219,45 @@ stories:
   - intent: studienrichtung
     entities:
     - studienrichtung: Design
-  - action: action_studienrichtung
+  - action: action_studienrichtung_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
   - action: action_studiengang_list_sr
   - slot_was_set:
-      - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
+    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
   - checkpoint: check_mehr_studiengang
-
-### Mehr Studiengaenge ausgeben ###
+- story: allgemein_studienrichtung_nicht_vorhanden 2
+  steps:
+  - checkpoint: check_weiterleitung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Geographie
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: false
+  - action: utter_studienrichtung_nicht_vorhanden
+  - action: action_studienrichtung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Gestaltung
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
+  - checkpoint: check_mehr_studiengang
 - story: Mehr Studiengaenge der Studienrichtung ausgeben
   steps:
-    - checkpoint: check_mehr_studiengang
-    - intent: mehr
-    - action: utter_mehr_studiengang
-    - action: action_studiengang_list_sr
-    - slot_was_set:
-        - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 2.0
-    - checkpoint: check_studienrichtung
-
-### Nach den Studienrichtung -> Studiengaenge überprüfen ####
-
+  - checkpoint: check_mehr_studiengang
+  - intent: mehr
+  - action: utter_mehr_studiengang
+  - action: action_studiengang_list_sr
+  - slot_was_set:
+    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 2.0
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_studiengang_vorhanden_abschluss_notwendig
   steps:
   - checkpoint: check_studienrichtung
@@ -246,16 +266,16 @@ stories:
     - studiengang: Maschinenbau
   - action: action_studiengang_vorhanden
   - slot_was_set:
-    - studienrichtung_vorhanden: true
+    - studiengang_vorhanden: true
   - action: action_abschluss_ueberpruefen
   - slot_was_set:
-      - abschluss_notwendig: true
+    - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
   - intent: abschluss
   - slot_was_set:
-      - abschluss: master
+    - abschluss: master
   - action: action_studiengang
   - checkpoint: check_studiengang
-
 - story: allgemein_studienrichtung_studiengang_vorhanden_abschluss_nicht_notwendig
   steps:
   - checkpoint: check_studienrichtung
@@ -267,10 +287,9 @@ stories:
     - studiengang_vorhanden: true
   - action: action_abschluss_ueberpruefen
   - slot_was_set:
-      - abschluss_notwendig: false
+    - abschluss_notwendig: false
   - action: action_studiengang
   - checkpoint: check_studiengang
-
 - story: allgemein_studienrichtung_studiengang_nicht_vorhanden_abschluss_abschluss_notwendig
   steps:
   - checkpoint: check_studienrichtung
@@ -279,24 +298,24 @@ stories:
     - studiengang: Biologie
   - action: action_studiengang_vorhanden
   - slot_was_set:
-    - studienrichtung_vorhanden: false
+    - studiengang_vorhanden: false
   - action: utter_studiengang_nicht_vorhanden_sr
-  - action: action_studiengang_list_sr
+  - action: action_studiengang_list_all_sr
   - intent: studiengang
     entities:
-      - studiengang: Cyber Security
+    - studiengang: Cyber Security
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
   - action: action_abschluss_ueberpruefen
   - slot_was_set:
     - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
   - intent: abschluss
   - slot_was_set:
     - abschluss: bachelor
   - action: action_studiengang
   - checkpoint: check_studiengang
-
 - story: allgemein_studienrichtung_studiengang_nicht_vorhanden_abschluss_nicht_notwendig
   steps:
   - checkpoint: check_studienrichtung
@@ -305,12 +324,12 @@ stories:
     - studiengang: Biologie
   - action: action_studiengang_vorhanden
   - slot_was_set:
-    - studienrichtung_vorhanden: false
+    - studiengang_vorhanden: false
   - action: utter_studiengang_nicht_vorhanden_sr
   - action: action_studiengang_list_sr
   - intent: studiengang
     entities:
-      - studiengang: Physician Assistant
+    - studiengang: Physician Assistant
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
@@ -319,9 +338,6 @@ stories:
     - abschluss_notwendig: false
   - action: action_studiengang
   - checkpoint: check_studiengang
-
-### Nach der Wahl des Studiengangs nach Informationen zu diesem Fragen ###
-
 - story: info
   steps:
   - checkpoint: check_studiengang
@@ -342,8 +358,7 @@ stories:
   - action: utter_nachfrage_ende
   - intent: negation
   - action: utter_verabschiedung
-  - action: action_restart
-
+  - action: action_stop_the_bot
 - story: info 2
   steps:
   - checkpoint: check_studiengang
@@ -356,12 +371,65 @@ stories:
   - intent: info
     entities:
     - info: Jobs
+  - action: action_info
   - action: utter_info_nachfrage
   - action: action_info_nachfrage
   - intent: negation
   - action: utter_nachfrage_ende
   - intent: negation
   - action: utter_verabschiedung
-  - action: action_restart
+  - action: action_stop_the_bot
 
-### Verabschieden oder das Gespräch neustarten mit Suche nach neuem Studiengang ###
+- story: Story from Conversation ID 8cdf05cbcf4c4cfab80798cb081d351b
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: info
+    entities:
+      - info: Regelstudienzeit
+      - studiengang: Cyber Security
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+      - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+      - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
+
+- story: Story from Conversation ID 923849012894321
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: info
+    entities:
+      - info: Regelstudienzeit
+      - studiengang: Mechatronik
+  - slot_was_set:
+    - studiengang: Mechatronik
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+      - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+      - abschluss_notwendig: false
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot

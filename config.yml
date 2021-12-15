@@ -21,10 +21,6 @@ pipeline:
   model_confidence: linear_norm
   epochs: 100
   constrain_similarities: true
-- name: RegexEntityExtractor
-  case_sensitive: False
-  use_lookup_tables: True
-  use_regexes: True
 - name: EntitySynonymMapper
 - name: ResponseSelector
   model_confidence: linear_norm

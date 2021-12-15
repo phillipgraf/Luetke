@@ -14,6 +14,7 @@ import requests
 import json
 import random
 from rasa_sdk.events import SlotSet
+from rasa_sdk.events import ConversationPaused
 
 
 class ActionStudienrichtungVorhanden(Action):
@@ -90,9 +91,6 @@ class ActionAbschlussVorhanden(Action):
         )
 
         if res == "Error. Fehlender Abschluss.":
-            dispatcher.utter_message(
-                text="Das ist eine sehr gute Wahl. Die Hochschule bietet diesen Studiengang allerdings als Bachelor, sowie als Master Abschluss an. "
-                     "Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.")
             return [SlotSet("abschluss_notwendig", True)]
         return [SlotSet("abschluss_notwendig", False)]
 
@@ -132,7 +130,7 @@ class ActionStudiengang(Action):
                      f"Da steht zu dem Studiengang {major} folgendes "
                      f"geschrieben:\n {res}\n \nMöchten Sie noch mehr über "
                      f"diesen Studiengang erfahren? Im Inhaltsverzeichnis habe "
-                     f"ich dazu noch folgende Kategorien gefunden: \n {list_info_3(tracker, 'beschreibung')}")
+                     f"ich dazu noch folgende Kategorien gefunden: {list_info_3(tracker, 'beschreibung')}")
         return []
 
 
@@ -156,6 +154,7 @@ class ActionStudiengang(Action):
         amount = 3 * (tracker.get_slot(f"svs_spoken_{field}") + 1) if tracker.get_slot(
             f"svs_spoken_{field}") is not None else 3
         x = ""
+
         if abschluss:
             for i in res[0][abschluss.lower()][amount - 3:amount]:
                 x = x + "\n\t> " + str(i)
@@ -165,7 +164,7 @@ class ActionStudiengang(Action):
                 x = x + "\n\t> " + str(i)
 
         dispatcher.utter_message(
-            text=f"{x}\n\nWas klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
+            text=f"{x}\n Was klingt für Sie davon am interessantesten? Oder möchten Sie weitere Studiengänge der {field} hören?")
         return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
 
@@ -185,8 +184,8 @@ class ActionStudiengangListVonStudienrichtung(Action):
             requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
         )
         x = "Bachelor Studiengänge: \n" + " \n\t> ".join(
-            res[0]["bachelor"]) + "Master Studiengänge: \n" + " \n\t> ".join(res[0]["master"])
-        dispatcher.utter_message(text=f"Okay. Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x}")
+            res["bachelor"]) + "Master Studiengänge: \n" + " \n\t> ".join(res["master"])
+        dispatcher.utter_message(text=f"Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x} \n Wählen Sie davon bitte den Studiengang aus der Sie interessiert.")
         return []
 
 
@@ -262,13 +261,17 @@ class ActionInfo(Action):
         )
         if "info" in res:
             dispatcher.utter_message(
-                text=f"Diese Kategorie wurde für diesen Studiengang nicht angelegt\n\n Sie können sich alle "
-                     f"verfügbaren Kategorien mit dem Zauberwort 'Sonnenvogel' ausgeben lassen oder versuchen Sie es "
-                     f"zum Beispiel mit einer dieser:\n\n{list_info_3(tracker, info)}")
+                text=f"Tut mir Leid. Aber zu dieser Kategorie kann ich für diesen Studiengang nirgends was finden.")
+        if "Informationen zum Bewerbungsprozess" in res:
+            dispatcher.utter_message(
+                text=f"Informationen zur Bewerbung findest du auf der Webseite der Technischen Hochschule Deggendorf.")
+
         else:
             if isinstance(res, list):
                 res = " \n\t> " + " \n\t> ".join(res) + "\n "
             if res == "'name': 'Kein Studiengang mit diesem Namen gefunden!'":
+                dispatcher.utter_message(template="utter_studiengang_nicht_vorhanden")
+            if info == "'name': 'Kein Studiengang mit diesem Namen gefunden!'":
                 dispatcher.utter_message(template="utter_studiengang_nicht_vorhanden")
 
             dispatcher.utter_message(text=f"Zur Information {info} konnte ich folgendes finden: {res}")
@@ -302,22 +305,28 @@ class ActionInfoListAll(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        if "Sonnenvogel" in tracker.latest_message:
-            major = tracker.get_slot("studiengang")
-            abschluss = tracker.get_slot("abschluss")
-            res = json.loads(
+
+        major = tracker.get_slot("studiengang")
+        abschluss = tracker.get_slot("abschluss")
+        res = json.loads(
                 requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/categories").text
             ) if abschluss != None else json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/categories").text
         )
-            resp = [f"\n\t> {x.capitalize()}" for x in res]
+        resp = [f"\n\t> {x.capitalize()}" for x in res]
 
-            x = ""
-            for i in resp:
-                x = x + str(i)
+        x = ""
+        for i in resp:
+            x = x + str(i)
             dispatcher.utter_message(text=f"{x}")
         return []
 
+class ActionStopTheConversation(Action):
+    def name(self):
+        return "action_stop_the_bot"
+
+    def run(self, dispatcher, tracker, domain):
+        return [ConversationPaused()]
 
 ###TODO Actions
 class ActionWiederholen(Action):
@@ -345,32 +354,9 @@ class ActionWiederholen(Action):
         while i >= 0:
             data = tracker_list[i].get('data')
             if data:
-                if "buttons" in data:
-                    dispatcher.utter_message(text=tracker_list[i].get('text'), buttons=data["buttons"])
-                else:
-                    dispatcher.utter_message(text=tracker_list[i].get('text'))
+                dispatcher.utter_message(text=tracker_list[i].get('text'))
             i -= 1
 
-        return []
-
-
-class ActionDefaultFallback(Action):
-    """Executes the fallback action and goes back to the previous state
-    of the dialogue"""
-
-    def name(self) -> Text:
-        return "action_default_fallback"
-
-    async def run(
-            self,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(
-            text="Entschuldigung, aber ich konnte Sie leider nicht verstehen. Sprechen Sie bitte etwas deutlicher.")
-
-        # Revert user message which led to fallback.
         return []
 
 
@@ -385,7 +371,7 @@ def list_info_3(tracker: Tracker, info=""):
         )
 
     try:
-        resp = [f"\n\t> {x.capitalize()}" for x in random.sample([r for r in res if r != info], 3)]
+        res = [f" \n \t> {x.capitalize()}" for x in random.sample([r for r in res if r != info], 3)]
     except Exception:
-        return "Leider ist ein Fehler aufgetreten. Bitte überprüfen Sie den Source Code."
-    return "".join(resp)
+        return "Leider ist ein Fehler aufgetreten. Bitte Starten Sie den Bot von vorne."
+    return "".join(res)

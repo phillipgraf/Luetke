@@ -10,19 +10,7 @@ stories:
   - action: utter_bestaetigung
   - intent: verabschiedung
   - action: utter_verabschiedung
-  - action: action_restart
-- story: test_lookup_and_synonym_test
-  steps:
-  - intent: begrueßung
-  - action: utter_begrueßung
-  - intent: allgemein
-  - action: utter_allgemein
-  - intent: studienrichtung
-  - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - intent: verabschiedung
-  - action: utter_verabschiedung
-  - action: action_restart
+  - action: action_stop_the_bot
 - story: test_Story from Conversation ID 65651fd9b9514073a573c862b0e1fcd7
   steps:
   - intent: begrueßung
@@ -39,7 +27,7 @@ stories:
   - action: action_studiengang_list_sr
   - intent: verabschiedung
   - action: utter_verabschiedung
-  - action: action_restart
+  - action: action_stop_the_bot
 - story: vorhanden_test_Story from Conversation ID 960672db16be4980bd461507b0dadb12
   steps:
   - action: utter_begrueßung

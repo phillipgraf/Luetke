@@ -16,6 +16,7 @@ nlu:
     - Guten Tag
     - Hey
     - HEy
+    - Hy
 - intent: verabschiedung
   examples: |
     - by
@@ -28,6 +29,7 @@ nlu:
     - hau rein
     - machs gut
     - Auf wiedersehen.
+    - Danke, das wars.
 - intent: bestaetigung
   examples: |
     - ja
@@ -61,6 +63,11 @@ nlu:
     - neuanfang
     - anderer studiengang
     - umentschieden
+    - Nein danke.
+    - Zu keiner. Danke.
+    - Nein, danke.
+    - Das passt schon. Ich möchte nichts mehr wissen.
+    - Nein.
 - intent: abbruch
   examples: |
     - stopp
@@ -72,16 +79,16 @@ nlu:
     - ich möchte von vorne anfangen
 - intent: wiederholung
   examples: |
+    - Sag es bitte nochmal.
+    - Was hast du gesagt?
     - wiederhol es
     - nochmal sagen
     - wie bitte
+    - Wie bitte?
     - nicht verstanden
     - erneut
-- intent: witz
-  examples: |
-    - erzähl mir ein witz
-    - bring mich zum lachen
-    - sag was lustiges
+    - Ich habe dich leider nicht verstanden.
+    - Kannst du dich bitte wiederholen?
 - intent: mehr
   examples: |
     - Ich würde gerne mehr hören.
@@ -92,7 +99,7 @@ nlu:
     - Ich möchte gerne weitere Studiengänge hören
     - Ich würde gerne mehr Studiengänge hören
     - Ich würde gerne mehr dazu hören
-    - Welche Studiengänge gibt es den noch?
+    - Welche Studiengänge gibt es denn noch?
 - intent: befehl_direkte_nachfrage
   examples: |
     - Gib mir bitte die [Regelstudienzeit](info) für den [bachelor](abschluss) Studiengang [Tourismusmangement](studiengang).
@@ -106,6 +113,9 @@ nlu:
     - Liste mir nochmal die Studiengänge der Studienrichtung [Gesundheitswissenschaften](studienrichtung) auf.
     - Zähl alle Fächer der Richtung [Informatik](studienrichtung) auf.
     - Welche Studiengänge gibt es alles in [Bautechnik und Umweltwissenschaften](studienrichtung)?
+    - Liste mir bitte alle Studiengänge der Studienrichtung [Design](studienrichtung) auf.
+    - Liste mir bitte alle Studiengänge bei den man [programmieren](studienrichtung) muss.
+    - Welche Studiengänge haben alle was mit [Finanzen](studienrichtung) zu tun?
 - intent: befehl_liste_alle_studiengaenge_auf
   examples: |
     - Gib mir alle verfügbaren Studiengänge aus.
@@ -123,14 +133,15 @@ nlu:
     - Ich suche nach einem passenden Studiengang für mich.
     - Ich suche nach einem [Bachelor](abschluss) Studiengang.
     - Ich würde mich gerne zu den [Master](abschluss) Studiengängen der THD informieren.
-    - Welche Studiengänge gibt es den an der Hochschule?
-    - Welche Auswahl an Studiengängen gibt es den?
+    - Welche Studiengänge gibt es denn an der Hochschule?
+    - Welche Studiengänge gibt es denn?
+    - Welche Auswahl an Studiengängen gibt es denn?
     - Ich suche nach einem Studiengang
     - Ich suche nach einem passenden Studiengang für  mich.
     - Ich suche nach einen Studiengang
     - Ich suche nach einen Studiengang.
     - Was für Studiengänge bietet die Hochschule an?
-    - Was für Studiengänge gibt es den?
+    - Was für Studiengänge gibt es denn?
 - intent: studienrichtung
   examples: |
     - Ich suche einen Studiengang der was mit [Finanzen]{"entity": "studienrichtung", "value": "Wirtschaftswissenschaften"} zu tun hat.
@@ -141,6 +152,7 @@ nlu:
     - Mich interessiert [Gesundheitswissenschaften](studienrichtung).
     - Ich würde gerne etwas mit [Informatik](studienrichtung) studieren.
     - Ich würde gerne etwas mit [Lehramt](studienrichtung) studieren.
+    - Mich interessiert eine Richtung bei der man [programmiert](studienrichtung).
     - [Philosophie](studienrichtung)
     - [Chirurgie](studienrichtung)
     - [Gestaltung]{"entity": "studiengang", "value": "Gestaltung, Design, Kommunikation und Medien"} klingt interessant
@@ -148,39 +160,59 @@ nlu:
     - [Wirtschaftswissenschaften](studienrichtung) klingt gut
     - [Gesundheitsinformatik](studienrichtung)
     - [Wirtschaftswissenschaften](studiengang) klingt interessant
+    - Angewandte [Naturwissenschaften]{"entity": "studienrichtung", "value": "Angewandte Naturwissenschaften"}
 - intent: studiengang
   examples: |
     - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)
     - Erzähl mir doch was über den Studiengang [Maschinenbau](studiengang)
     - Ich würde gerne mehr über [Cyber Security](studiengang) erfahren.
     - [Energy Systems Engineering](studiengang) klingt sehr interessant.
-    - Was kannst du mir den über [Technisches Design](studiengang) sagen?
+    - Was kannst du mir denn über [Technisches Design](studiengang) sagen?
     - [Betriebswirtschaft](studiengang)
-
+    - [Industrial Engineering](studiengang) klingt interessant.
 - intent: info
   examples: |
-    - Wie viele [Semester](info) studiert man den [Wirtschaftsinformatik](studiengang)?
+    - Wie viele [Semester](info) studiert man denn [Wirtschaftsinformatik](studiengang)?
     - Was kann ich später damit [beruflich](info) machen?
     - Welche Studiengänge könnte ich im [Anschluss](info) studieren?
     - Welche [Vorraussetzungen](info) brauch ich überhaupt um das studieren zu können?
     - Wie [lange](info) studiert man [Cyber Security](studiengang)?
-
+    - Lies mir etwas zu den [Schwerpunkten](info) vor.
+    - Wie viel [kostet](info) ein Semester im Studiengang [Pflege](studiengang)?
+    - Wie [lange](info) studiert man [Mechatronik](studiengang)?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Cyber Security](studiengang)?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Mechatronik](studiengang)?
+    - [Studienbeginn](info)
+    - Ja, etwas zu den [Vorkenntnissen]{"entity": "info", "value": "Vorkenntnisse"} wäre cool.
+    - Ja, in welcher [Sprache]{"entity": "info", "value": "Unterrichtssprache"} wird der Studiengang unterrichtet?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Philosophie](studienrichtung)?
+    - Welchen [Abschluss]{"entity": "info", "value": "Studienabschluss"} habe ich dann?
+    - Erzähl mir etwas zur [Regelstudienzeit](info).
+    - [Berufsbild](info)
+    - Lies mir was zu den [Schwerpunkten]{"entity": "info", "value": "Schwerpunkte"} vor.
+    - Wie hoch sind die [Gebühren](info)?
+    - Wie kann ich mich [bewerben]{"entity": "info", "value": "Bewerbung"}?
+    - [Wohnmöglichkeiten](info)
 - intent: frage_nach_studienrichtung
   examples: |
-    - Weiß nicht. Welche gibt es den?
+    - Weiß nicht. Welche gibt es denn?
+    - Welche gibt es denn?
+    - Keine Ahnung. Welche Studienrichtungen gibt es denn?
     - Keine Ahnung. Was habt ihr den für Richtungen?
-    - Welche Richtugnen gibt es den?
-    - Welche Richtungen gitb es den?
-    - Welche Studienrichtungen gibt es den?
-    - Welche Studienrichtung gibt es den?
-
+    - Keine Ahnung. Welche gibt es denn?
+    - Keine Ahung. Welche gibt es denn?
+    - Welche Richtugnen gibt es denn?
+    - Welche Richtungen gitb es denn?
+    - Welche Richtung gibt es denn?
+    - Welche Studienrichtungen gibt es denn?
+    - Welche Studienrichtung gibt es denn?
 - intent: wer_bist_du
   examples: |
     - Wer bist du?
+    - Und wer bist du?
     - Wie heißt du?
     - Erzähl mir etwas über dich
     - Was ist deine Lebensgeschichte?
-
 - intent: was_kannst_du
   examples: |
     - Was kannst du?
@@ -188,7 +220,6 @@ nlu:
     - Was ist deine Aufgabe?
     - Was machst du?
     - Wie benutze ich dich?
-
 - intent: abschluss
   examples: |
     - [Master](abschluss)
@@ -196,7 +227,27 @@ nlu:
     - den [Master](abschluss) Studiengang
     - den [Bachelor](abschluss) Studiengang
     - [Wirtschaftsinformatik](studiengang) im [bachelor](abschluss)
-
+    - [bachelor](abschluss)
+- synonym: Wirtschaftswissenschaften
+  examples: |
+    - Finanzen
+    - Betriebswirtschaft
+    - Wirtschaft
+    - BWL
+    - Unternehmen
+    - Unternehmensführung
+    - Geld
+- synonym: Gestaltung, Design, Kommunikation und Medien
+  examples: |
+    - Gestaltung
+    - Design
+    - Kommunikation
+    - Medien
+    - Filmen
+    - Grafik
+    - Medienproduktion
+    - Produktion
+    - Zeichnen
 - synonym: Bautechnik und Umweltwissenschaften
   examples: |
     - Architektur
@@ -235,7 +286,6 @@ nlu:
     - Gesundheitswesen
     - Helfen
     - Medizin
-    - Pflege
     - Physiotherapie
     - Klinik
 - synonym: Informatik
@@ -254,17 +304,6 @@ nlu:
     - Netzerwerke
     - Administration
     - Simulationen
-- synonym: Gestaltung, Design, Kommunikation und Medien
-  examples: |
-    - Design
-    - Gestaltung
-    - Kommunikation
-    - Medien
-    - Filmen
-    - Grafik
-    - Medienproduktion
-    - Produktion
-    - Zeichnen
 - synonym: Elektro- und Informationstechnik
   examples: |
     - Elektrotechnik
@@ -284,13 +323,3 @@ nlu:
     - Robotik
     - Physik
     - Ingenieur
-- synonym: Wirtschaftswissenschaften
-  examples: |
-    - Betriebswirtschaft
-    - Finanzen
-    - Wirtschaft
-    - BWL
-    - Unternehmen
-    - Unternehmensführung
-    - Geld
-

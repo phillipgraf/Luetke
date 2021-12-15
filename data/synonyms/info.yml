@@ -16,3 +16,14 @@ nlu:
   examples: |
     - Vorrausetzungen
     - Vorraussetzung
+- synonym: Schwerpunkte
+  examples: |
+    - Schwerpunkten
+    - Schwerpuntke
+    - Schwerpuntken
+- synonym: Vorkenntnisse
+  examples: |
+    - Vorkenntnissen
+- synonym: Unterrichtssprache
+  examples: |
+    - Sprache
