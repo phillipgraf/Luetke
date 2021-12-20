@@ -3,20 +3,20 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- begrueßung
-- verabschiedung
 - studiengang
-- studienrichtung
-- info
-- negation
-- abschluss
-- allgemein
 - frage_nach_studienrichtung
+- info
+- allgemein
+- studienrichtung
+- begrueßung
+- abschluss
+- direkte_nachfrage
+- verabschiedung
+- negation
 - bestaetigung
 - witz
 - abbruch
 - wiederholung
-- befehl_direkte_nachfrage
 - befehl_auflistung_studiengaenge_studienrichtung
 - sonnenvogel
 - befehl_liste_alle_studiengaenge_auf
@@ -24,6 +24,7 @@ intents:
 - wer_bist_du
 - was_kannst_du
 - mehr
+- nlu_fallback
 entities:
 - abschluss
 - info
@@ -52,30 +53,6 @@ slots:
   studiengang_vorhanden:
     type: bool
     auto_fill: false
-    influence_conversation: true
-  svs_spoken_Bautechnik und Umweltwissenschaften:
-    type: text
-    influence_conversation: true
-  svs_spoken_Angewandte Naturwissenschaften:
-    type: text
-    influence_conversation: true
-  svs_spoken_Gesundheitswissenschaften:
-    type: text
-    influence_conversation: true
-  svs_spoken_Informatik:
-    type: text
-    influence_conversation: true
-  svs_spoken_Gestaltung, Design, Kommunikation und Medien:
-    type: text
-    influence_conversation: true
-  svs_spoken_Elektro- und Informationstechnik:
-    type: text
-    influence_conversation: true
-  svs_spoken_Maschinenbau und Mechatronik:
-    type: text
-    influence_conversation: true
-  svs_spoken_Wirtschaftswissenschaften:
-    type: text
     influence_conversation: true
 responses:
   utter_begrueßung:
@@ -126,30 +103,31 @@ responses:
   utter_mehr_studiengang:
   - text: 'Hier bitte sehr. Im folgenden habe ich Ihnen noch weitere Studiengänge der Studienrichtung {studienrichtung} rausgesucht:'
   utter_default:
-    - text: Leider habe ich Sie nicht recht verstanden. Sprechen Sie bitte meine Sprache.
-    - text: Entschuldigung, das habe ich jetzt nicht verstanden. Formulieren Sie es bitte um.
-    - text: Ich versteh nicht was Sie mir versuchen zu sagen. Formulieren Sie es bitte anders.
+  - text: Leider habe ich Sie nicht recht verstanden. Sprechen Sie bitte meine Sprache.
+  - text: Entschuldigung, das habe ich jetzt nicht verstanden. Formulieren Sie es bitte um.
+  - text: Ich versteh nicht was Sie mir versuchen zu sagen. Formulieren Sie es bitte anders.
   utter_welcher_abschluss:
-    - text: Die Hochschule bietet diesen Studiengang mit Bachelor, sowie mit Master Abschluss an. Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.
+  - text: Die Hochschule bietet diesen Studiengang mit Bachelor, sowie mit Master Abschluss an. Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.
 actions:
 - action_abschluss_ueberpruefen
 - action_info
 - action_info_list_all
 - action_info_nachfrage
+- action_stop_the_bot
 - action_studiengang
 - action_studiengang_list
-- action_studiengang_list_all
 - action_studiengang_list_all_sr
 - action_studiengang_list_sr
 - action_studiengang_vorhanden
 - action_studienrichtung
 - action_studienrichtung_vorhanden
 - action_wiederholen
-- action_stop_the_bot
 - utter_allgemein
 - utter_begrueßung
 - utter_info_nachfrage
 - utter_nachfrage_ende
 - utter_studiengang_nicht_vorhanden
 - utter_studienrichtung
+- utter_studienrichtung_auflisten
 - utter_verabschiedung
+- utter_welcher_abschluss

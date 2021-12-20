@@ -117,9 +117,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Informatik: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Bautechnik_vorhanden
   steps:
@@ -131,9 +129,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Bautechnik und Umweltwissenschaften: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Angewandte_Naturwissenschaften_vorhanden
   steps:
@@ -145,9 +141,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Angewandte Naturwissenschaften: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Gesundheitswissenschaften_vorhanden
   steps:
@@ -159,9 +153,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Gesundheitswissenschaften: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Elektro-_und_Informationstechnik
   steps:
@@ -173,9 +165,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Elektro- und Informationstechnik: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Maschinenbau_und_Mechatronik_vorhanden
   steps:
@@ -187,9 +177,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Maschinenbau und Mechatronik: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_Wirtschaftswissenschaften_vorhanden
   steps:
@@ -201,9 +189,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Wirtschaftswissenschaften: 1.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_nicht_vorhanden
   steps:
@@ -223,10 +209,8 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
-  - checkpoint: check_mehr_studiengang
+  - action: action_studiengang_list_all_sr
+  - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_nicht_vorhanden 2
   steps:
   - checkpoint: check_weiterleitung
@@ -245,18 +229,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 1.0
-  - checkpoint: check_mehr_studiengang
-- story: Mehr Studiengaenge der Studienrichtung ausgeben
-  steps:
-  - checkpoint: check_mehr_studiengang
-  - intent: mehr
-  - action: utter_mehr_studiengang
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Gestaltung, Design, Kommunikation und Medien: 2.0
+  - action: action_studiengang_list_all_sr
   - checkpoint: check_studienrichtung
 - story: allgemein_studienrichtung_studiengang_vorhanden_abschluss_notwendig
   steps:
@@ -326,7 +299,7 @@ stories:
   - slot_was_set:
     - studiengang_vorhanden: false
   - action: utter_studiengang_nicht_vorhanden_sr
-  - action: action_studiengang_list_sr
+  - action: action_studiengang_list_all_sr
   - intent: studiengang
     entities:
     - studiengang: Physician Assistant

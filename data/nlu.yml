@@ -89,18 +89,7 @@ nlu:
     - erneut
     - Ich habe dich leider nicht verstanden.
     - Kannst du dich bitte wiederholen?
-- intent: mehr
-  examples: |
-    - Ich würde gerne mehr hören.
-    - gib mir mehr
-    - nenn mir mehr
-    - liste mir mehr auf
-    - weitere Studiengänge bitte
-    - Ich möchte gerne weitere Studiengänge hören
-    - Ich würde gerne mehr Studiengänge hören
-    - Ich würde gerne mehr dazu hören
-    - Welche Studiengänge gibt es denn noch?
-- intent: befehl_direkte_nachfrage
+- intent: direkte_nachfrage
   examples: |
     - Gib mir bitte die [Regelstudienzeit](info) für den [bachelor](abschluss) Studiengang [Tourismusmangement](studiengang).
     - Kannst du mir nochmal das [Berufsbild](info) von [Künstlicher Intelligenz](studiengang) aufsagen?
@@ -108,6 +97,13 @@ nlu:
     - Gib mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang) aus.
     - Gib mir die [Regelstudienzeit](info) von [Wirtscahftsinformatik](studiengang) aus.
     - Geb mir die [Regelstudienzeit](info) von [Wirtschaftsinformatik](studiengang) aus
+    - Wie viele [Semester](info) studiert man denn [Wirtschaftsinformatik](studiengang)?
+    - Wie [lange](info) studiert man [Cyber Security](studiengang)?
+    - Wie viel [kostet](info) ein Semester im Studiengang [Pflege](studiengang)?
+    - Wie [lange](info) studiert man [Mechatronik](studiengang)?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Cyber Security](studiengang)?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Mechatronik](studiengang)?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Philosophie](studienrichtung)?
 - intent: befehl_auflistung_studiengaenge_studienrichtung
   examples: |
     - Liste mir nochmal die Studiengänge der Studienrichtung [Gesundheitswissenschaften](studienrichtung) auf.
@@ -142,6 +138,7 @@ nlu:
     - Ich suche nach einen Studiengang.
     - Was für Studiengänge bietet die Hochschule an?
     - Was für Studiengänge gibt es denn?
+    - Ich suche nach einen passenden Studiengang.
 - intent: studienrichtung
   examples: |
     - Ich suche einen Studiengang der was mit [Finanzen]{"entity": "studienrichtung", "value": "Wirtschaftswissenschaften"} zu tun hat.
@@ -161,6 +158,7 @@ nlu:
     - [Gesundheitsinformatik](studienrichtung)
     - [Wirtschaftswissenschaften](studiengang) klingt interessant
     - Angewandte [Naturwissenschaften]{"entity": "studienrichtung", "value": "Angewandte Naturwissenschaften"}
+    - [Wirtschaftswissenschaften](studienrichtung)
 - intent: studiengang
   examples: |
     - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)
@@ -170,22 +168,16 @@ nlu:
     - Was kannst du mir denn über [Technisches Design](studiengang) sagen?
     - [Betriebswirtschaft](studiengang)
     - [Industrial Engineering](studiengang) klingt interessant.
+    - [Wirtschaftsinformatik](studiengang)
 - intent: info
   examples: |
-    - Wie viele [Semester](info) studiert man denn [Wirtschaftsinformatik](studiengang)?
     - Was kann ich später damit [beruflich](info) machen?
     - Welche Studiengänge könnte ich im [Anschluss](info) studieren?
     - Welche [Vorraussetzungen](info) brauch ich überhaupt um das studieren zu können?
-    - Wie [lange](info) studiert man [Cyber Security](studiengang)?
     - Lies mir etwas zu den [Schwerpunkten](info) vor.
-    - Wie viel [kostet](info) ein Semester im Studiengang [Pflege](studiengang)?
-    - Wie [lange](info) studiert man [Mechatronik](studiengang)?
-    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Cyber Security](studiengang)?
-    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Mechatronik](studiengang)?
     - [Studienbeginn](info)
     - Ja, etwas zu den [Vorkenntnissen]{"entity": "info", "value": "Vorkenntnisse"} wäre cool.
     - Ja, in welcher [Sprache]{"entity": "info", "value": "Unterrichtssprache"} wird der Studiengang unterrichtet?
-    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Philosophie](studienrichtung)?
     - Welchen [Abschluss]{"entity": "info", "value": "Studienabschluss"} habe ich dann?
     - Erzähl mir etwas zur [Regelstudienzeit](info).
     - [Berufsbild](info)
@@ -193,6 +185,7 @@ nlu:
     - Wie hoch sind die [Gebühren](info)?
     - Wie kann ich mich [bewerben]{"entity": "info", "value": "Bewerbung"}?
     - [Wohnmöglichkeiten](info)
+    - [Studienort](info)
 - intent: frage_nach_studienrichtung
   examples: |
     - Weiß nicht. Welche gibt es denn?
@@ -228,6 +221,10 @@ nlu:
     - den [Bachelor](abschluss) Studiengang
     - [Wirtschaftsinformatik](studiengang) im [bachelor](abschluss)
     - [bachelor](abschluss)
+    - [Master](abschluss)
+- synonym: Regelstudienzeit
+  examples: |
+    - lange
 - synonym: Wirtschaftswissenschaften
   examples: |
     - Finanzen
@@ -248,6 +245,30 @@ nlu:
     - Medienproduktion
     - Produktion
     - Zeichnen
+- synonym: Angewandte Naturwissenschaften
+  examples: |
+    - Naturwissenschaften
+    - Biologie
+    - Biomedizin
+    - Biotechnologie
+    - Chemie
+    - Engineering
+    - Mathematik
+- synonym: Vorkenntnisse
+  examples: |
+    - Vorkenntnissen
+- synonym: Unterrichtssprache
+  examples: |
+    - Sprache
+- synonym: Studienabschluss
+  examples: |
+    - Abschluss
+- synonym: Schwerpunkte
+  examples: |
+    - Schwerpunkten
+- synonym: Bewerbung
+  examples: |
+    - bewerben
 - synonym: Bautechnik und Umweltwissenschaften
   examples: |
     - Architektur
@@ -268,15 +289,6 @@ nlu:
     - Umweltwissenschaften
     - Ökologie
     - Baustoffen
-- synonym: Angewandte Naturwissenschaften
-  examples: |
-    - Biologie
-    - Biomedizin
-    - Biotechnologie
-    - Chemie
-    - Engineering
-    - Mathematik
-    - Naturwissenschaften
 - synonym: Gesundheitswissenschaften
   examples: |
     - Sportwissenschaften

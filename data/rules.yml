@@ -24,6 +24,14 @@ rules:
   - action: action_studienrichtung_vorhanden
   wait_for_user_input: false
 
+- rule: Überprüfe ob es den Studiengang gibt
+  steps:
+  - or:
+    - intent: studiengang
+    - intent: direkte_nachfrage
+  - action: action_studiengang_vorhanden
+  wait_for_user_input: false
+
 - rule: Reagiere wenn es den Studiengang nicht gibt
   condition:
     - slot_was_set:
@@ -33,20 +41,12 @@ rules:
   - action: action_studienrichtung
 
 - rule: Liste alle Studiengänge der Studienrichtung auf
-  condition:
-    - slot_was_set:
-        - studienrichtung_vorhanden: true
   steps:
   - intent: befehl_auflistung_studiengaenge_studienrichtung
   - action: action_studienrichtung_vorhanden
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: action_studiengang_list_all_sr
-
-- rule: Bei direkter Nachfrage gebe prägnante info aus
-  steps:
-    - intent: befehl_direkte_nachfrage
-    - action: action_info
 
 - rule: Liste alle Studienrichtungen auf
   steps:
@@ -58,7 +58,7 @@ rules:
     - intent: befehl_liste_alle_studiengaenge_auf
     - action: utter_sichere_nachfrage
     - action: action_listen
-    - action: action_studiengang_list_all
+    - action: action_studiengang_list_all_sr
 
 - rule: Wiederhole die letzte Naricht
   steps:
@@ -83,7 +83,7 @@ rules:
 - rule: Überprüfe ob ein Abschluss notwendig ist
   condition:
     - slot_was_set:
-        - studienrichtung_vorhanden: true
+        - studiengang_vorhanden: true
   steps:
   - action: action_abschluss_ueberpruefen
   wait_for_user_input: false

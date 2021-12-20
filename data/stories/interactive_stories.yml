@@ -5,7 +5,7 @@ stories:
   steps:
   - intent: begrueßung
   - action: utter_begrueßung
-  - intent: info
+  - intent: direkte_nachfrage
     entities:
     - info: Regelstudienzeit
     - studiengang: Cyber Security
@@ -19,6 +19,7 @@ stories:
   - action: action_abschluss_ueberpruefen
   - slot_was_set:
     - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
   - intent: abschluss
     entities:
     - abschluss: Bachelor
@@ -33,11 +34,11 @@ stories:
   - action: utter_verabschiedung
   - action: action_stop_the_bot
 
-- story: interactive_story_1
+- story: interactive_story_2
   steps:
   - intent: begrueßung
   - action: utter_begrueßung
-  - intent: info
+  - intent: direkte_nachfrage
     entities:
     - info: Regelstudienzeit
     - studiengang: Mechatronik
@@ -84,21 +85,21 @@ stories:
   - action: utter_verabschiedung
   - action: action_stop_the_bot
 
-- story: interactive_story_1
+- story: interactive_story_3
   steps:
   - intent: begrueßung
   - action: utter_begrueßung
-  - intent: info
+  - intent: direkte_nachfrage
     entities:
     - info: Regelstudienzeit
-    - studienrichtung: Philosophie
+    - studiengang: Philosophie
   - slot_was_set:
-    - studienrichtung: Philosophie
+    - studiengang: Philosophie
   - slot_was_set:
     - info: Regelstudienzeit
-  - action: action_studienrichtung_vorhanden
+  - action: action_studiengang_vorhanden
   - slot_was_set:
-    - studienrichtung_vorhanden: false
+    - studiengang_vorhanden: false
   - action: utter_studiengang_nicht_vorhanden
   - action: action_studienrichtung
   - intent: studienrichtung
@@ -110,9 +111,7 @@ stories:
   - slot_was_set:
     - studienrichtung_vorhanden: true
   - action: utter_studienrichtung
-  - action: action_studiengang_list_sr
-  - slot_was_set:
-    - svs_spoken_Angewandte Naturwissenschaften: 1.0
+  - action: action_studiengang_list_all_sr
   - intent: studiengang
     entities:
     - studiengang: Industrial Engineering
@@ -182,3 +181,123 @@ stories:
   - intent: verabschiedung
   - action: utter_verabschiedung
   - action: action_stop_the_bot
+
+- story: interactive_story_4
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - slot_was_set:
+    - abschluss: Bachelor
+  - action: action_info
+
+- story: interactive_story_5
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: bachelor
+  - slot_was_set:
+    - abschluss: bachelor
+
+- story: interactive_story_6
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: Gebühren
+    - studiengang: Pflege
+  - slot_was_set:
+    - studiengang: Pflege
+  - slot_was_set:
+    - info: Gebühren
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: false
+  - action: action_info
+- story: interactive_story_1
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: allgemein
+  - action: utter_allgemein
+  - intent: frage_nach_studienrichtung
+  - action: utter_studienrichtung_auflisten
+  - action: action_studienrichtung
+  - intent: studienrichtung
+    entities:
+    - studienrichtung: Wirtschaftswissenschaften
+  - slot_was_set:
+    - studienrichtung: Wirtschaftswissenschaften
+  - action: action_studienrichtung_vorhanden
+  - slot_was_set:
+    - studienrichtung_vorhanden: true
+  - action: utter_studienrichtung
+  - action: action_studiengang_list_all_sr
+  - intent: studiengang
+    entities:
+    - studiengang: Wirtschaftsinformatik
+  - slot_was_set:
+    - studiengang: Wirtschaftsinformatik
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: action_abschluss_ueberpruefen
+  - slot_was_set:
+    - abschluss_notwendig: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Master
+  - slot_was_set:
+    - abschluss: Master
+  - action: action_studiengang
+  - intent: info
+    entities:
+    - info: Studienort
+  - slot_was_set:
+    - info: Studienort
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
