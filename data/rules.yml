@@ -40,26 +40,6 @@ rules:
   - action: utter_studiengang_nicht_vorhanden
   - action: action_studienrichtung
 
-- rule: Liste alle Studiengänge der Studienrichtung auf
-  steps:
-  - intent: befehl_auflistung_studiengaenge_studienrichtung
-  - action: action_studienrichtung_vorhanden
-  - slot_was_set:
-    - studienrichtung_vorhanden: true
-  - action: action_studiengang_list_all_sr
-
-- rule: Liste alle Studienrichtungen auf
-  steps:
-    - intent: befehl_auflistung_studienrichtung
-    - action: action_studienrichtung
-
-- rule: Auflistung aller Studiengänge
-  steps:
-    - intent: befehl_liste_alle_studiengaenge_auf
-    - action: utter_sichere_nachfrage
-    - action: action_listen
-    - action: action_studiengang_list_all_sr
-
 - rule: Wiederhole die letzte Naricht
   steps:
     - intent: wiederholung
@@ -78,12 +58,12 @@ rules:
 - rule: Reagiere wenn du einen User Input nicht verstanden hast.
   steps:
     - intent: nlu_fallback
-    - action: utter_default
+    - action: utter_nicht_verstanden
 
-- rule: Überprüfe ob ein Abschluss notwendig ist
+- rule: Frage immer nach dem Abschluss, wenn der Studiengang vorhanden ist.
   condition:
     - slot_was_set:
         - studiengang_vorhanden: true
   steps:
-  - action: action_abschluss_ueberpruefen
-  wait_for_user_input: false
+    - action: action_studiengang_vorhanden
+    - action: utter_welcher_abschluss

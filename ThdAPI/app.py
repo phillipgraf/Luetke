@@ -139,7 +139,7 @@ def get_major_degree_category(major, category, degree):
                 return jsonify(m[escape(category).lower()])
             except KeyError:
                 return jsonify({"info": f"{escape(category)} not found"})
-    return jsonify({"name": "Kein Studiengang mit diesem Namen und Abschluss gefunden!"})
+    return jsonify("Error: Kein Studiengang mit diesem Namen und Abschluss gefunden!")
 
 
 # Returns a list of all fields

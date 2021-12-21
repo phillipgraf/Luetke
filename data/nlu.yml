@@ -68,6 +68,7 @@ nlu:
     - Nein, danke.
     - Das passt schon. Ich möchte nichts mehr wissen.
     - Nein.
+    - Nope.
 - intent: abbruch
   examples: |
     - stopp
@@ -104,26 +105,16 @@ nlu:
     - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Cyber Security](studiengang)?
     - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Mechatronik](studiengang)?
     - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Philosophie](studienrichtung)?
-- intent: befehl_auflistung_studiengaenge_studienrichtung
-  examples: |
-    - Liste mir nochmal die Studiengänge der Studienrichtung [Gesundheitswissenschaften](studienrichtung) auf.
-    - Zähl alle Fächer der Richtung [Informatik](studienrichtung) auf.
-    - Welche Studiengänge gibt es alles in [Bautechnik und Umweltwissenschaften](studienrichtung)?
-    - Liste mir bitte alle Studiengänge der Studienrichtung [Design](studienrichtung) auf.
-    - Liste mir bitte alle Studiengänge bei den man [programmieren](studienrichtung) muss.
-    - Welche Studiengänge haben alle was mit [Finanzen](studienrichtung) zu tun?
+    - Wie [lange]{"entity": "info", "value": "Regelstudienzeit"} studiert man [Cyber Security](studiengang)?
+    - Was [macht]{"entity": "info", "value": "Beschreibung"} man im Studiengang [Pflege](studiengang)?
+    - Was [macht]{"entity": "info", "value": "Beschreibung"} man in [Wirtschaftspsychologie](studiengang)?
+    - Wieviel [kostet]{"entity": "info", "value": "Gebühren"} ein [BWL]{"entity": "studiengang", "value": "Betriebswirtschaft"} Semester?
 - intent: befehl_liste_alle_studiengaenge_auf
   examples: |
     - Gib mir alle verfügbaren Studiengänge aus.
     - Gibt mir alle Studiengänge aus.
     - Nenn mir alle Studiengänge.
     - Liste mir jedes Fach auf.
-- intent: befehl_auflistung_studienrichtung
-  examples: |
-    - Gib mir alle verfügbaren Studienrichtungen aus.
-    - Gibt mir alle Studienrichtungen aus.
-    - Nenn mir alle Studienrichtungen.
-    - Liste mir jede Fachrichtung der THD auf.
 - intent: allgemein
   examples: |
     - Ich suche nach einem passenden Studiengang für mich.
@@ -159,6 +150,12 @@ nlu:
     - [Wirtschaftswissenschaften](studiengang) klingt interessant
     - Angewandte [Naturwissenschaften]{"entity": "studienrichtung", "value": "Angewandte Naturwissenschaften"}
     - [Wirtschaftswissenschaften](studienrichtung)
+    - Liste mir nochmal die Studiengänge der Studienrichtung [Gesundheitswissenschaften](studienrichtung) auf.
+    - Zähl alle Fächer der Richtung [Informatik](studienrichtung) auf.
+    - Welche Studiengänge gibt es alles in [Bautechnik und Umweltwissenschaften](studienrichtung)?
+    - Liste mir bitte alle Studiengänge der Studienrichtung [Design](studienrichtung) auf.
+    - Liste mir bitte alle Studiengänge bei den man [programmieren](studienrichtung) muss.
+    - Welche Studiengänge haben alle was mit [Finanzen](studienrichtung) zu tun?
 - intent: studiengang
   examples: |
     - Erzähl mir mehr über den Studiengang [Wirtschaftsinformatik](studiengang)
@@ -167,8 +164,13 @@ nlu:
     - [Energy Systems Engineering](studiengang) klingt sehr interessant.
     - Was kannst du mir denn über [Technisches Design](studiengang) sagen?
     - [Betriebswirtschaft](studiengang)
+    - [Maschinenbau](studiengang) im [Master](abschluss)
     - [Industrial Engineering](studiengang) klingt interessant.
     - [Wirtschaftsinformatik](studiengang)
+    - [Pflege](studiengang)
+    - [Digital Health](studiengang) klingt interessant.
+    - Ich würde gerne etwas über [Tourismusmanagement](studiengang) erfahren.
+    - Erzähl mir was zu [VWL]{"entity": "VWL", "value":"Angewandte Volkswirtschaftslehre"}
 - intent: info
   examples: |
     - Was kann ich später damit [beruflich](info) machen?
@@ -188,6 +190,10 @@ nlu:
     - [Studienort](info)
 - intent: frage_nach_studienrichtung
   examples: |
+    - Gib mir alle verfügbaren Studienrichtungen aus.
+    - Gibt mir alle Studienrichtungen aus.
+    - Nenn mir alle Studienrichtungen.
+    - Liste mir jede Fachrichtung der THD auf.
     - Weiß nicht. Welche gibt es denn?
     - Welche gibt es denn?
     - Keine Ahnung. Welche Studienrichtungen gibt es denn?
@@ -221,117 +227,6 @@ nlu:
     - den [Bachelor](abschluss) Studiengang
     - [Wirtschaftsinformatik](studiengang) im [bachelor](abschluss)
     - [bachelor](abschluss)
-    - [Master](abschluss)
-- synonym: Regelstudienzeit
-  examples: |
-    - lange
-- synonym: Wirtschaftswissenschaften
-  examples: |
-    - Finanzen
-    - Betriebswirtschaft
-    - Wirtschaft
-    - BWL
-    - Unternehmen
-    - Unternehmensführung
-    - Geld
-- synonym: Gestaltung, Design, Kommunikation und Medien
-  examples: |
-    - Gestaltung
-    - Design
-    - Kommunikation
-    - Medien
-    - Filmen
-    - Grafik
-    - Medienproduktion
-    - Produktion
-    - Zeichnen
-- synonym: Angewandte Naturwissenschaften
-  examples: |
-    - Naturwissenschaften
-    - Biologie
-    - Biomedizin
-    - Biotechnologie
-    - Chemie
-    - Engineering
-    - Mathematik
-- synonym: Vorkenntnisse
-  examples: |
-    - Vorkenntnissen
-- synonym: Unterrichtssprache
-  examples: |
-    - Sprache
-- synonym: Studienabschluss
-  examples: |
-    - Abschluss
-- synonym: Schwerpunkte
-  examples: |
-    - Schwerpunkten
-- synonym: Bewerbung
-  examples: |
-    - bewerben
-- synonym: Bautechnik und Umweltwissenschaften
-  examples: |
-    - Architektur
-    - Bauingeneur
-    - Baubetrieb
-    - Bauingenieurwesen
-    - Bautechnik
-    - Energy Systems
-    - Klima
-    - Klimaschutz
-    - Konstruktion
-    - Technologiemanagement
-    - Umwelt
-    - Umweltbiologie
-    - Umweltchemie
-    - Umweltingenieurwesen
-    - Umweltphysik
-    - Umweltwissenschaften
-    - Ökologie
-    - Baustoffen
-- synonym: Gesundheitswissenschaften
-  examples: |
-    - Sportwissenschaften
-    - Sport
-    - Gesundheit
-    - Pflege
-    - Gesundheitswesen
-    - Helfen
-    - Medizin
-    - Physiotherapie
-    - Klinik
-- synonym: Informatik
-  examples: |
-    - Quantum Computing
-    - IT
-    - Infotronik
-    - Internet
-    - Künstliche Intelligenz
-    - Computer
-    - Mathe
-    - Programmieren
-    - Software
-    - Hacken
-    - Server
-    - Netzerwerke
-    - Administration
-    - Simulationen
-- synonym: Elektro- und Informationstechnik
-  examples: |
-    - Elektrotechnik
-    - Informationstechnik
-    - Etechnik
-    - Hardware
-    - Platinen
-    - Radio
-    - Signalen
-    - Funk
-- synonym: Maschinenbau und Mechatronik
-  examples: |
-    - Maschinenbau
-    - Maschbau
-    - Industrie
-    - Roboter
-    - Robotik
-    - Physik
-    - Ingenieur
+    - [Bachelor](abschluss)
+    - Als [Bachelor](abschluss) bitte
+

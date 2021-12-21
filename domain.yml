@@ -1,57 +1,94 @@
 version: '2.0'
+config:
+  store_entities_as_slots: true
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-- studiengang
-- frage_nach_studienrichtung
-- info
-- allgemein
-- studienrichtung
-- begrueßung
-- abschluss
-- direkte_nachfrage
-- verabschiedung
-- negation
-- bestaetigung
-- witz
-- abbruch
-- wiederholung
-- befehl_auflistung_studiengaenge_studienrichtung
-- sonnenvogel
-- befehl_liste_alle_studiengaenge_auf
-- befehl_auflistung_studienrichtung
-- wer_bist_du
-- was_kannst_du
-- mehr
-- nlu_fallback
+- begrueßung:
+    use_entities: true
+- direkte_nachfrage:
+    use_entities: true
+- abschluss:
+    use_entities: true
+- negation:
+    use_entities: true
+- studiengang:
+    use_entities: true
+- frage_nach_studienrichtung:
+    use_entities: true
+- info:
+    use_entities: true
+- allgemein:
+    use_entities: true
+- studienrichtung:
+    use_entities: true
+- verabschiedung:
+    use_entities: true
+- bestaetigung:
+    use_entities: true
+- witz:
+    use_entities: true
+- abbruch:
+    use_entities: true
+- wiederholung:
+    use_entities: true
+- befehl_auflistung_studiengaenge_studienrichtung:
+    use_entities: true
+- sonnenvogel:
+    use_entities: true
+- befehl_liste_alle_studiengaenge_auf:
+    use_entities: true
+- befehl_auflistung_studienrichtung:
+    use_entities: true
+- wer_bist_du:
+    use_entities: true
+- was_kannst_du:
+    use_entities: true
+- mehr:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
 entities:
 - abschluss
 - info
 - studiengang
 - studienrichtung
+- VWL
 slots:
   abschluss:
-    type: text
-    influence_conversation: true
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
   abschluss_notwendig:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studienrichtung:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studiengang:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   info:
-    type: text
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
     influence_conversation: true
   studienrichtung_vorhanden:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
   studiengang_vorhanden:
-    type: bool
+    type: rasa.shared.core.slots.BooleanSlot
+    initial_value: null
     auto_fill: false
     influence_conversation: true
 responses:
@@ -100,16 +137,15 @@ responses:
   - text: 'Tut mir leid. Für diese Frage bin ich nicht der richtige Ansprechpartner. Wenden Sie sich mit dieser Frage bitte an die Studienberatung der Hochschule. Sie finden diese unter der E-Mail-Adresse: ZSB@TH-DEG.DE.'
   utter_sichere_nachfrage:
   - text: Sind Sie sich sicher, dass ich Ihnen alle Studiengänge auflisten soll? Dann bestätigen Sie bitte mit einem Ja.
-  utter_mehr_studiengang:
-  - text: 'Hier bitte sehr. Im folgenden habe ich Ihnen noch weitere Studiengänge der Studienrichtung {studienrichtung} rausgesucht:'
   utter_default:
-  - text: Leider habe ich Sie nicht recht verstanden. Sprechen Sie bitte meine Sprache.
-  - text: Entschuldigung, das habe ich jetzt nicht verstanden. Formulieren Sie es bitte um.
-  - text: Ich versteh nicht was Sie mir versuchen zu sagen. Formulieren Sie es bitte anders.
+  - text: Leider habe ich nur Bahnhof verstanden. Sprechen Sie bitte meine Sprache.
+  utter_nicht_verstanden:
+  - text: Entschuldigung, das ist etwas undeutlich. Formulieren Sie ihre Anfrage bitte um.
   utter_welcher_abschluss:
-  - text: Die Hochschule bietet diesen Studiengang mit Bachelor, sowie mit Master Abschluss an. Sagen Sie mir doch bitte ob Sie was zu dem Bachelor oder dem Master Studiengang hören wollen.
+  - text: Die Hochschule einige Studiengang mit Bachelor, sowie mit Master Abschluss an. Sagen Sie mir doch bitte ob Sie diesen Studiengang mit Bachelor oder Master Abschluss suchen.
+  utter_neuanfang:
+  - text: Gerne. Ich bitte Sie um einen Moment. Ich stell nur schnell meine alte Ordnung wieder her. Nicht das ich hier später noch vollkommen durcheinander komme.
 actions:
-- action_abschluss_ueberpruefen
 - action_info
 - action_info_list_all
 - action_info_nachfrage
@@ -131,3 +167,5 @@ actions:
 - utter_studienrichtung_auflisten
 - utter_verabschiedung
 - utter_welcher_abschluss
+forms: {}
+e2e_actions: []

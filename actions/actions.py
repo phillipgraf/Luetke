@@ -75,26 +75,6 @@ class ActionStudiengangVorhanden(Action):
         return [SlotSet("studiengang_vorhanden", res["exists"])]
 
 
-class ActionAbschlussVorhanden(Action):
-    def name(self) -> Text:
-        return "action_abschluss_ueberpruefen"
-
-    def run(
-            self,
-            dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any],
-    ) -> List[Dict[Text, Any]]:
-        major = tracker.get_slot("studiengang")
-        res = json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/{major}/beschreibung").text
-        )
-
-        if res == "Error. Fehlender Abschluss.":
-            return [SlotSet("abschluss_notwendig", True)]
-        return [SlotSet("abschluss_notwendig", False)]
-
-
 class ActionStudiengang(Action):
     # Gibt die Beschreibung des Studiengangs aus
     def name(self) -> Text:
@@ -184,8 +164,8 @@ class ActionStudiengangListVonStudienrichtung(Action):
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/fields/{field}/majors").text
         )
-        x = "Bachelor Studiengänge: \n \n\t" + " \n\t> ".join(
-            res["bachelor"]) + " \n \n Master Studiengänge: \n \n\t>" + " \n\t> ".join(res["master"][0])
+        x = "Bachelor Studiengänge: \n \n\t> " + " \n\t> ".join(
+            res["bachelor"]) + " \n \n Master Studiengänge: \n \n\t> " + " \n\t> ".join(res["master"][0])
         dispatcher.utter_message(
             text=f"Hier bitte sehr alle Studiengänge der Studienrichtung \"{field}\"\n\n{x} \n Wählen Sie davon bitte den Studiengang aus der Sie interessiert.")
         return []
@@ -258,9 +238,12 @@ class ActionInfo(Action):
         abschluss = tracker.get_slot("abschluss")
         res = json.loads(
             requests.get(f"http://127.0.0.1:5000/majors/{major}/{abschluss}/{info}").text
-        ) if abschluss != None else json.loads(
-            requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
         )
+
+        if res == "Error: Kein Studiengang mit diesem Namen und Abschluss gefunden!":
+            res = json.loads(
+                requests.get(f"http://127.0.0.1:5000/majors/{major}/{info}").text
+            )
 
         if "info" in res:
             dispatcher.utter_message(
@@ -274,6 +257,7 @@ class ActionInfo(Action):
 
         elif info == "'name': 'Kein Studiengang mit diesem Namen gefunden!'":
             dispatcher.utter_message(template="utter_studiengang_nicht_vorhanden")
+
         else:
             if isinstance(res, list):
                 res = " \n\t> " + " \n\t> ".join(res) + "\n "
@@ -381,3 +365,24 @@ def list_info_3(tracker: Tracker, info=""):
     except Exception:
         return "Leider ist ein Fehler aufgetreten. Bitte Starten Sie den Bot von vorne."
     return "".join(res)
+
+## EVENTUELL NUETZLICHE METHODEN
+
+# class ActionAbschlussVorhanden(Action):
+#     def name(self) -> Text:
+#         return "action_abschluss_ueberpruefen"
+#
+#     def run(
+#             self,
+#             dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any],
+#     ) -> List[Dict[Text, Any]]:
+#         major = tracker.get_slot("studiengang")
+#         res = json.loads(
+#             requests.get(f"http://127.0.0.1:5000/majors/{major}/beschreibung").text
+#         )
+#
+#         if res == "Error. Fehlender Abschluss.":
+#             return [SlotSet("abschluss_notwendig", True)]
+#         return [SlotSet("abschluss_notwendig", False)]

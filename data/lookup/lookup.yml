@@ -76,7 +76,11 @@ nlu:
 #
 #  - lookup: info
 #    examples: |
+#      - name
 #      - Beschreibung
+#      - Berufsbild
+#      - Abschluss
+#      - Studienabschluss
 #      - Schwerpunkte
 #      - Studienrichtung
 #      - Jobs
@@ -91,6 +95,9 @@ nlu:
 #      - Kontakt
 #      - Weiterführender Studiengang
 #      - CHE Hochschulranking
+#      - Kompetenzfelder - Ab dem 5. Semester wählen Sie drei der folgenden Kompetenzfelder (Schwerpunkte)
+#      - Studienform
+#      - Studentenwerksbeitrag
 
 
 

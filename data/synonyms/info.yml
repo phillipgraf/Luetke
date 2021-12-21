@@ -27,3 +27,15 @@ nlu:
 - synonym: Unterrichtssprache
   examples: |
     - Sprache
+- synonym: Kompetenzfelder - Ab dem 5. Semester wählen Sie drei der folgenden Kompetenzfelder (Schwerpunkte)
+  examples: |
+    - Kompetenzfelder
+    - Kompetenzfeld
+- synonym: Beschriebung
+  examples: |
+    - macht
+- synonym: Gebühren
+  examples: |
+    - kosten
+    - kostet
+    - teuer

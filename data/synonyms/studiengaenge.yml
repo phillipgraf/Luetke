@@ -1,0 +1,14 @@
+version: "2.0"
+nlu:
+- synonym: Betriebswirtschaft
+  examples: |
+    - BWL
+
+- synonym: Angewandte Volkswirtschaftslehre
+  examples: |
+    - VWL
+    - Volkswirtschaftslehre
+
+- synonym: Künstliche Intelligenz
+  examples: |
+    - KI

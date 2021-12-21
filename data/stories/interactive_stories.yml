@@ -16,9 +16,6 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
-  - slot_was_set:
-    - abschluss_notwendig: true
   - action: utter_welcher_abschluss
   - intent: abschluss
     entities:
@@ -30,9 +27,10 @@ stories:
   - action: action_info_nachfrage
   - intent: negation
   - action: utter_nachfrage_ende
-  - intent: negation
-  - action: utter_verabschiedung
-  - action: action_stop_the_bot
+  - intent: bestaetigung
+  - action: utter_neuanfang
+  - action: action_restart
+  - action: utter_begrueßung
 
 - story: interactive_story_2
   steps:
@@ -49,9 +47,12 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+      - abschluss: bachelor
   - slot_was_set:
-    - abschluss_notwendig: false
+    - abschluss: bachelor
   - action: action_info
   - action: utter_info_nachfrage
   - action: action_info_nachfrage
@@ -81,9 +82,10 @@ stories:
   - action: action_info_nachfrage
   - intent: negation
   - action: utter_nachfrage_ende
-  - intent: negation
-  - action: utter_verabschiedung
-  - action: action_stop_the_bot
+  - intent: bestaetigung
+  - action: utter_neuanfang
+  - action: action_restart
+  - action: utter_begrueßung
 
 - story: interactive_story_3
   steps:
@@ -120,9 +122,12 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+      - abschluss: bachelor
   - slot_was_set:
-    - abschluss_notwendig: false
+    - abschluss: bachelor
   - action: action_studiengang
   - intent: info
     entities:
@@ -178,6 +183,11 @@ stories:
   - slot_was_set:
     - info: Wohnmöglichkeiten
   - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
   - intent: verabschiedung
   - action: utter_verabschiedung
   - action: action_stop_the_bot
@@ -194,69 +204,21 @@ stories:
     - studiengang: Cyber Security
   - slot_was_set:
     - info: Regelstudienzeit
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
-  - slot_was_set:
-    - abschluss_notwendig: true
   - action: utter_welcher_abschluss
   - intent: abschluss
     entities:
-    - abschluss: Bachelor
+    - abschluss: bachelor
   - slot_was_set:
-    - abschluss: Bachelor
-  - action: action_info
+    - abschluss: bachelor
 
 - story: interactive_story_5
-  steps:
-  - intent: begrueßung
-  - action: utter_begrueßung
-  - intent: direkte_nachfrage
-    entities:
-    - info: Regelstudienzeit
-    - studiengang: Cyber Security
-  - slot_was_set:
-    - studiengang: Cyber Security
-  - slot_was_set:
-    - info: Regelstudienzeit
-  - slot_was_set:
-    - studiengang: Cyber Security
-  - slot_was_set:
-    - info: Regelstudienzeit
-  - action: action_studiengang_vorhanden
-  - slot_was_set:
-    - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
-  - slot_was_set:
-    - abschluss_notwendig: true
-  - action: utter_welcher_abschluss
-  - intent: abschluss
-    entities:
-    - abschluss: bachelor
-  - slot_was_set:
-    - abschluss: bachelor
-
-- story: interactive_story_6
-  steps:
-  - intent: begrueßung
-  - action: utter_begrueßung
-  - intent: direkte_nachfrage
-    entities:
-    - info: Gebühren
-    - studiengang: Pflege
-  - slot_was_set:
-    - studiengang: Pflege
-  - slot_was_set:
-    - info: Gebühren
-  - action: action_studiengang_vorhanden
-  - slot_was_set:
-    - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
-  - slot_was_set:
-    - abschluss_notwendig: false
-  - action: action_info
-- story: interactive_story_1
   steps:
   - intent: begrueßung
   - action: utter_begrueßung
@@ -283,9 +245,6 @@ stories:
   - action: action_studiengang_vorhanden
   - slot_was_set:
     - studiengang_vorhanden: true
-  - action: action_abschluss_ueberpruefen
-  - slot_was_set:
-    - abschluss_notwendig: true
   - action: utter_welcher_abschluss
   - intent: abschluss
     entities:
@@ -301,3 +260,100 @@ stories:
   - action: action_info
   - action: utter_info_nachfrage
   - action: action_info_nachfrage
+
+- story: interactive_story_6
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Mechatronik
+  - slot_was_set:
+    - studiengang: Mechatronik
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - slot_was_set:
+    - abschluss: Bachelor
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
+
+- story: interactive_story_7
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: Regelstudienzeit
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - studiengang: Cyber Security
+  - slot_was_set:
+    - info: Regelstudienzeit
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - slot_was_set:
+    - abschluss: Bachelor
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
+
+- story: interactive_story_8
+  steps:
+  - intent: begrueßung
+  - action: utter_begrueßung
+  - intent: direkte_nachfrage
+    entities:
+    - info: unterrichtssprache
+    - studiengang: Tourismusmanagement
+  - slot_was_set:
+    - studiengang: Tourismusmanagement
+  - slot_was_set:
+    - info: unterrichtssprache
+  - action: action_studiengang_vorhanden
+  - slot_was_set:
+    - studiengang_vorhanden: true
+  - action: utter_welcher_abschluss
+  - intent: abschluss
+    entities:
+    - abschluss: Bachelor
+  - slot_was_set:
+    - abschluss: Bachelor
+  - action: action_info
+  - action: utter_info_nachfrage
+  - intent: info
+    entities:
+      - info: Weiterführende Studiengänge
+  - slot_was_set:
+      - info: Weiterführende Studiengänge
+  - action: action_info
+  - action: utter_info_nachfrage
+  - action: action_info_nachfrage
+  - intent: negation
+  - action: utter_nachfrage_ende
+  - intent: negation
+  - action: utter_verabschiedung
+  - action: action_stop_the_bot
