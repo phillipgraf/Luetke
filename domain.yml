@@ -54,14 +54,8 @@ entities:
 - info
 - studiengang
 - studienrichtung
-- VWL
 slots:
   abschluss:
-    type: rasa.shared.core.slots.TextSlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  abschluss_notwendig:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
@@ -94,29 +88,26 @@ slots:
 responses:
   utter_begrueßung:
   - text: Herzlich willkommen bei Lütke dem Studiengangsauskunfstsassistent der Hochschule Deggendorf. Was möchten Sie wissen?
+  - text: Seid gegrüßt! Ich bin Lütke und helfe Ihnen gerne bei der Suche nach Informationen zu den Studiengängen der Hochschule Deggendorf.
   utter_verabschiedung:
   - text: Ich hoffe ich konnte Ihnen helfen. Auf wiedersehen!
-  utter_witz:
-  - text: Wie viele Microsoft-Programmierer braucht man um eine Gluehbirne zu wechseln? Keinen, Dunkelheit wird zum neuen Standard erklaert.
-  utter_abbruch:
-  - text: Stopp!
-  utter_bestaetigung:
-  - text: Freut mich!
+  - text: Ich hoffe Sie konnten alles benötigte finden. Auf wiedersehen!
   utter_allgemein:
-  - text: Es würde lange dauern  Ihnen jetzt alle Studiengänge aufzulisten. Am besten spezifizieren Sie ihre Anfrage etwas. Welche Studienrichtung interessiert Sie denn?
-  - text: Ich bin leider nicht dafür qualifiziert Ihnen einen Studienberatung anzubieten. ich möchte Ihnen aber trotzdem weiterhelfen vielleicht finden wir ja zusammen ein Studiengang für sie. Welche Studienrichtung interessiert Sie denn?
-  - text: Die Hochschule bietet einige Studiengänge an. Nenne Sie mir doch bitte ein Studienrichtung die Sie interessiert.
+  - text: Ich helfe Ihnen gerne dabei. Es würde aber lange dauern Ihnen jetzt alle Studiengänge aufzulisten. Am besten erzählen Sie mir erstmal, welche Studienrichtung Sie denn interessiert?
+  - text: Ich bin zwar leider nicht dafür qualifiziert Ihnen einen Studienberatung anzubieten. Aber ich möchte Ihnen trotzdem weiterhelfen vielleicht finden wir ja zusammen ein Studiengang für sie. Erzählen Sie mir dafür doch bitte, welche Studienrichtung Sie interessiert?
+  - text: Oh, die Hochschule bietet einige Studiengänge an. Um den richtigen zu finden, nennen Sie mir doch bitte ein Studienrichtung die Sie interessiert.
   utter_was_kann_ich:
-  - text: Über die Jahre habe ich ein mir ein Wissensschatz zu jeglichem Studiengang der Technischen Hochschule Deggendorf angeeignet. Fragen Sie mich einfach nach einer Information über einen Studiengang.
-  - text: Ich kann dir jegliche Information zu egal, welchem Studiengang der Technischen Hochschule Deggendorf bereitstellen. Frag mich ruhig nach einem Studiengang.
-  - text: Sie möchten etwas über einen Studiengang der Technischen Hochschule Deggendorf wissen? Dann sind Sie bei mir genau richtig! Ich kann Ihnen jegliche Informationen zu den einzelnen Studiengängen aufsagen.
-  - text: Schön sein :). Und Ihnen Fakten über die einzelnen Studiengänge der Technischen Hochschule raussuchen. Über welchen Studiengang möchten Sie etwas wissen?
+  - text: Über die Jahre habe ich ein mir ein Wissensschatz zu jeglichem Studiengang der Technischen Hochschule Deggendorf angeeignet und in meinem schlauen Büchlein niedergeschrieben. Warte ich zeigs Ihnen, fragen Sie mich einfach nach einer Information über einen Studiengang.
+  - text: Ich such dir jegliche Information aus meinem Lexikon zu den Studiengängen der Technischen Hochschule Deggendorf heraus. Frag mich ruhig nach einem Studiengang.
+  - text: Sie möchten etwas über einen Studiengang der Technischen Hochschule Deggendorf wissen? Dann sind Sie bei mir genau richtig! Ich kann Ihnen jegliche Informationen zu den einzelnen Studiengängen herraussuchen.
+  - text: Ich kann Ihnen Fakten über die einzelnen Studiengänge der Technischen Hochschule raussuchen. Über welchen Studiengang möchten Sie etwas wissen?
   utter_wer_bin_ich:
-  - text: Ich bin Lütke, stehts an Ihrer Seite mit Rat und Tat. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und möcht Ihnen nun helfen, den richtigen Lebensweg zu Treffen. Mein Spezialgebiet liegt hierbei bei der technischen Hochschule Deggendorf. Falls Sie sich gedacht haben dort zu Studieren, bin ich die perfekte Ansprechperson.
-  - text: Seit geraumer Zeit bin ich als Lütke, der Weise, bekannt. Ich habe unzählige Debatten gewonnen, gegen die weisesten und klügsten. Vor einem Jahr habe ich dann meine erste Debatte verloren und musste als Strafe bei der technischen Hochschule Deggendorf aushelfen. Dort wurde ich dank meines immensen Wissens als Assistent für Interessierte angestellt und stehe Ihnen bei Fragen rund um die Studienwahl gerne zur Verfügung.
+  - text: Ich bin Lütke, mit Rat und Tat stehts an Ihrer Seite. Ich habe über die Jahre ein reiches Wissen der Studiengänge und deren Charakteristiken erlangt und möcht Ihnen nun helfen, den richtigen Lebensweg zu Treffen. Mein Spezialgebiet liegt hierbei bei der technischen Hochschule Deggendorf. Falls Sie sich gedacht haben dort zu Studieren, bin ich der perfekte Ansprechpartner.
+  - text: Seit geraumer Zeit bin ich als Lütke, der Weise, bekannt. Ich habe unzählige Debatten gewonnen, gegen die weisesten und klügsten. Vor einem Jahr habe ich dann meine erste Debatte verloren und musste als Strafe bei der technischen Hochschule Deggendorf aushelfen. Dort wurde ich dank meines immensen Wissens als Assistent angestellt und stehe Ihnen bei Fragen rund um die Studienwahl gerne zur Verfügung.
   - text: 'Wie sie kennen mich nicht? Dann will ich mich doch vorstellen: Ich bin Lütke, der König des Wissens. Ich bin der beste meines Faches, der beste um Ihnen die Studiengänge näher zu Bringen und Sie in ein wissensreiches Leben zu entführen.'
   utter_studienrichtung:
   - text: 'Das ist eine weise Entscheidung. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
+  - text: 'Clevere Wahl!. In der Studienrichtung "{studienrichtung}" bieten wir zum Beispiel diese Studiengänge an:'
   utter_studienrichtung_auflisten:
   - text: 'Dies sind alle uns Verfügbaren Studienrichtungen:'
   utter_studienrichtung_nicht_vorhanden:
@@ -125,24 +116,21 @@ responses:
   - text: 'Diesen Studiengang kann ich leider nicht im Verzeichniss finden. Die Hochschule bietet in der Studienrichtung {studienrichtung} nur folgende Studiengänge an:'
   utter_studiengang_nicht_vorhanden:
   - text: 'Diesen Studiengang kann ich leider nicht im Verzeichniss finden. Die Hochschule bietet nur Studiengänge in folgenden Richtungen an:'
-  utter_info_auswahl_hilfe2:
-  - text: Wenn Sie immer noch nicht wissen nach was sie fragen sollen, nennen Sie einfach das Zauberwort listall, machen Sie es sich gemütlich und ich erzähle Ihnen alles was ich über den Studiengang {studiengang} weiß.
   utter_info_nachfrage:
-  - text: Möchten Sie noch mehr über diesen Studiengang erfahren? Im Inhaltsverzeichnis habe ich dazu noch folgende Kategorien gefunden.
+  - text: Möchten Sie noch mehr über diesen Studiengang erfahren? In meinem schlauen Büchlein habe ich dazu noch folgende Kategorien gefunden.
   - text: In meinem Nachschlagewerk konnte ich noch mehr Information zu den Studiengang finden. Nenn Sie mir einfach eine der folgenden Kategorien, wenn Sie darüber etwas erfahren möchten.
   - text: Ich kann Ihnen noch viel mehr über "{studiengang}" erzählen. Welche der folgenden Kategorien soll ich Ihnen vorlesen?
   utter_nachfrage_ende:
   - text: Kann ich Ihnen sonst noch irgendwie behilflich sein? Möchten Sie zu einem anderen Studiengang noch mehr erfahren?
   utter_ansprechpartner:
   - text: 'Tut mir leid. Für diese Frage bin ich nicht der richtige Ansprechpartner. Wenden Sie sich mit dieser Frage bitte an die Studienberatung der Hochschule. Sie finden diese unter der E-Mail-Adresse: ZSB@TH-DEG.DE.'
-  utter_sichere_nachfrage:
-  - text: Sind Sie sich sicher, dass ich Ihnen alle Studiengänge auflisten soll? Dann bestätigen Sie bitte mit einem Ja.
   utter_default:
-  - text: Leider habe ich nur Bahnhof verstanden. Sprechen Sie bitte meine Sprache.
+  - text: Leider habe ich Sie nicht verstanden. Können Sie sich bitte wiederholen?
+  - text: Tut mir Leid. Ich versteh Sie nicht so recht. Fragen Sie mich doch etwas anderes.
   utter_nicht_verstanden:
-  - text: Entschuldigung, das ist etwas undeutlich. Formulieren Sie ihre Anfrage bitte um.
+  - text: Entschuldigung, das ist etwas undeutlich. Bitte formulieren Sie ihre frage anders.
   utter_welcher_abschluss:
-  - text: Die Hochschule einige Studiengang mit Bachelor, sowie mit Master Abschluss an. Sagen Sie mir doch bitte ob Sie diesen Studiengang mit Bachelor oder Master Abschluss suchen.
+  - text: Die Hochschule bietet einige Studiengang mit Bachelor, sowie mit Master Abschluss an. Damit wir zu keinem Missverständnis kommen, sagen Sie mir doch bitte ob Sie diesen Studiengang mit Bachelor oder Master Abschluss suchen.
   utter_neuanfang:
   - text: Gerne. Ich bitte Sie um einen Moment. Ich stell nur schnell meine alte Ordnung wieder her. Nicht das ich hier später noch vollkommen durcheinander komme.
 actions:

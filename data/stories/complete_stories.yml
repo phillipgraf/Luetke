@@ -91,6 +91,7 @@ stories:
         - studienrichtung_vorhanden: true
     - action: action_studiengang_list_all_sr
     - checkpoint: check_weiterleitung
+
 - story: fragen_ueber_luetke
   steps:
   - intent: begrueßung
@@ -98,6 +99,7 @@ stories:
   - intent: wer_bist_du
   - action: utter_wer_bin_ich
   - checkpoint: check_begrueßung
+
 - story: direkt_studiengang_vorhanden_abschluss_notwendig
   steps:
   - checkpoint: check_begrueßung
@@ -109,10 +111,13 @@ stories:
     - studiengang_vorhanden: true
   - action: utter_welcher_abschluss
   - intent: abschluss
+    entities:
+      - abschluss: bachelor
   - slot_was_set:
     - abschluss: bachelor
   - action: action_studiengang
   - checkpoint: check_studiengang
+
 - story: direkt_studiengang_vorhanden_abschluss_nicht_notwendig
   steps:
   - checkpoint: check_begrueßung
@@ -125,6 +130,8 @@ stories:
   - action: utter_welcher_abschluss
   - intent: abschluss
     entities:
+      - abschluss: Bachelor
+  - slot_was_set:
       - abschluss: Bachelor
   - action: action_studiengang
   - checkpoint: check_studiengang
@@ -289,6 +296,8 @@ stories:
     - studiengang_vorhanden: true
   - action: utter_welcher_abschluss
   - intent: abschluss
+    entities:
+      - abschluss: master
   - slot_was_set:
     - abschluss: master
   - action: action_studiengang
@@ -452,7 +461,7 @@ stories:
   - action: action_restart
   - action: utter_begrueßung
 
-- story: info für direkte nachfrage
+- story: info für direkte nachfrage neuanfang
   steps:
   - checkpoint: check_direkte_nachfrage
   - action: action_info
@@ -464,13 +473,12 @@ stories:
   - action: action_info
   - action: utter_info_nachfrage
   - action: action_info_nachfrage
-  - intent: negation
   - intent: bestaetigung
   - action: utter_neuanfang
   - action: action_restart
   - action: utter_begrueßung
 
-- story: info für direkte nachfrage neuanfang
+- story: info für direkte nachfrage
   steps:
   - checkpoint: check_direkte_nachfrage
   - action: action_info
@@ -534,7 +542,7 @@ stories:
     entities:
       - abschluss: Bachelor
   - slot_was_set:
-      - abschluss: Master
+      - abschluss: Bachelor
   - action: action_info
   - action: utter_info_nachfrage
   - action: action_info_nachfrage

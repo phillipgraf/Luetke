@@ -90,6 +90,8 @@ nlu:
     - erneut
     - Ich habe dich leider nicht verstanden.
     - Kannst du dich bitte wiederholen?
+    - Entschuldigung ich habe dich nicht verstanden.
+    - Wiederhol dich bitte nochmal.
 - intent: direkte_nachfrage
   examples: |
     - Gib mir bitte die [Regelstudienzeit](info) für den [bachelor](abschluss) Studiengang [Tourismusmangement](studiengang).
@@ -109,12 +111,10 @@ nlu:
     - Was [macht]{"entity": "info", "value": "Beschreibung"} man im Studiengang [Pflege](studiengang)?
     - Was [macht]{"entity": "info", "value": "Beschreibung"} man in [Wirtschaftspsychologie](studiengang)?
     - Wieviel [kostet]{"entity": "info", "value": "Gebühren"} ein [BWL]{"entity": "studiengang", "value": "Betriebswirtschaft"} Semester?
-- intent: befehl_liste_alle_studiengaenge_auf
-  examples: |
-    - Gib mir alle verfügbaren Studiengänge aus.
-    - Gibt mir alle Studiengänge aus.
-    - Nenn mir alle Studiengänge.
-    - Liste mir jedes Fach auf.
+    - Welche [Berufe]{"entity": "info", "values": "Berufsbild"} sind dann mit [Wirtschaftsinformatik](studiengang) möglich?
+    - Was kann ich dann [später]{"entity": "info", "values": "Berufsbild"} mit [Wirtschaftsinformatik](studiengang) machen?
+    - Welchen [Abschluss]{"entity": "info", "values": "Studienabschluss"} habe ich dann mit [Technisches Design](studiengang)?
+    - Was für ein [Abschluss]{"entity": "info", "values": "Studienabschluss"} habe ich dann mit [Technisches Design](studiengang)
 - intent: allgemein
   examples: |
     - Ich suche nach einem passenden Studiengang für mich.
@@ -170,7 +170,11 @@ nlu:
     - [Pflege](studiengang)
     - [Digital Health](studiengang) klingt interessant.
     - Ich würde gerne etwas über [Tourismusmanagement](studiengang) erfahren.
+    - Ich würde gerne etwas über [VWL]{"entity": "VWL", "value":"Angewandte Volkswirtschaftslehre"} erfahren.
     - Erzähl mir was zu [VWL]{"entity": "VWL", "value":"Angewandte Volkswirtschaftslehre"}
+    - Was ist den [Techniches Design](studiengang)?
+    - Sag mir doch bitte was zu [KI]{"entity": "KI", "value":"Künstliche Intelligenz"}
+    - [KI]{"entity": "KI", "value":"Künstliche Intelligenz"}  hört sich spannend an.
 - intent: info
   examples: |
     - Was kann ich später damit [beruflich](info) machen?
@@ -205,6 +209,8 @@ nlu:
     - Welche Richtung gibt es denn?
     - Welche Studienrichtungen gibt es denn?
     - Welche Studienrichtung gibt es denn?
+    - Welche Richtungen gibt es den an der THD?
+    - Was für Richtungen bietet die Hochschule denn an?
 - intent: wer_bist_du
   examples: |
     - Wer bist du?
@@ -219,6 +225,10 @@ nlu:
     - Was ist deine Aufgabe?
     - Was machst du?
     - Wie benutze ich dich?
+    - Hilfe
+    - Hilfe wie benutze ich dich?
+    - Bitte helf mir. Ich komme nicht weiter.
+    - Was muss ich machen?
 - intent: abschluss
   examples: |
     - [Master](abschluss)
@@ -229,4 +239,11 @@ nlu:
     - [bachelor](abschluss)
     - [Bachelor](abschluss)
     - Als [Bachelor](abschluss) bitte
+    - Mit [Bachelor](abschluss) Abschluss.
+- intent: befehl_liste_alle_studiengaenge_auf
+  examples: |
+    - Gib mir alle verfügbaren Studiengänge aus.
+    - Gibt mir alle Studiengänge aus.
+    - Nenn mir alle Studiengänge.
+    - Liste mir jedes Fach auf.
 

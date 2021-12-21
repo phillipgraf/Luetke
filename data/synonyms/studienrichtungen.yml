@@ -3,9 +3,7 @@ nlu:
 - synonym: Wirtschaftswissenschaften
   examples: |
     - Finanzen
-    - Betriebswirtschaft
     - Wirtschaft
-    - BWL
     - Unternehmen
     - Unternehmensführung
     - Geld

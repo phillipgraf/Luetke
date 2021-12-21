@@ -9,6 +9,9 @@ nlu:
 - synonym: Berufsbild
   examples: |
     - beruflich
+    - Jobs
+    - Berufe
+    - später
 - synonym: Weiterführende Studiengänge
   examples: |
     - Anschluss
@@ -31,7 +34,7 @@ nlu:
   examples: |
     - Kompetenzfelder
     - Kompetenzfeld
-- synonym: Beschriebung
+- synonym: Beschreibung
   examples: |
     - macht
 - synonym: Gebühren

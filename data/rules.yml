@@ -8,14 +8,6 @@ rules:
   - action: utter_verabschiedung
   - action: action_stop_the_bot
 
-- rule: Reagiere wenn es die Studienrichtung nicht gibt
-  condition:
-    - slot_was_set:
-        - studienrichtung_vorhanden: false
-  steps:
-  - action: utter_studienrichtung_nicht_vorhanden
-  - action: action_studienrichtung
-
 - rule: Überprüfe ob es die Studienrichtung gibt
   steps:
   - or:
@@ -23,6 +15,14 @@ rules:
     - intent: studienrichtung
   - action: action_studienrichtung_vorhanden
   wait_for_user_input: false
+
+- rule: Reagiere wenn es die Studienrichtung nicht gibt
+  condition:
+    - slot_was_set:
+        - studienrichtung_vorhanden: false
+  steps:
+  - action: utter_studienrichtung_nicht_vorhanden
+  - action: action_studienrichtung
 
 - rule: Überprüfe ob es den Studiengang gibt
   steps:
@@ -40,11 +40,6 @@ rules:
   - action: utter_studiengang_nicht_vorhanden
   - action: action_studienrichtung
 
-- rule: Wiederhole die letzte Naricht
-  steps:
-    - intent: wiederholung
-    - action: action_wiederholen
-
 - rule: Wer bin ich
   steps:
     - intent: wer_bist_du
@@ -55,11 +50,6 @@ rules:
     - intent: was_kannst_du
     - action: utter_was_kann_ich
 
-- rule: Reagiere wenn du einen User Input nicht verstanden hast.
-  steps:
-    - intent: nlu_fallback
-    - action: utter_nicht_verstanden
-
 - rule: Frage immer nach dem Abschluss, wenn der Studiengang vorhanden ist.
   condition:
     - slot_was_set:
@@ -67,3 +57,13 @@ rules:
   steps:
     - action: action_studiengang_vorhanden
     - action: utter_welcher_abschluss
+
+- rule: Wiederhole die letzte Naricht
+  steps:
+    - intent: wiederholung
+    - action: action_wiederholen
+
+- rule: Reagiere wenn du einen User Input nicht verstanden hast.
+  steps:
+    - intent: nlu_fallback
+    - action: utter_nicht_verstanden

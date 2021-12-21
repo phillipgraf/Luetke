@@ -5,8 +5,6 @@
 # https://rasa.com/docs/rasa/custom-actions
 
 
-# This is a simple example for a custom action which utters "Hello World!"
-
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -17,6 +15,7 @@ from rasa_sdk.events import SlotSet
 from rasa_sdk.events import ConversationPaused
 
 
+# Überprüft ob die gewünschte Studienrichtung vorhanden ist
 class ActionStudienrichtungVorhanden(Action):
     def name(self) -> Text:
         return "action_studienrichtung_vorhanden"
@@ -34,8 +33,8 @@ class ActionStudienrichtungVorhanden(Action):
         return [SlotSet("studienrichtung_vorhanden", res["exists"])]
 
 
+# Gibt alle verfügbaren Studienrichtungen an
 class ActionStudienrichtung(Action):
-    # Gibt alle verfügbaren Studienrichtungen an
     def name(self) -> Text:
         return "action_studienrichtung"
 
@@ -58,6 +57,7 @@ class ActionStudienrichtung(Action):
 
 
 ### STUDIENGANG ACTIONS
+# Überprüft ob der Studiengang an der THD vorhanden ist
 class ActionStudiengangVorhanden(Action):
     def name(self) -> Text:
         return "action_studiengang_vorhanden"
@@ -75,8 +75,8 @@ class ActionStudiengangVorhanden(Action):
         return [SlotSet("studiengang_vorhanden", res["exists"])]
 
 
+# Gibt den gewählten Studiengang mit der Beschreibung für diesen aus. Bzw. reagiert anderst, falls es keine Beschreibung gibt.
 class ActionStudiengang(Action):
-    # Gibt die Beschreibung des Studiengangs aus
     def name(self) -> Text:
         return "action_studiengang"
 
@@ -115,9 +115,9 @@ class ActionStudiengang(Action):
         return []
 
 
+# Gibt immer 3 Studiengänge einer Studienrichtung aus mit oder ohne abschluss
+# Gibt beim nächsten Aufruf die nächsten 3 Studiengänge aus
 class ActionStudiengang(Action):
-    # Gibt immer 3 Studiengänge einer Studienrichtung aus mit oder ohne abschluss
-    # Gibt beim nächsten Aufruf die nächsten 3 Studiengänge aus
     def name(self) -> Text:
         return "action_studiengang_list_sr"
 
@@ -149,8 +149,8 @@ class ActionStudiengang(Action):
         return [SlotSet(f"svs_spoken_{field}", (amount / 3))]
 
 
+# Gibt alle Studiengänge einer Studienrichtung aus
 class ActionStudiengangListVonStudienrichtung(Action):
-    # Gibt alle Studiengänge einer Studienrichtung aus
     def name(self) -> Text:
         return "action_studiengang_list_all_sr"
 
@@ -171,8 +171,9 @@ class ActionStudiengangListVonStudienrichtung(Action):
         return []
 
 
+# Gibt 3 Studiengänge eines Abschluss aus, wenn man z.B. einfach ein bisschen stöbern möchte welche Bachelorstudiengänge es überhaupt gibt
 class ActionStudiengangList(Action):
-    # Gibt 3 Studiengänge eines abschluss aus
+
     def name(self) -> Text:
         return "action_studiengang_list"
 
@@ -195,8 +196,8 @@ class ActionStudiengangList(Action):
         return [SlotSet("sva_spoken", (amount / 3))]
 
 
+# Gibt alle Studiengänge aus
 class ActionStudiengangListAll(Action):
-    # Gibt alle Studiengänge aus
     def name(self) -> Text:
         return "action_studiengang_list_all"
 
@@ -223,6 +224,8 @@ class ActionStudiengangListAll(Action):
 
 
 ### INFO Actions
+
+# Gibt die ausgewählte Info zu dem jeweiligen Studiengang und reagiert im Zweifel auf Errors.
 class ActionInfo(Action):
     def name(self) -> Text:
         return "action_info"
@@ -268,8 +271,9 @@ class ActionInfo(Action):
         return []
 
 
+# Gibt 3 Beispiel Kategorien aus zu dem noch mehr Information in dem Studiengang vorhanden sind
+# Wird aufgerufen, nachdem der User gefragt wird ob er noch mehr Informationen haben will.
 class ActionInfoNachfrage(Action):
-    # Fragt nach ob der User noch mehr wissen möchte.
     def name(self) -> Text:
         return "action_info_nachfrage"
 
@@ -284,6 +288,7 @@ class ActionInfoNachfrage(Action):
         return []
 
 
+# Gibt alle Kategorien aus die für den jeweiligen Studiengang möglich sind abzufragen
 class ActionInfoListAll(Action):
     def name(self) -> Text:
         return "action_info_list_all"
@@ -310,6 +315,7 @@ class ActionInfoListAll(Action):
         return []
 
 
+# Stopt den Bot, so dass dieser auf keine Anfrage mehr reagieren kann.
 class ActionStopTheConversation(Action):
     def name(self):
         return "action_stop_the_bot"
@@ -318,9 +324,8 @@ class ActionStopTheConversation(Action):
         return [ConversationPaused()]
 
 
-###TODO Actions
+# Wiederholt die zuletzt ausgegeben Actionen des Bots, falls der User etwas nicht verstanden hat
 class ActionWiederholen(Action):
-    # wiederholt alles bis zum letzen user input
     def name(self) -> Text:
         return "action_wiederholen"
 
@@ -366,8 +371,12 @@ def list_info_3(tracker: Tracker, info=""):
         return "Leider ist ein Fehler aufgetreten. Bitte Starten Sie den Bot von vorne."
     return "".join(res)
 
+
+
 ## EVENTUELL NUETZLICHE METHODEN
 
+# Methode um zu überprüfen ob es den Studiengang sowohl als Bachelor, als auch als Master gibt
+# Damit nur nach dem Abschluss gefragt wird, wenn nötig, wenn der Studiengang nicht eindeutig ist
 # class ActionAbschlussVorhanden(Action):
 #     def name(self) -> Text:
 #         return "action_abschluss_ueberpruefen"
